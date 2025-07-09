@@ -1,10 +1,8 @@
-# ABM-NOTES
+# IC2S2 2025 Tutorial
+## 
 
 Author: Matt Turner
-Date: 3 June 2025
+Date: 8 July 2025
 
-Six chapters of notes on material covered in my course. 
+This repository is the Quarto Book of notes for my [IC2S2 2025 Tutorial](https://www.ic2s2-2025.org/tutorials/#computational-social-science-for-sustainability). 
 
-## Notes
-
-- **6/3/2025:** Created a scss class for normal form games. 
