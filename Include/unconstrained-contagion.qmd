@@ -43,7 +43,7 @@ sketching the agent-based model of diffusion under unconstrained contagion.
 ##### Discrete change over discrete time {.unnumbered}
 
 Given the Unconstrained Contagion model assumptions we can write an equation
-that represents how much $a_t$ changes over one time step that has units of
+that represents how much $n_t$ changes over one time step that has units of
 time. For example, if we are designing a model of ecosystem protection in the
 Masai Mara reserve in Kenya where we have *monthly* satellite data of fence
 construction in the reserve, we'd likely assume our model time steps have units
