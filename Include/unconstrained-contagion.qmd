@@ -11,7 +11,7 @@ social interaction and behavior diffusion work. From this baseline we will add
 further complexity curated from a set of additional useful
 empirically-motivated, though highly simplified, model assumptions.
 
-The *contagion* part of *uncontstrained contagion* signifies the learning model.
+The *contagion* part of *unconstrained contagion* signifies the learning model.
 In the contagion model of learning, if one doing the
 Erroneous/Exhaustion/Extinction behavior, $E$, interacts with someone doing the
 Adaptive behavior, $A$, there is a probability $\alpha \in [0, 1]$ that the one
@@ -29,6 +29,9 @@ modeling for modeling transmission in finite populations. Finite populations
 provide the first constraint on behavior diffusion, and we'll use a formal
 system first developed for epidemiology.
 
+
+#### Model 
+
 We begin constructing the formal model by writing down how much the prevalence
 of the adaptive behavior changes in a single time step. We'll write $a_t$ or
 $a(t)$ for the adaptive behavior prevalence in the discrete and continuous 
@@ -36,7 +39,7 @@ models, respectively. We will close our development of the Unconstrained
 Contagion model by sketching the agent-based model implementation using
 `socmod`.
 
-#### Discrete change over discrete time
+##### Discrete change over discrete time {.unnumbered}
 
 Given the Unconstrained Contagion model assumptions we can write an equation
 that represents how much $a_t$ changes over one time step that has units of
@@ -56,33 +59,194 @@ based on the model, so that the model may one day be validated, used practically
 for real-world intervention design, and used for evaluating inconsistent
 hypotheses in theory development [@Deffner2024].
 
-On each time step in Unconstrained Contagion, each of the $N_t$ individuals 
+On each time step in Unconstrained Contagion, each of the $n_t$ individuals 
 doing $A$ will transmit their behavior to one other individual every $\alpha$
-time steps, where we call $\alpha$ the *adoption rate*. .
-The change in the number of individuals doing $A$ on each time step is then 
+time steps, where we call $\alpha$ the *adoption rate*. 
+The change in the number of individuals doing $A$ on each time step is then:
 $$
-\Delta N_t = \alpha N_t - \delta N_t
-$$
-which is read "delta a at time t is the product of the adoption rate at that
-time step minus the product of drop rate and prevalence". 
-
-Recall an adaptation is a sustainable practice
-that is also preferable in some way compared to alternatives., or 
-
-#### Continuous change over continuous time
-
-$$
-\frac{da}{dt} = \alpha a - \delta a
+\Delta n_t = \alpha n_t - \delta n_t.
 $$
 
-Which integrates to
+That is, $\Delta n_t = n_{t+1} - n_t$, so we can rewrite the recurrence as:
+$$
+n_{t+1} = n_t + \alpha n_t - \delta n_t.
+$$
+
+Factoring out $n_t$ gives:
+$$
+n_{t+1} = n_t(1 + \alpha - \delta)
+$$
+and defining $\lambda = 1 + \alpha - \delta$, we get:
+$$
+n_{t+1} = \lambda n_t.
+$$
+
+This effectively says that the growth rate is constant, since $\lambda$ is constant and $\frac{n_{t+1}}{n_t} = \lambda$. In other words, growth never slows down, so 
+$n_t$ increases over time.
+
+If we know $\lambda$ and the initial number of adopters, $n_0$ (i.e., $n_{t=0}$), 
+we can calculate the number of adopters at time $t$ using the formula:
+$$
+n_t = \lambda^t n_0.
+$$
+
+We get this equation by iteratively applying the recurrence. For example:
+$$
+n_{t+1} = \lambda (\lambda n_{t-1}) = \lambda^2 n_{t-1}.
+$$
+
+<br>
+
+##### Continuous change over continuous time {.unnumbered}
+
+When $t$ is continuous we can write the number of adopters of $A$ as a mathematical function of time with $t$ in parentheses: $n(t)$. Instead of a recursion equation:
 
 $$
-a(t) = a_0 e^{rt},
+\frac{dn}{dt} = \alpha n - \delta n
 $$
 
-where $r = \alpha - \delta$.
+Which integrates to:
+$$
+n(t) = n_0 e^{\rho t},
+$$
+where $\rho = \alpha - \delta$. 
+
+If we restrict $t$ to integers, i.e., $t \in \{0, 1, \ldots, T\}$, then:
+$$
+n(t) = \{n_0, n_0 \cdot e^{\rho}, n_0 \cdot e^{2\rho}, \ldots, n_0 \cdot e^{T\rho}\}.
+$$
+
+This implies that $e^\rho = \lambda$, so:
+$$
+\rho = \ln \lambda.
+$$
+
+We can verify this algebraically. If:
+$$
+n_0 e^{t'\rho} = n_0 \lambda^{t'},
+$$
+then dividing both sides by $n_0$ and taking the natural logarithm gives:
+$$
+\ln e^{t'\rho} = \ln \lambda^{t'},
+$$
+and using the identity $\log_b(x^y) = y \log_b(x)$:
+$$
+t' \ln e^\rho = t' \ln \lambda.
+$$
+
+Dividing both sides by $t'$ and noting that $\ln e^\rho = \rho$, we confirm:
+$$
+\rho = \ln \lambda,
+$$
+visualized in Figure 4.X.
+
+<br>
+
+##### Agent-based model {.unnumbered}
+
+To develop an agent-based formulation of this model, we need to specify a large population of agents to avoid finite-population effects for enough time steps to see Malthusian growth. 
+
+Recall that agent-based models define:
+
+- The population size $N$,
+- How agents select partners,
+- How interaction (e.g., observation or teaching) works,
+- And what else happens socially and environmentally in each time step.
+
+In this model:
+
+- Partners are selected randomly (with replacement), with the learner agent included as a possible teacher.
+- When a focal agent doing $L$ encounters a teacher doing $A$, they adopt $A$ with probability $\alpha$.
+- Each agent doing $A$ at the end of a time step reverts to $L$ with probability $\delta$, representing a real-world inability or unwillingness to sustain the behavior.
+
+This agent-based implementation mirrors the analytic model under stochastic simulation, and allows us to explore variability, finite-size effects, and deviations from idealized assumptions.
+
+<br>
+
+##### Construction using `socmod` {.unnumbered}
+
+Fill in after Analysis done, i.e., after model is built and analyses posted in this chapter in the appropriate section below.
+
+#### Analysis 
+
+<br>
+
+##### Formal, mathematical model {.unnumbered}
+
+The discrete model can be represented as the following function that takes variables corresponding to time, `t`, an adoption rate, `adopt_rate`, and the drop rate, `drop_rate`, 
+which are $t$, $\alpha$, and $\delta$ in math. 
+```{r}
+n <- function(t, adopt_rate = 0.2, drop_rate = 0.1, n_0 = 1) { 
+  lambda <- (1 + adopt_rate - drop_rate)
+  n_t <- n_0 * (lambda ** t)
+  return (n_t)
+}
+```
+
+I will now create a table of values for $n(t)$ for different adoption rates,
+$\alpha \in \{0.1, 0.105, 0.2, 0.5\}$, all with the same drop rate, $\delta = 0.1$.
+I'll make a function to encapsulate the boilerplate steps called `make_n_tbl`
+in the code block below (unfold to view). It uses some helpful default settings
+to make an interesting visualization, which we do below. Below is the function
+signature for `make_n_tbl`, with the full function definition provided in a folded code block below that. Click the triangle to unfold the full definition. 
+```{r}
+#| eval: false
+make_n_tbl <- function(tmin = 0.0, tmax = 20.0, dt = 0.2, 
+                       adopt_rates = seq(0.1, 0.2, 0.025), drop_rate = 0.05) 
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: "`make_n_tbl` function definition"
+make_n_tbl <- function(tmin = 0.0, tmax = 20.0, dt = 0.2, 
+                       adopt_rates = seq(0.1, 0.2, 0.025), drop_rate = 0.05) {
+  
+  # Define vector of time points passed to the n function defined above
+  tvec <- seq(tmin, tmax, dt)
+  
+  # Create table to plot n_t for different adoption rate (alpha) values
+  n_tbl <- tibble::tibble(
+    # Repeat time vector four times for each alpha.
+    t = rep(tvec, length(adopt_rates)),  
+    
+    # Create n_t vector for each adopt_rate, n_0=1 implicit
+    n_t = 
+      purrr::map(adopt_rates, ~ n(tvec, .x, drop_rate)) |> 
+      purrr::flatten_dbl(),
+    
+    # Repeat adopt rate for each tstep
+    adopt_rate = factor(
+      purrr::map(adopt_rates, ~ rep(.x, length(tvec))) |> 
+      purrr::flatten_dbl(),
+      levels = adopt_rates
+    )
+  )
+  
+  return (n_tbl)
+}
+```
+
+Now let's use `ggplot2` to plot the series for each adoption rate, which will
+be indicated by line color and type. 
+
+```{r}
+library(ggplot2)
+n_tbl <- make_n_tbl()
+p <- ggplot(n_tbl, aes(x = t, y = n_t, 
+                       color = adopt_rate, 
+                       linetype=adopt_rate)) +
+  geom_line(linewidth = 1.2) + theme_classic(base_size = 12)
+print(p)
+```
+
+Let's close our analysis by checking that $n_t = \lambda^t n_0$ generates
+equivalent values of $n(t')$ for integer values $t'=0,1,2,\ldots,T$. To do this
+we'll create another `make_` function but for the discrete formula for $n_t$ 
+(Equation 2):
+```{r}
+
+```
 
 
-#### Agent-based simulation
+##### Agent-based model {.unnumbered}
 

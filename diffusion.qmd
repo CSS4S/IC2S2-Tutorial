@@ -15,187 +15,189 @@ potential strategies for reaching more equitable equilibriums.
 
 In the context of sustainability and climate adaptation, behavior change often depends not only on individual decisions but also on the social networks through which information and behaviors spread. This chapter examines how the structure of social networks influences the diffusion of adaptations—behaviors or practices that help people adjust to new risks or environmental conditions.
 
-In this chapter we start building a theory of social diffusion represented 
-by mechanistic models of social transmission and learning. We begin with a
-simple model of a chain of unconstrained social transmission starting from a
-single teacher, with no limit on how many people might learn from teachers of
-teachers of teachers, and so on. We also assume behaviors do not require
-coordination with others, and so the benefit of doing a behavior is independent
-of the number of people doing the behavior. I show how we can use
-discrete-time difference
-equations, continuous-time differential equations, or agent-based simulation 
-to arrive at the same conclusion: prevalence increases exponentially over time
-under these assumptions, akin to the "going viral" stage of an emerging trend,
-or what Roger's might identify as the stage when tight-knit trend followers
-quickly adopt fashionable new practices [@Rogers2003;@Smaldino2023_Ch4Contagion]
+In this chapter we start building our framework for social diffusion, represented by mechanistic mathematical and software models of social transmission and learning. We begin with a simple model of a chain of unconstrained social transmission starting from a single teacher, with no limit on how many people might learn from teachers of teachers of teachers, and so on. We also assume behaviors do not require coordination with others, and so the benefit of doing a behavior is independent of the number of people doing the behavior. I show how we can use discrete-time difference equations, continuous-time differential equations, or agent-based simulation to arrive at the same conclusion: prevalence increases exponentially over time under these assumptions, akin to what Rogers might call the "going viral" stage of an emerging trend [@Rogers2003;@Smaldino2023_Ch4Contagion]. 
 
-- The first constraint to social
-transmission: a finite population of *teachers* and *learners*, our general
-purpose names for the person from whom social information originates and to whom
-it goes, respectively.
+To understand how real-world constraints affect diffusion, we scaffold from this unconstrained Going Viral model, adding constraints one at a time and observing their effects.  I will first introduce the constraint of *finite populations* in the section *Bounded Virality* below. Next I will explain how the structure of social interactions, represented by social networks, affects diffusion in the *Viral Friends* section. I will close by analyzing how
+adaptive social learning constrains diffusion to cultural evolutionary dynamics
+in the section *Guided Virality*.
+Cultural evolution is driven by adaptive social learning, where individuals are assumed to prefer learning from others who are more successful, for example [@Laland2004;@Kendal2018;@Toyokawa2019]. This example form of adaptive social learning is called *success-biased learning*. Adaptive
+learning strategies are to cultural evolution what
+preferential mating is to genetic evolution: adaptive social learning induces
+evolutionary diffusion dynamics. In the two chapters following this one we will apply this diffusion
+framework to cooperative and complementary coordination behaviors, where expected payoffs for different behaviors changes depending on the prevalence of different behaviors.
 
-- The second constraint we consider is when adaptive social learning guides
-  social transmission. Under the first and primary form of adaptive social
-  learning we consider, *success-biased* social learning, teachers are selected
-  at random from an individual's neighbors, weighted by each neighbor's
-  *fitness*, with the learner included as a "neighbor", i.e., potential teacher,
-  so that beneficial behaviors are preferentially maintained under
-  success-biased learning. *Frequency-biased* learning is another adaptive
-  strategy sometimes observed in modern and archeological evidence which we
-  demonstrate, but focus on less throughout the course material, using
-  success-biased learning as the default to induce evolutionary dynamics,
-  explained in more detail below.
+Social influence dynamics of beliefs or opinions [@Blau1974;@DeGroot1974;@Lorenz2007;@Flache2011;@Turner2018;@Galesic2021] are
+considered as a different class of models in this framework since the thing being transmitted is *latent*, i.e., not directly observable. In these cases, we can only observe *behaviors* 
+that either report or belie latent psychological beliefs or opinions. I develop social influence
+models in terms of our framework later in these notes.
 
-- The third and final constraint is on the structure of social interactions,
-  represented by the system's *social network*. We'll consider three types of
-  social network models, each with stylized real-world features: first are regular
-  networks, which are lattices like a two-dimensional spatial grid that can be
-  used to model cooperation in natural resource conservation, for example.
-  Second, we use random networks to represent irregularities in social network
-  structures, which can promote or inhibit the success of educational
-  behavior-change interventions. Third, we consider a more specific class of
-  random network, *asymmetric homophily* networks, in which different groups
-  have different tendencies to interact more frequently with others from within
-  their own group compared to between groups. These can be used to generate
-  *core-periphery* social networks where the *core* group is the most connected both
-  within its own group and between itself and the *peripheral* groups are only
-  loosely connected within themselves and between other groups.
+<!-- - The first constraint to social -->
+<!-- transmission: a finite population of *teachers* and *learners*, our general -->
+<!-- purpose names for the person from whom social information originates and to whom -->
+<!-- it goes, respectively. -->
 
+<!-- - The second constraint we consider is when adaptive social learning guides -->
+<!--   social transmission. Under the first and primary form of adaptive social -->
+<!--   learning we consider, *success-biased* social learning, teachers are selected -->
+<!--   at random from an individual's neighbors, weighted by each neighbor's -->
+<!--   *fitness*, with the learner included as a "neighbor", i.e., potential teacher, -->
+<!--   so that beneficial behaviors are preferentially maintained under -->
+<!--   success-biased learning. *Frequency-biased* learning is another adaptive -->
+<!--   strategy sometimes observed in modern and archeological evidence which we -->
+<!--   demonstrate, but focus on less throughout the course material, using -->
+<!--   success-biased learning as the default to induce evolutionary dynamics, -->
+<!--   explained in more detail below. -->
 
-## Representing interventions as math and code
-
-
-- Recall that a _sustainability intervention_ is an effort to promote some
-  sustainable behavior or set of behaviors through education, training, or other
-  means. This framing is a consequence of our guiding motivation to identify
-  real-world mechanisms to harness in promoting sustainable practices conforming
-  to one or more of the United Nation's Sustainable Development Goals. The
-  models and conclusions are general, however, since this framing is only used
-  for efficient development and comprehension of the computational findings.
-- To model the diffusion of a sustainable practice we separate the social world
-  and social processes into distinct, interacting parts. We model social
-  dynamics with a general framework that is systematically filled out, and on
-  which the `socmod` social behavior modeling library is based. (Explain the
-  general abstract model...previews the subsection below)
-- Any intervention must decide who should be the first people to receive 
-  instruction on how to do some adaptive, sustainable behavior practice, including how
-  beneficial an adaptation is. This subset of the population is called the *seed
-  set*. One popular approach to optimizing interventions is the *seeding
-  strategy* used to intelligently select which indivuals will comprise the seed
-  set. For example, the *friendship nomination* strategy led to more effective
-  diffusion of public health information compared to random seeding across about
-  one hundred villages in rural Honduras [@Airoldi2024]. In
-  friendship nomination, $N_S$ seed members are chosen by selecting one 
-  acquaintance of $N_S$ randomly-selected individuals, as opposed to the random
-  strategy being just selecting $N_S$ seeds at random directly. In another
-  example, @Efferson2020 studied simulations of a public health intervention to
-  help end female genital cutting in Sudan, inspired by field studies of
-  real-world interventions [@Vogt2016].
-- We use our models to calculate the *prevalence dynamics* and *outcome
-  measures* both within and across simulation trials. *Prevalence dynamics* 
+<!-- - The third and final constraint is on the structure of social interactions, -->
+<!--   represented by the system's *social network*. We'll consider three types of -->
+<!--   social network models, each with stylized real-world features: first are regular -->
+<!--   networks, which are lattices like a two-dimensional spatial grid that can be -->
+<!--   used to model cooperation in natural resource conservation, for example. -->
+<!--   Second, we use random networks to represent irregularities in social network -->
+<!--   structures, which can promote or inhibit the success of educational -->
+<!--   behavior-change interventions. Third, we consider a more specific class of -->
+<!--   random network, *asymmetric homophily* networks, in which different groups -->
+<!--   have different tendencies to interact more frequently with others from within -->
+<!--   their own group compared to between groups. These can be used to generate -->
+<!--   *core-periphery* social networks where the *core* group is the most connected both -->
+<!--   within its own group and between itself and the *peripheral* groups are only -->
+<!--   loosely connected within themselves and between other groups. -->
 
 
-### The general diffusion model
-
-1. **Population and social network structure:** who interacts with whom.
-1. **Social transmission/learning:** how agents learn from others and adopt
-   behaviors.
-1. **Equilibrium/stopping conditions:** stop the simulation at equilibrium
-
-This flexible framework will carry through the rest of the course. In the next section, we extend this model to explore how homophily, asymmetry, and structural inequality affect adaptation outcomes.
-
-### Techniques for creating simulations from box-and-arrow diagrams
-
-Box and arrow diagrams are a great start, but we'll need either mathematics or
-simulation to help us make predictions about how different social factors,
-processes, and behaviors affect long-term outcomes in terms of the adoption
-prevalence of sustainable practices.
-
-- Mathematics
-- Programming
-- A note on complimentarity
-
-<div class="table-responsive">
-<table class="table table-sm table-borderless" style="width:100%">
-  <thead style="border-bottom: 2px solid #000;">
-    <tr>
-      <th style="text-align:left;">Growth Type</th>
-      <th style="text-align:left;">Population</th>
-      <th style="text-align:left;">Mechanism</th>
-      <th style="text-align:left;">Dynamics</th>
-      <th style="text-align:left;">Modeling</th>
-      <th style="text-align:left;">Notes</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>Unconstrained Growth</strong></td>
-      <td>No limit to learners, N → ∞</td>
-      <td>Analytical, computational, recursion</td>
-      <td>Stochastic / non-adaptive</td>
-      <td>Exponential</td>
-      <td>Summarized in intro for now</td>
-    </tr>
-    <tr>
-      <td><strong>Constrained Growth I</strong></td>
-      <td>Finite, complete population</td>
-      <td>Analytical, computational, recursion</td>
-      <td>Stochastic / non-adaptive</td>
-      <td>Logistic (contagion)</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><strong>Constrained Growth II</strong></td>
-      <td>Finite, complete</td>
-      <td>Analytical, simulation (e.g., Kimura-Crow)</td>
-      <td>Adaptive / guided randomness</td>
-      <td>Logistic</td>
-      <td>Social learning</td>
-    </tr>
-    <tr>
-      <td><strong></strong></td>
-      <td>Finite, varies</td>
-      <td>Simulation</td>
-      <td>Any</td>
-      <td>Varies</td>
-      <td></td>
-    </tr>
-    <tr>
-    <td><strong>Constrained Growth III</strong></td>
-      <td>Structured social networks</td>
-      <td>Simulation</td>
-      <td>Depends on structure</td>
-      <td>Geometric, e.g., spatial grids, SWN</td>
-      <td>Can be calibrated; cf. small-worlds</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-  
+<!-- ## Representing interventions as math and code -->
 
 
-### Discrete- and continuous-time formalism
+<!-- - Recall that a _sustainability intervention_ is an effort to promote some -->
+<!--   sustainable behavior or set of behaviors through education, training, or other -->
+<!--   means. This framing is a consequence of our guiding motivation to identify -->
+<!--   real-world mechanisms to harness in promoting sustainable practices conforming -->
+<!--   to one or more of the United Nation's Sustainable Development Goals. The -->
+<!--   models and conclusions are general, however, since this framing is only used -->
+<!--   for efficient development and comprehension of the computational findings. -->
+<!-- - To model the diffusion of a sustainable practice we separate the social world -->
+<!--   and social processes into distinct, interacting parts. We model social -->
+<!--   dynamics with a general framework that is systematically filled out, and on -->
+<!--   which the `socmod` social behavior modeling library is based. (Explain the -->
+<!--   general abstract model...previews the subsection below) -->
+<!-- - Any intervention must decide who should be the first people to receive  -->
+<!--   instruction on how to do some adaptive, sustainable behavior practice, including how -->
+<!--   beneficial an adaptation is. This subset of the population is called the *seed -->
+<!--   set*. One popular approach to optimizing interventions is the *seeding -->
+<!--   strategy* used to intelligently select which indivuals will comprise the seed -->
+<!--   set. For example, the *friendship nomination* strategy led to more effective -->
+<!--   diffusion of public health information compared to random seeding across about -->
+<!--   one hundred villages in rural Honduras [@Airoldi2024]. In -->
+<!--   friendship nomination, $N_S$ seed members are chosen by selecting one  -->
+<!--   acquaintance of $N_S$ randomly-selected individuals, as opposed to the random -->
+<!--   strategy being just selecting $N_S$ seeds at random directly. In another -->
+<!--   example, @Efferson2020 studied simulations of a public health intervention to -->
+<!--   help end female genital cutting in Sudan, inspired by field studies of -->
+<!--   real-world interventions [@Vogt2016]. -->
+<!-- - We use our models to calculate the *prevalence dynamics* and *outcome -->
+<!--   measures* both within and across simulation trials. *Prevalence dynamics*  -->
 
-Mathematics helps us be specific in a way prose cannot. A mathematical
-*formalism* is a system of symbols, relationships, and equations that specify
-a model of a real-world system. In the social diffusion of sustainable practices, 
-we develop mathematical symbols and 
-equations that describe how the *prevalence* of different behaviors changes over
-time. We will need to describe how likely it is that one person learns a
-behavior from another person, and how likely it is for any one person to stop
-doing the sustainable behavior, reverting to some exhaustive behavior. 
 
-{{< include tables/formal-symbology.html >}}
+<!-- ### The general diffusion model -->
+
+<!-- 1. **Population and social network structure:** who interacts with whom. -->
+<!-- 1. **Social transmission/learning:** how agents learn from others and adopt -->
+<!--    behaviors. -->
+<!-- 1. **Equilibrium/stopping conditions:** stop the simulation at equilibrium -->
+
+<!-- This flexible framework will carry through the rest of the course. In the next section, we extend this model to explore how homophily, asymmetry, and structural inequality affect adaptation outcomes. -->
+
+<!-- ### Techniques for creating simulations from box-and-arrow diagrams -->
+
+<!-- Box and arrow diagrams are a great start, but we'll need either mathematics or -->
+<!-- simulation to help us make predictions about how different social factors, -->
+<!-- processes, and behaviors affect long-term outcomes in terms of the adoption -->
+<!-- prevalence of sustainable practices. -->
+
+<!-- - Mathematics -->
+<!-- - Programming -->
+<!-- - A note on complimentarity -->
+
+<!-- <div class="table-responsive"> -->
+<!-- <table class="table table-sm table-borderless" style="width:100%"> -->
+<!--   <thead style="border-bottom: 2px solid #000;"> -->
+<!--     <tr> -->
+<!--       <th style="text-align:left;">Growth Type</th> -->
+<!--       <th style="text-align:left;">Population</th> -->
+<!--       <th style="text-align:left;">Mechanism</th> -->
+<!--       <th style="text-align:left;">Dynamics</th> -->
+<!--       <th style="text-align:left;">Modeling</th> -->
+<!--       <th style="text-align:left;">Notes</th> -->
+<!--     </tr> -->
+<!--   </thead> -->
+<!--   <tbody> -->
+<!--     <tr> -->
+<!--       <td><strong>Unconstrained Growth</strong></td> -->
+<!--       <td>No limit to learners, N → ∞</td> -->
+<!--       <td>Analytical, computational, recursion</td> -->
+<!--       <td>Stochastic / non-adaptive</td> -->
+<!--       <td>Exponential</td> -->
+<!--       <td>Summarized in intro for now</td> -->
+<!--     </tr> -->
+<!--     <tr> -->
+<!--       <td><strong>Constrained Growth I</strong></td> -->
+<!--       <td>Finite, complete population</td> -->
+<!--       <td>Analytical, computational, recursion</td> -->
+<!--       <td>Stochastic / non-adaptive</td> -->
+<!--       <td>Logistic (contagion)</td> -->
+<!--       <td></td> -->
+<!--     </tr> -->
+<!--     <tr> -->
+<!--       <td><strong>Constrained Growth II</strong></td> -->
+<!--       <td>Finite, complete</td> -->
+<!--       <td>Analytical, simulation (e.g., Kimura-Crow)</td> -->
+<!--       <td>Adaptive / guided randomness</td> -->
+<!--       <td>Logistic</td> -->
+<!--       <td>Social learning</td> -->
+<!--     </tr> -->
+<!--     <tr> -->
+<!--       <td><strong></strong></td> -->
+<!--       <td>Finite, varies</td> -->
+<!--       <td>Simulation</td> -->
+<!--       <td>Any</td> -->
+<!--       <td>Varies</td> -->
+<!--       <td></td> -->
+<!--     </tr> -->
+<!--     <tr> -->
+<!--     <td><strong>Constrained Growth III</strong></td> -->
+<!--       <td>Structured social networks</td> -->
+<!--       <td>Simulation</td> -->
+<!--       <td>Depends on structure</td> -->
+<!--       <td>Geometric, e.g., spatial grids, SWN</td> -->
+<!--       <td>Can be calibrated; cf. small-worlds</td> -->
+<!--     </tr> -->
+<!--   </tbody> -->
+<!-- </table> -->
+<!-- </div> -->
 
 
-### Simulation
 
-Agent-based models help us represent complexity by formalizing how _cognition_ and _social structure_ interact. Each component is modeled separately. _Cognition_ refers to the processes agents use to evaluate and adopt behaviors—drawing on existing knowledge, experience, and social feedback. _Social structure_ refers to constraints on who interacts with whom, shaped by acquaintanceship, geography, institutions, and chance. We model social structure as a _network_: a graph where _nodes_ represent individuals and _edges_ represent relationships through which information or influence can flow.
+<!-- ### Discrete- and continuous-time formalism -->
 
-We design our simulations to evaluate different intervention strategies based on cognitive factors we deem most important, with social structure that is "good enough" for representing a real-world system.   by vary which agents start with a given behavior or belief, a process often called _seeding_. For example, in a diffusion model, we might seed a behavior with the most connected individuals, a randomly selected group, or individuals located in a particular community. These differences allow us to explore how network structure interacts with initial conditions to shape diffusion outcomes—helping us identify strategies that are more robust, equitable, or efficient.
+<!-- Mathematics helps us be specific in a way prose cannot. A mathematical -->
+<!-- *formalism* is a system of symbols, relationships, and equations that specify -->
+<!-- a model of a real-world system. In the social diffusion of sustainable practices,  -->
+<!-- we develop mathematical symbols and  -->
+<!-- equations that describe how the *prevalence* of different behaviors changes over -->
+<!-- time. We will need to describe how likely it is that one person learns a -->
+<!-- behavior from another person, and how likely it is for any one person to stop -->
+<!-- doing the sustainable behavior, reverting to some exhaustive behavior.  -->
+
+<!-- {{< include tables/formal-symbology.html >}} -->
 
 
-## Models of social diffusion in terms of transmission constraints
+<!-- ### Simulation -->
+
+<!-- Agent-based models help us represent complexity by formalizing how _cognition_ and _social structure_ interact. Each component is modeled separately. _Cognition_ refers to the processes agents use to evaluate and adopt behaviors—drawing on existing knowledge, experience, and social feedback. _Social structure_ refers to constraints on who interacts with whom, shaped by acquaintanceship, geography, institutions, and chance. We model social structure as a _network_: a graph where _nodes_ represent individuals and _edges_ represent relationships through which information or influence can flow. -->
+
+<!-- We design our simulations to evaluate different intervention strategies based on cognitive factors we deem most important, with social structure that is "good enough" for representing a real-world system.   by vary which agents start with a given behavior or belief, a process often called _seeding_. For example, in a diffusion model, we might seed a behavior with the most connected individuals, a randomly selected group, or individuals located in a particular community. These differences allow us to explore how network structure interacts with initial conditions to shape diffusion outcomes—helping us identify strategies that are more robust, equitable, or efficient. -->
+
+
+## Models and Analyses
 
 1. Going Viral: Unconstrained Contagion
 1. Bounded Virality: Diffusion in Finite Populations
@@ -204,14 +206,8 @@ We design our simulations to evaluate different intervention strategies based on
 
 ### Going viral: unconstrained contagion
 
+
 {{< include Include/unconstrained-contagion.qmd >}}
-
-- Always new learners to teach
-- Adoption rate $\alpha$, drop rate $\delta$; $R_0 = \alpha / \delta$.
-- Discrete-time diffusion model (difference equation)
-- Continuous-time diffusion model (differential equation)
-- Simulation (agent-based model)
-
 
 
 ### Bounded virality: finite population size
@@ -315,29 +311,7 @@ This example highlights how network fragmentation can halt or reverse cumulative
 
 
 
-## Analysis of the various types of social behavior models above
 
-- Unconstrained: vary $\alpha$ and calculate and plot different dynamics
-- Contagion in finite: vary $\alpha$ and $\delta$ and plot dynamics; include SES
-  model with delta p vs. p as in Smaldino Ch. 4.
-- Adaptive social learning: compare success rate curves colored and styled by different
-  adaptive fitness values and frequency-biased with x-axis being the initial
-  prevalence $p_S(t=0)$.
-- Social network structure: (i) success rate over rewiring probability and with
-  preferential attachment; (ii) finish homophily example.
-
-### Unconstrained contagion
-
-
-### Contagion in finite populations
-
-### Adaptive social learning
-
-### Social network structure
-
-#### Small-world and preferential attachment networks
-
-#### Homophily 
 
 ## Discussion
 
