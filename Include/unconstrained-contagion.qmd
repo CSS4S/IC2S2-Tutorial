@@ -29,15 +29,16 @@ modeling for modeling transmission in finite populations. Finite populations
 provide the first constraint on behavior diffusion, and we'll use a formal
 system first developed for epidemiology.
 
-
 #### Model 
 
 We begin constructing the formal model by writing down how much the prevalence
-of the adaptive behavior changes in a single time step. We'll write $a_t$ or
-$a(t)$ for the adaptive behavior prevalence in the discrete and continuous 
-models, respectively. We will close our development of the Unconstrained
-Contagion model by sketching the agent-based model implementation using
-`socmod`.
+of the adaptive behavior changes in a single time step, in terms of the number
+of individuals adopting the adaptive behavior, $A$. $n_t$ will represent
+the discrete number of adopters of $A$ at time $t$. 
+$n(t)$ is the continuous-valued number of individuals adopting $A$ 
+at time $t$ when $t$ is continuous-valued. We close this model subsection by
+sketching the agent-based model of diffusion under unconstrained contagion.
+
 
 ##### Discrete change over discrete time {.unnumbered}
 
