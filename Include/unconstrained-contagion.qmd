@@ -265,3 +265,13 @@ make_n_discrete_tbl <- function() {
 
 ##### Agent-based model {.unnumbered}
 
+##### Inline code purple options
+
+```{r}
+#| eval: false
+#| echo: false
+purple_amethyst     <- "#9966cc"  # soft, readable, classic "code purple"
+purple_medium       <- "#9370db"  # slightly cooler, works well on dark and light
+purple_slate        <- "#8a79af"  # muted, more subdued — good for subtlety
+purple_rosepine     <- "#a277ff"  # vibrant, stylish — Rosé Pine theme's purple
+```

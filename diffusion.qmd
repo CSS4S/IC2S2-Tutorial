@@ -1,30 +1,34 @@
 # Diffusion
 
-From whom and how we learn are essential components in explaining the puzzles of
-diffusion and belief change that underlie the transition to more sustainable
-practices. In this section we will introduce models of social behavior across
-different agent-based model configurations. The first chapter in this section
-introduces a general model of the diffusion of adaptations. Next, we show how
-models of cooperation can help us understand and predict outcomes in
-environmental management problems that require stakeholders to do the same
-behavior, using cooperation with groundwater usage limit laws within a water
-district as a prototypical example. Next we will present a related behavioral
-puzzle, that of why certain social norms like gender norms generate inequity and
-inequality, and point to how modeling social behavior can help us identify
-potential strategies for reaching more equitable equilibriums. 
+<br>
 
-In the context of sustainability and climate adaptation, behavior change often depends not only on individual decisions but also on the social networks through which information and behaviors spread. This chapter examines how the structure of social networks influences the diffusion of adaptations—behaviors or practices that help people adjust to new risks or environmental conditions.
+In the context of sustainability and climate adaptation, behavior change often depends not only on individual decisions but also on social networks that constrain who interacts with whom, and whether individuals use adaptive social learning to choose behaviors, as opposed to just copying randomly. When individuals use adaptive social learning to choose between behaviors, this provides the selection mechanism that generates cultural evolution. 
 
-In this chapter we start building our framework for social diffusion, represented by mechanistic mathematical and software models of social transmission and learning. We begin with a simple model of a chain of unconstrained social transmission starting from a single teacher, with no limit on how many people might learn from teachers of teachers of teachers, and so on. We also assume behaviors do not require coordination with others, and so the benefit of doing a behavior is independent of the number of people doing the behavior. I show how we can use discrete-time difference equations, continuous-time differential equations, or agent-based simulation to arrive at the same conclusion: prevalence increases exponentially over time under these assumptions, akin to what Rogers might call the "going viral" stage of an emerging trend [@Rogers2003;@Smaldino2023_Ch4Contagion]. 
+<br>
 
-To understand how real-world constraints affect diffusion, we scaffold from this unconstrained Going Viral model, adding constraints one at a time and observing their effects.  I will first introduce the constraint of *finite populations* in the section *Bounded Virality* below. Next I will explain how the structure of social interactions, represented by social networks, affects diffusion in the *Viral Friends* section. I will close by analyzing how
-adaptive social learning constrains diffusion to cultural evolutionary dynamics
-in the section *Guided Virality*.
-Cultural evolution is driven by adaptive social learning, where individuals are assumed to prefer learning from others who are more successful, for example [@Laland2004;@Kendal2018;@Toyokawa2019]. This example form of adaptive social learning is called *success-biased learning*. Adaptive
-learning strategies are to cultural evolution what
+## Introduction
+
+The puzzles of diffusion and belief change provide resistance to spreading sustainable practices unless they are addressed. Today a Cambrian explosion in green tech startups and new products and data analytics continues continues. Ancient Indigenous practices have helped humans adapt to climate change for generations upon generations. Unfortunately these practices are ignored in favor of expensive, poorly tested, maladaptive "grey infrastructure", like sea walls that act more like dams once breached and soak up humanitarian aid like a money sponge. Similarly, In this chapter we build up models of social diffusion via social learning, starting from a minimal specification of how social interaction and learning work. Specifically, we start with the *Unconstrained Contagion* model of stochastic transmission in a very large population, so new learners of sustainable practices are always available. In this chapter we only consider behaviors that individuals do alone gain benefit. However, the material in this chapter provides the foundation for the next two chapters. 
+
+In the next two chapters, we extend the models developed here to understand the diffusion of behaviors that yield benefits or payoffs only in *coordination* with others doing either *cooperative* (i.e., the same) or *complementary* (i.e., different) behaviors.  Promoting the diffusion of cooperation could improve the success rate of natural resource conservation interventions, such as sustainable groundwater usage cooperation to avoid exhausting underground aquifers that people and farms depend on. In the second chapter, we use leader-follower decisions between men and women as a model for how negative social judgements against men who follow women could support despite progress towards gender pay equity, more maternal leave, and other material improvements. 
+
+### Overview
+
+In this chapter we start building our framework for social diffusion, represented by mechanistic mathematical and software models of social transmission and learning. We begin with a simple model of a chain of unconstrained social transmission starting from a single teacher, with no limit on how many people might learn from teachers of teachers of teachers, and so on. We also assume behaviors do not require coordination with others, and so the benefit of doing a behavior is independent of the number of people doing the behavior. I show how we can use discrete-time difference equations, continuous-time differential equations, or agent-based simulation to arrive at the same conclusion: prevalence increases exponentially over time under these assumption. We tag this the *Going Viral* model as it could represent the "going viral" stage of an emerging trend when there are many potential new adopters and few current adopters [@Rogers2003;@Smaldino2023_Ch4Contagion].
+
+To understand how real-world constraints affect diffusion, we scaffold from this unconstrained *Going Viral* model, adding constraints one at a time and observing their effects.  First is the constraint of *finite populations* in the section *Bounded Virality* below. Next is the *Viral Friends* section where we consider the effect of interaction structure, which could be represented by homophily or a social network, for example. Finally,
+adaptive social learning constrains diffusion to cultural evolutionary dynamics, presented in the section *Guided Virality*. 
+
+One side effect of this organization is that cultural evolution is revealed as  diffusion process. Cultural evolution is enabled and driven by adaptive social learning, which provides selection pressure on behaviors [@@Richerson2020]. *Behavior* is the analogue of *phenotype* in genetic evolution; *adaptive social learning* is the analogue of *preferential mating* in genetic evolution [@CavalliFeldman1981;@Boyd1995;@BoydRicherson2005]. In both cases, the *behavioral gambit* and *phenotypic gambit* are common names for the modeling assumption that knowledge of how to do a behavior, or the genetic encoding for the pheotype, are faithfully transmitted. Furthermore, this *gambit* assumes that once an individual knows how to do a behavior, they perform it perfectly, or the individual's genotype is perfectly expressed in the phenotype. A final assumption embedded in this gambit is a one-to-one correspondence between knowledge/genetics and behavior/phenotype. 
+
+In *adaptive social learning*, model individuals prefer learning from others who are more successful, for example, or perhaps prefer adopting behaviors practiced by a greater number of their social partners [@Laland2004;@Kendal2018;@Toyokawa2019]. If individual psychology is such that more successful individuals are more likely to be chosen as teachers, this is called *success-biased learning*. When more prevalent behaviors are preferentially learned, this is *frequency-biased learning*. Keep in mind that these adaptive learning strategies are to cultural evolution what
 preferential mating is to genetic evolution: adaptive social learning induces
-evolutionary diffusion dynamics. In the two chapters following this one we will apply this diffusion
-framework to cooperative and complementary coordination behaviors, where expected payoffs for different behaviors changes depending on the prevalence of different behaviors.
+evolutionary diffusion dynamics. 
+
+In the two chapters following this one we will harness cultural evolution to
+understand how norms of cooperation and gender equity in leadership could evolve to sticky equilibria that may take special efforts to deconstruct, even in idealized simulations. These models are the final scaffold on the diffusion model presented here. We represent these coordination problems in sustainability in terms of *evolutionary game theory*. 
+
+### Relation to social influence and belief/opinion change
 
 Social influence dynamics of beliefs or opinions [@Blau1974;@DeGroot1974;@Lorenz2007;@Flache2011;@Turner2018;@Galesic2021] are
 considered as a different class of models in this framework since the thing being transmitted is *latent*, i.e., not directly observable. In these cases, we can only observe *behaviors* 

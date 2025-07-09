@@ -221,3 +221,10 @@ h3 {
   text-align: right;
 }
 
+
+
+$inline-code-purple: #a277ff;
+
+:not(pre) > code {
+  color: $inline-code-purple;
+}
