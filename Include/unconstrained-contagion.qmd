@@ -176,10 +176,10 @@ Fill in after Analysis done, i.e., after model is built and analyses posted in t
 The discrete model can be represented as the following function that takes variables corresponding to time, `t`, an adoption rate, `adopt_rate`, and the drop rate, `drop_rate`, 
 which are $t$, $\alpha$, and $\delta$ in math. 
 ```{r}
-n <- function(t, adopt_rate = 0.2, drop_rate = 0.1, n_0 = 1) { 
-  lambda <- (1 + adopt_rate - drop_rate)
-  n_t <- n_0 * (lambda ** t)
-  return (n_t)
+n <- function(t, adopt_rate = 0.2, drop_rate = 0.1, n_0 = 1) {
+  rho <- adopt_rate - drop_rate
+  n_ret <- n_0 * exp(rho * t)
+  return (n_ret)
 }
 ```
 
@@ -250,20 +250,95 @@ is used by `make_n_discrete_tbl` to create a table of discrete-model values from
 time steps 0 to 20, this time setting `dt = 1`. The function signatures are below. Expand the code block below that to see the full function definitions.
 ```{r}
 #| eval: false
-yo <- shutup
+n_t_discrete <- function()
+make_n_discrete_tbl <- function(tmin = 0L, tmax = 20L,  
+                                adopt_rates = seq(0.1, 0.2, 0.025), 
+                                drop_rate = 0.05)
 ```
 
 ```{r}
-n_t_discrete <- function() {
+#| code-fold: true
+#| code-summary: "`make_n_discrete_tbl` function definition"
+n_t_discrete <- function(t, adopt_rate = 0.2, drop_rate = 0.1, n_0 = 1) { 
+  lambda <- (1 + adopt_rate - drop_rate)
+  n_t <- n_0 * (lambda ** t)
+  return (n_t)
+}
+make_n_discrete_tbl <- function(tmin = 0L, tmax = 20L,  
+                                adopt_rates = seq(0.1, 0.2, 0.025), 
+                                drop_rate = 0.05) {
   
+  # Define vector of time points passed to the n function defined above
+  tvec <- tmin:tmax
+  
+  # Create table to plot n_t for different adoption rate (alpha) values
+  n_tbl <- tibble::tibble(
+    # Repeat time vector four times for each alpha.
+    t = rep(tvec, length(adopt_rates)),  
+    
+    # Create n_t vector for each adopt_rate, n_0=1 implicit
+    n_t = 
+      purrr::map(adopt_rates, ~ n(tvec, .x, drop_rate)) |> 
+      purrr::flatten_dbl(),
+    
+    # Repeat adopt rate for each tstep
+    adopt_rate = factor(
+      purrr::map(adopt_rates, ~ rep(.x, length(tvec))) |> 
+      purrr::flatten_dbl(),
+      levels = adopt_rates
+    )
+  )
+  
+  return (n_tbl)
 }
 
-make_n_discrete_tbl <- function() {
-  
-}
 ```
 
+```{r}
+n_discrete_tbl <- make_n_discrete_tbl()
+head(n_discrete_tbl, n = 20)
+```
+Plot objects returned by `ggplot2` can be extended. In this case we add points for the discrete time steps, expecting they will line up with the lines plotted above.
+```{r}
+unconstrained_plot_update <- unconstrained_plot + 
+  geom_point(aes(x = t, y = n_t), data = n_discrete_tbl, size = 4, alpha = 0.8)
+print(unconstrained_plot_update)
+```
+
+Success!
+
 ##### Agent-based model {.unnumbered}
+
+```{r}
+library(socmod)
+
+# XXX REDEFINING LearningStrategy to be its planned name change in `socmod`
+# XXX REMOVE WHEN FIXED IN SOCMOD. -mt 7/10/2025
+ModelDynamics <- LearningStrategy
+
+LearningStrategy
+dynamics <- ModelDynamics()
+n_agents <- 100
+
+# Create agents
+agents <- purrr::map(1:n_agents, ~ Agent$new(.x))
+# Initialize one as the seed agent
+seed_id <- sample(1:n_agents, 1)
+agents[[seed_id]]$set_behavior("Adaptive")
+agents[[seed_id]]$set_next_behavior("Adaptive")
+
+# Set up model dynamics
+
+
+
+# Create model
+abm <- 
+  make_abm(
+    n_agents = length(agents),  # need this or a network for `make_abm` 
+    agents = agents  # required if no graph provided
+  )
+
+```
 
 ##### Inline code purple options
 
