@@ -314,12 +314,7 @@ library(socmod)
 
 # XXX REDEFINING LearningStrategy to be its planned name change in `socmod`
 # XXX REMOVE WHEN FIXED IN SOCMOD. -mt 7/10/2025
-ModelDynamics <- LearningStrategy
-
-LearningStrategy
-dynamics <- ModelDynamics()
-n_agents <- 100
-
+n_agents <- 1
 # Create agents
 agents <- purrr::map(1:n_agents, ~ Agent$new(.x))
 # Initialize one as the seed agent
@@ -328,14 +323,31 @@ agents[[seed_id]]$set_behavior("Adaptive")
 agents[[seed_id]]$set_next_behavior("Adaptive")
 
 # Set up model dynamics
+contagion_partner_selection <- function(focal_agent, model) {
+  # Sample randomly from the population, including self-learning for efficiency
+  return (sample(model$agents, 1)[[1]])
+}
 
-
+# Contagion interaction depends on 
+contagion_interaction <- function(focal_agent, partner, model) {
+  
+  # If focal does Legacy and parter Adaptive, focal adopts with prob alpha
+  if (focal_agent$behavior_current == "Legacy" && 
+      partner$behavior_current == "Adaptive") {
+    if (runif(1) < model$get_parameter()) {
+      
+    }
+  }
+  
+  # If focal is adaptive or partner legacy, do nothing 
+  # (possibly drop behavior in model step)
+}
 
 # Create model
 abm <- 
   make_abm(
     n_agents = length(agents),  # need this or a network for `make_abm` 
-    agents = agents  # required if no graph provided
+    agents = agents,  # required if no graph provided
   )
 
 ```
