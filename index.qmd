@@ -1,3 +1,6 @@
+![](IC2S2-Logo-2.png){width=100% fig-align=center}
+
+
 # Welcome and preface {.unnumbered}
 
 Thanks for your interest in this short course on Computational Social Science
