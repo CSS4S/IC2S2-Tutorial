@@ -1,0 +1,167 @@
+## From Replication to Learning
+
+Let’s begin with the **replicator equation**, originally used in population genetics to describe how the frequency of a type changes due to differences in **reproductive success**:
+
+$$
+\frac{da}{dt} = a(w_A - \bar{w})
+$$
+
+where:
+
+- $a$: frequency of type $A $
+- $w_A$: differential reproduction rate of type $A $
+- $\bar{w} = a w_A + (1 - a) w_L$: average reproduction rate
+
+This isn’t about imitation — it models how types spread when some individuals leave more offspring than others.
+
+In cultural evolution, though, traits spread through **learning**, not reproduction. So we reinterpret this equation using **behavioral transitions** instead.
+
+We now show how the replicator equation can be re-expressed in terms of individual-level transitions:
+
+Start from:
+$$
+\frac{da}{dt} = a(w_A - \bar{w})
+$$
+
+Substitute $\bar{w} = a w_A + (1 - a) w_L$:
+$$
+\frac{da}{dt} = a(w_A - a w_A - (1 - a) w_L) = a(1 - a)(w_A - w_L)
+$$
+
+Now divide and multiply by $\bar{w}$:
+$$
+\frac{da}{dt} = \frac{a(1 - a)}{\bar{w}}(w_A - w_L) \cdot \bar{w}
+$$
+
+Define:
+$$
+P(A \mid L) = \frac{a w_A}{\bar{w}}, \quad P(L \mid A) = \frac{(1 - a) w_L}{\bar{w}}
+$$
+
+Then:
+$$
+\frac{da}{dt} = (1 - a) P(A \mid L) - a P(L \mid A)
+$$
+
+### 
+
+The replicator equation as a statement about how prevalence of some attribute A changes depending on how frequently individuals with the attribute pass it along to an individual of the next generation. It has no inherent concept of *fitness* but somehow the $w$ get called fitness, when really they represent the rate of reproduction for an individual with *allele* $A$ in biological evolutionary models. Too frequently it seems the definition of reproduction rates becomes twisted into a reverse definition of fitness. It is often presented like this: "In cultural evolution, we assume that some fitnesses are greater and the difference in fitnesses determines  
+
+## A General Learning Dynamic
+
+We expressed the change in frequency of an adaptive behavior $a$ using **transition probabilities**:
+
+$$
+\frac{da}{dt} = (1 - a) P(A \mid L) - a P(L \mid A)
+$$
+
+where:
+- $P(A \mid L)$: probability a legacy learner adopts the adaptive behavior
+- $P(L \mid A)$: probability an adaptive learner switches back to legacy
+
+This structure lets us plug in different learning rules while keeping the dynamical logic simple and modular.
+
+---
+
+## Success-Biased Learning
+
+Learners using the success-biased strategy preferentially select teachers with greater apparent fitness. In our models fitness values are the same for every behavior for every agent. We call $f_A$ the  from doing the behavior $A$, the adaptive behavior. Similarly, $f_L$ is the fitness gained from doing the legacy behavior, $L$. 
+
+We now formalize the success-biased learning model by writing equations for $P(A|L)$ and $P(L|A)$ based on their verbal description [@Smaldino2020d]. For someone currently doing $L$, the chance they will adopt practice $A$ instead is proportional to the prevalence of $A$, $a$, and the fitness of those doing that behavior, $f_A$. 
+$$
+P(A \mid L) \propto a f_A.
+$$
+
+Similarly, if one is doing $A$, the chance they will adopt $L$ instead is proportional to
+$$
+\quad P(L \mid A) \propto (1 - a) f_L}
+$$
+
+We need to normalize by the sum of the probabilities since these must sum to 1. This sum happens to be the mean 
+$$
+\bar{f} = a f_A + (1 - a) f_L.
+$$
+
+This gives:
+
+$$
+\frac{da}{dt} = \frac{a(1 - a)}{\bar{w}} (w_A - w_L)
+$$
+
+We showed this is algebraically equivalent to the replicator equation under success-biased social learning.
+
+---
+
+## Frequency-Biased Learning
+
+We then modeled **frequency bias** using an exponent $\gamma = \log \kappa$, giving:
+
+$$
+P(A) = \frac{a^\gamma}{a^\gamma + (1 - a)^\gamma}
+$$
+
+If everyone copies in proportion to frequency, then:
+
+$$
+\frac{da}{dt} = P(A) - a = \frac{a^\gamma}{a^\gamma + (1 - a)^\gamma} - a
+$$
+
+We also simplified this to a symmetric form:
+
+$$
+\frac{da}{dt} = \frac{a^\gamma(1 - a) - a(1 - a)^\gamma}{a^\gamma + (1 - a)^\gamma}
+$$
+
+---
+
+## Invasion Dynamics
+
+To analyze behavior near $a = 0 $, we expanded:
+
+- $a^\gamma \approx 0 $
+- $(1 - a)^\gamma \approx 1 - \gamma a + \frac{\gamma(\gamma - 1)}{2} a^2 - \frac{\gamma(\gamma - 1)(\gamma - 2)}{6} a^3 + \dots $
+
+Then:
+
+**Numerator**:
+$$
+-a + \gamma a^2 - \frac{\gamma(\gamma - 1)}{2} a^3
+$$
+
+**Denominator**:
+$$
+1 - \gamma a + \frac{\gamma(\gamma - 1)}{2} a^2
+$$
+
+So:
+
+$$
+\frac{da}{dt} \approx -a + \gamma a^2 - \left(\frac{\gamma(\gamma - 1)}{2} + \gamma^2\right) a^3 + \mathcal{O}(a^4)
+$$
+
+This shows that:
+- For **any finite $\gamma $**, $\frac{da}{dt} < 0 $near $a = 0 $
+- Only in the limit $\gamma \to -\infty$ (strong anti-conformity) does $\frac{da}{dt} > 0$ near zero
+
+---
+
+## The Anti-Conformity Paradox
+
+- **Anti-conformity enables invasion but prevents retention**
+- **Conformity enables retention but blocks invasion**
+
+So frequency bias alone cannot explain the emergence and spread of adaptive behaviors. Other forces (e.g. success bias, drift, coordination) are required.
+
+---
+
+## Broader Implication
+
+This framework — based on transition probabilities — unifies:
+- Success bias
+- Frequency bias
+- Replicator dynamics
+- Epidemic-style (SIS) models
+
+And it reveals a core result: **conformity blocks innovation**, while **anti-conformity can never sustain it**.
+
+These dynamics can also be tuned developmentally, suggesting new bridges to psychology and life-history theory.

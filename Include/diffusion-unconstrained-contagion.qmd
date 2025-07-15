@@ -343,13 +343,22 @@ contagion_interaction <- function(focal_agent, partner, model) {
   # (possibly drop behavior in model step)
 }
 
+
+dynamics <- make_model_dynamics(contagion_partner_selection, 
+                                contagion_interaction, 
+                                contagion_model_step, 
+                                label = "Going Viral")
+
 # Create model
 abm <- 
   make_abm(
     n_agents = length(agents),  # need this or a network for `make_abm` 
-    agents = agents,  # required if no graph provided
+    agents = agents,  # required if no graph provided,
+    adoption_rate = 0.2,
+    drop_rate = 0.1
   )
 
+print(abm$get_parameters()$as_list())
 ```
 
 ##### Inline code purple options

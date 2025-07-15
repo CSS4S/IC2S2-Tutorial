@@ -208,27 +208,21 @@ models in terms of our framework later in these notes.
 1. Viral Friends: Social Networks Constrain Diffusion
 1. Guided Virality: Cultural Evolution via Adaptive Social Learning
 
-### Going viral: unconstrained contagion
+### Going Viral: Unconstrained Contagion
 
 
-{{< include Include/unconstrained-contagion.qmd >}}
+{{< include Include/diffusion-unconstrained-contagion.qmd >}}
 
 
-### Bounded virality: finite population size
+### Bounded virality: Finite Populations
 
-- Now at most $N$ agents can adopt the sustainable practice, so marginal
-  adoption tapers off over time as more nearly everyone adopts the sustainable
-  practice.
-- One of the best-known approaches to modeling social diffusion is the
-  *contagion* model of transmission, where behaviors are transmitted
-  probabilistically as if they were a disease being transmitted interpersonally.
-  When people interact in this model, one learns from the other. If the learner
-  practes the Exhaust behavior, $E$, and observes or is instructed by a teacher
-  who practices the Sustain behavior, $S$, then there is a probability $\alpha$
-  that the learner adopts (i.e., begins doing) $S$. $\alpha$ is therefore called
-  the *adoption rate*.
+
+{{< include Include/diffusion-finite-population.qmd}}
+
+
 
 ### Viral friends: social network constraints on diffusion 
+
 
 
 #### The good and the bad of social structure and long-range ties
@@ -262,61 +256,27 @@ In a **core-periphery** network, a dense core of well-connected individuals is s
 
 The South Pacific Island case provides an example: core-periphery organization enabled stable adaptation strategies under conditions of uncertainty and risk. These designs may emerge deliberately or organically.
 
-#### When ties break: cumulative loss
+<!-- #### When ties break: cumulative loss -->
 
-To illustrate the consequences of broken connections, we turn to Henrich’s study of tool diversity in Oceania. When long-range maritime ties between islands broke down, isolated communities lost complex technologies.
+<!-- To illustrate the consequences of broken connections, we turn to Henrich’s study of tool diversity in Oceania. When long-range maritime ties between islands broke down, isolated communities lost complex technologies. -->
 
-This example highlights how network fragmentation can halt or reverse cumulative cultural evolution—a key dynamic in adaptation and innovation.
+<!-- This example highlights how network fragmentation can halt or reverse cumulative cultural evolution—a key dynamic in adaptation and innovation. -->
 
-### Guided virality: cultural evolution via social learning
 
-- Culture truly evolves when people preferentially select teachers who seem
-  more successful than alternatives or are better socially connected, 
-  or when people preferentially adopt behaviors that seem to
-  be practiced more widely than others, or any similar social learning strategy.
-  Being able to flexibly probe, sample, and integrate different sources of social and
-  asocial information is a fundamental part of what it means to be human
-  [@Witt2024]. Over time, stable cultural practices become established as
-  various social learning strategies exercised flexibly by individuals weed out 
-  less desirable Behavioral norms serve as heuristics for
-  individual decision-making contingencies, such as how much to share 
-  of a publicly-visible and shareable gift, or gendered division of labor from
-  the relatively harmless decision of which gender leads in a social partner
-  dance to who is responsible for more household chores and has freer access to
-  liquid household resources or credit [@OConnor2019]. 
-  We know because different cultures have different norms encoding different
-  motivations for behavior in economic decisions and reasoning in general,
-  self-concept, and reasoning in general, that systematically affect behavior in
-  similar ways within, but not between, cultures in general [@Henrich2010].
-- Of the many foundations of humanity is the unrivaled capacity to learn from
-  others, with adaptations that help us decide from whom to learn, such as
-  preferentially from the most apparently fit social network neighbors, or what
-  features of a behavior are most desirable, such as a high prevalence of
-  behavioral adoption. 
-- Because of the non-linear nature of either form of adaptive social learning,
-  attaining *closed-form* solutions to the formal equations is much more
-  difficult and therefore more the domain of matematical biology than
-  computational social science. Still, the basic predictions with some key
-  simplifying, asymptotic assumptions are accessible to understand, with the
-  derivations comprehensible in broad strokes.
-- Because formal methods become increasingly restrictive as social behavior
-  complexity is increased, simulation becomes more important. At this stage,
-  simulation becomes much more accessible to many more social scientists. This
-  becomes even more true as we go beyond the well-mixed assumption necessary for
-  formal calculations in unconstrained or constrained contagion, and into 
-  developing computational models of behavior diffusion where interaction
-  structure is represented by a social network.
-- NEXT: formalize success- and frequency-biased learning
+### Guided Virality: Cultural Evolution
 
-#### Success-biased social learning
-
-#### Frequency-biased social learning
+<!-- {{< include Include/diffusion-guided-virality.qmd >}} -->
 
 
 
+{{< include Include/diffusion-contagion-ce-equivalence.qmd}}
 
 
 
 ## Discussion
 
+The social diffusion of sustainable practices, or any behavior, occurs through social learning between individuals over time. If there are many who have not yet adopted some practice and that practice is more likely to to be adopted than dropped, the spread of that practice will seem like it will forever accelerate. When a significant proportion of individuals in a population begin to 
 
+
+
+This conceptualization generates some new questions whose answers could further serve the cause of promoting sustainability through intelligent intervention design. 
