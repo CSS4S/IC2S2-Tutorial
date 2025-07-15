@@ -43,9 +43,11 @@ $$
 \frac{da}{dt} = (1 - a) P(A \mid L) - a P(L \mid A)
 $$
 
-### 
+##### Notation and terminology
 
-The replicator equation as a statement about how prevalence of some attribute A changes depending on how frequently individuals with the attribute pass it along to an individual of the next generation. It has no inherent concept of *fitness* but somehow the $w$ get called fitness, when really they represent the rate of reproduction for an individual with *allele* $A$ in biological evolutionary models. Too frequently it seems the definition of reproduction rates becomes twisted into a reverse definition of fitness. It is often presented like this: "In cultural evolution, we assume that some fitnesses are greater and the difference in fitnesses determines  
+The replicator equation is a statement about how prevalence of some attribute A changes depending on how frequently individuals with the attribute pass it along to an individual of the next generation. It has no inherent concept of *fitness* but somehow the $w$ get called fitness, when really they represent the rate of reproduction for an individual with *allele* $A$ in biological evolutionary models. 
+
+Too frequently it seems the definition of these reproduction rates, i.e., $w_A$, becomes twisted into a reverse definition of fitness. It is often presented like this: "In cultural evolution, we assume that some fitnesses are greater and the difference in fitnesses determines  
 
 ## A General Learning Dynamic
 
