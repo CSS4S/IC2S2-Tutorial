@@ -1,16 +1,63 @@
+
+```{r}
+#| setup: true
+#| echo: false
+#| include: false
+
+library(socmod)
+```
+
 # Diffusion
 
 <br>
 
-In the context of sustainability and climate adaptation, behavior change often depends not only on individual decisions but also on social networks that constrain who interacts with whom, and whether individuals use adaptive social learning to choose behaviors, as opposed to just copying randomly. When individuals use adaptive social learning to choose between behaviors, this provides the selection mechanism that generates cultural evolution. 
+In the context of sustainability and climate adaptation, behavior change often
+depends not only on individual decisions but also on social networks that
+constrain who interacts with whom, and whether individuals use adaptive social
+learning to choose behaviors, as opposed to mindless, probabilistic adoption of
+new behaviors. When individuals use adaptive social learning to choose between
+behaviors, this provides the selection mechanism that generates cultural
+evolution. 
 
 <br>
 
 ## Introduction
 
-The puzzles of diffusion and belief change provide resistance to spreading sustainable practices unless they are addressed. Today a Cambrian explosion in green tech startups and new products and data analytics continues continues. Ancient Indigenous practices have helped humans adapt to climate change for generations upon generations. Unfortunately these practices are ignored in favor of expensive, poorly tested, maladaptive "grey infrastructure", like sea walls that act more like dams once breached and soak up humanitarian aid like a money sponge. Similarly, In this chapter we build up models of social diffusion via social learning, starting from a minimal specification of how social interaction and learning work. Specifically, we start with the *Unconstrained Contagion* model of stochastic transmission in a very large population, so new learners of sustainable practices are always available. In this chapter we only consider behaviors that individuals do alone gain benefit. However, the material in this chapter provides the foundation for the next two chapters. 
+The puzzles of diffusion and belief change provide resistance to spreading
+sustainable practices unless they are addressed. Today a Cambrian explosion in
+green tech startups and new products and data analytics continues continues.
+Ancient Indigenous practices have helped humans adapt to climate change for
+generations upon generations. Unfortunately these practices are ignored in favor
+of expensive, poorly tested, maladaptive "grey infrastructure", like sea walls
+that act more like dams once breached and soak up humanitarian aid like a money
+sponge. Similarly, In this chapter we build up models of social diffusion via
+social learning, starting from a minimal specification of how social interaction
+and learning work. Specifically, we start with the *Unconstrained Contagion*
+model of stochastic transmission in a very large population, so new learners of
+sustainable practices are always available. In this chapter we only consider
+behaviors that individuals do alone gain benefit. However, the material in this
+chapter provides the foundation for the next two chapters. 
 
-In the next two chapters, we extend the models developed here to understand the diffusion of behaviors that yield benefits or payoffs only in *coordination* with others doing either *cooperative* (i.e., the same) or *complementary* (i.e., different) behaviors.  Promoting the diffusion of cooperation could improve the success rate of natural resource conservation interventions, such as sustainable groundwater usage cooperation to avoid exhausting underground aquifers that people and farms depend on. In the second chapter, we use leader-follower decisions between men and women as a model for how negative social judgements against men who follow women could support despite progress towards gender pay equity, more maternal leave, and other material improvements. 
+In the next two chapters, we extend the models developed here to understand the
+diffusion of behaviors that yield benefits or payoffs only in *coordination*
+with others doing either *cooperative* (i.e., the same) or *complementary*
+(i.e., different) behaviors.  Promoting the diffusion of cooperation could
+improve the success rate of natural resource conservation interventions, such as
+sustainable groundwater usage cooperation to avoid exhausting underground
+aquifers that people and farms depend on. In the second chapter, we use
+leader-follower decisions between men and women as a model for how negative
+social judgements against men who follow women could support despite progress
+towards gender pay equity, more maternal leave, and other material improvements. 
+
+
+
+
+
+
+
+
+
+
 
 ### Overview
 
@@ -28,255 +75,720 @@ evolutionary diffusion dynamics.
 In the two chapters following this one we will harness cultural evolution to
 understand how norms of cooperation and gender equity in leadership could evolve to sticky equilibria that may take special efforts to deconstruct, even in idealized simulations. These models are the final scaffold on the diffusion model presented here. We represent these coordination problems in sustainability in terms of *evolutionary game theory*. 
 
-### Relation to social influence and belief/opinion change
-
+### These models not endorsed for belief/opinion change
 Social influence dynamics of beliefs or opinions [@Blau1974;@DeGroot1974;@Lorenz2007;@Flache2011;@Turner2018;@Galesic2021] are
 considered as a different class of models in this framework since the thing being transmitted is *latent*, i.e., not directly observable. In these cases, we can only observe *behaviors* 
 that either report or belie latent psychological beliefs or opinions. I develop social influence
 models in terms of our framework later in these notes.
 
-<!-- - The first constraint to social -->
-<!-- transmission: a finite population of *teachers* and *learners*, our general -->
-<!-- purpose names for the person from whom social information originates and to whom -->
-<!-- it goes, respectively. -->
+## Model
 
-<!-- - The second constraint we consider is when adaptive social learning guides -->
-<!--   social transmission. Under the first and primary form of adaptive social -->
-<!--   learning we consider, *success-biased* social learning, teachers are selected -->
-<!--   at random from an individual's neighbors, weighted by each neighbor's -->
-<!--   *fitness*, with the learner included as a "neighbor", i.e., potential teacher, -->
-<!--   so that beneficial behaviors are preferentially maintained under -->
-<!--   success-biased learning. *Frequency-biased* learning is another adaptive -->
-<!--   strategy sometimes observed in modern and archeological evidence which we -->
-<!--   demonstrate, but focus on less throughout the course material, using -->
-<!--   success-biased learning as the default to induce evolutionary dynamics, -->
-<!--   explained in more detail below. -->
+The abstract model of diffusion presented here provides a formal and
+agent-based framework to be filled in with specific social structure and 
+socio-cognitive processes as appropriate for different contexts. Contexts are
+specified by, for example, 
+the available behaviors, social network structure, and dominant social
+learning process, e.g., contagion, success-biased, and conformity. 
 
-<!-- - The third and final constraint is on the structure of social interactions, -->
-<!--   represented by the system's *social network*. We'll consider three types of -->
-<!--   social network models, each with stylized real-world features: first are regular -->
-<!--   networks, which are lattices like a two-dimensional spatial grid that can be -->
-<!--   used to model cooperation in natural resource conservation, for example. -->
-<!--   Second, we use random networks to represent irregularities in social network -->
-<!--   structures, which can promote or inhibit the success of educational -->
-<!--   behavior-change interventions. Third, we consider a more specific class of -->
-<!--   random network, *asymmetric homophily* networks, in which different groups -->
-<!--   have different tendencies to interact more frequently with others from within -->
-<!--   their own group compared to between groups. These can be used to generate -->
-<!--   *core-periphery* social networks where the *core* group is the most connected both -->
-<!--   within its own group and between itself and the *peripheral* groups are only -->
-<!--   loosely connected within themselves and between other groups. -->
+We begin by developing a formal modeling system for behavior diffusion that 
+can be used for a number of applications. An evolutionary dynamical systems model that
+assumes a large (i.e., $N \to \infty$), well-mixed population time series of 
+behavioral adoption can generate time series and be used for *invasion analyses*
+that can provide simple heuristics for understanding how well different learning
+strategies can promote self-sustaining behavioral diffusion following a
+sustainability intervention. This diffusion model model is formed by
+manipulating the replicator equation to be expressed in terms of state
+transitions. As part of our Analysis section below, 
+I will prove that conformity alone cannot 
+stimulate self-sustaining behavior diffusion when the behavior is initially
+rare, as is the case currently for truly adaptive, sustainable practices. 
+On the other hand, I will also show that
+success-biased social learning can be harnessed to stimulate faster spread of
+sustainable adaptations.
 
+These state transition probabilities naturally slot in to the
+Kimura-Crow model of trait diffusion under replicator-like dynamics, but with
+stochastic dynamics among finite populations. This approach can be used to
+generate time series of adaptation prevalence, but for our analyses we use 
+another useful feature of this model: its ability to calculate the *success
+rate* of an intervention, i.e., the probability that all individuals adopt the
+adaptive sustainable practice, $A$.
+This is commonly known as the *fixation probability* of a trait 
+in theoretical biology.
 
-<!-- ## Representing interventions as math and code -->
-
-
-<!-- - Recall that a _sustainability intervention_ is an effort to promote some -->
-<!--   sustainable behavior or set of behaviors through education, training, or other -->
-<!--   means. This framing is a consequence of our guiding motivation to identify -->
-<!--   real-world mechanisms to harness in promoting sustainable practices conforming -->
-<!--   to one or more of the United Nation's Sustainable Development Goals. The -->
-<!--   models and conclusions are general, however, since this framing is only used -->
-<!--   for efficient development and comprehension of the computational findings. -->
-<!-- - To model the diffusion of a sustainable practice we separate the social world -->
-<!--   and social processes into distinct, interacting parts. We model social -->
-<!--   dynamics with a general framework that is systematically filled out, and on -->
-<!--   which the `socmod` social behavior modeling library is based. (Explain the -->
-<!--   general abstract model...previews the subsection below) -->
-<!-- - Any intervention must decide who should be the first people to receive  -->
-<!--   instruction on how to do some adaptive, sustainable behavior practice, including how -->
-<!--   beneficial an adaptation is. This subset of the population is called the *seed -->
-<!--   set*. One popular approach to optimizing interventions is the *seeding -->
-<!--   strategy* used to intelligently select which indivuals will comprise the seed -->
-<!--   set. For example, the *friendship nomination* strategy led to more effective -->
-<!--   diffusion of public health information compared to random seeding across about -->
-<!--   one hundred villages in rural Honduras [@Airoldi2024]. In -->
-<!--   friendship nomination, $N_S$ seed members are chosen by selecting one  -->
-<!--   acquaintance of $N_S$ randomly-selected individuals, as opposed to the random -->
-<!--   strategy being just selecting $N_S$ seeds at random directly. In another -->
-<!--   example, @Efferson2020 studied simulations of a public health intervention to -->
-<!--   help end female genital cutting in Sudan, inspired by field studies of -->
-<!--   real-world interventions [@Vogt2016]. -->
-<!-- - We use our models to calculate the *prevalence dynamics* and *outcome -->
-<!--   measures* both within and across simulation trials. *Prevalence dynamics*  -->
+Agent-based modeling is a computational technique that explicitly specifies
+cognitive attributes and rules that *agents*, i.e., simulated people follow.
+I will close this section demonstrating how to develop agent-based models that
+use different learning rules, social networks, and other model dynamics that
+mechanistically represent the identical behavior change transition
+probabilities. For this we will use my R library for agent-based modeling,
+[`socmod`](https://github.com/CSS4S/socmod). Social scientists can
+write code that describes how learning works, and who interacts with whom.
+Formal models help us understand the quantitative implications of our verbal
+models at the most basic level, often with the most unrealistic assumptions
+that still prove useful. Agent-based models complement more abstract formal
+mathematical models by providing scientists with a way to model detail on
+finer scales and test how additional factors like group structure and social
+networks affect diffusion.
 
 
-<!-- ### The general diffusion model -->
+### The Prevalence Dynamic
 
-<!-- 1. **Population and social network structure:** who interacts with whom. -->
-<!-- 1. **Social transmission/learning:** how agents learn from others and adopt -->
-<!--    behaviors. -->
-<!-- 1. **Equilibrium/stopping conditions:** stop the simulation at equilibrium -->
+The *prevalence* of a behavior is the fraction of a population that has
+adopted that behavior. The prevalence of adaptive behavior
+$A$ at time $t$ is denoted $a_t$ if we are considering discrete time, where
+the time between one time step and another is one, i.e., $\Delta t = 1$. In
+computational science, $\Delta$ to the left of another variable means *change
+in*. 
 
-<!-- This flexible framework will carry through the rest of the course. In the next section, we extend this model to explore how homophily, asymmetry, and structural inequality affect adaptation outcomes. -->
+The *prevalence dynamic* for behavior diffusion with two options represents the change in $a$
+over one time step. For discrete time, the change in prevalence, $\Delta a_t$,
+over one time step, $\Delta t = 1$, is
+\newcommand{\pal}{P(A \mid L)}
+\newcommand{\pla}{P(L \mid A)}
+$$
+\frac{\Delta a_t}{\Delta t}  = \Delta a_t = (1 - a_t)\pal + a_t~\pla.
+$$
+In words this says that the change in $a$ *increases* by the chance that an
+$L$-doer changes to be an $A$-doer, scaled by the prevalence of $L$-doers in the
+population, which is $1 - a$. The 
 
-<!-- ### Techniques for creating simulations from box-and-arrow diagrams -->
+We can do a mathematical trick where we let the change in time get very small,
+written as an arrow point towards, or "going to", zero: $\Delta t \to 0$. Then
+instead of writing $\Delta t$ we write the change as $dt$, where the letter *d*
+stands in for the symbol indicating change, but now a *small* one. If time
+changes very little for every iteration of the model, then prevalence changes
+very little, too. Then we have that $\Delta a \to da$ as well. This brings us
+from a discrete to a continuous model, and now we can use calculus to understand
+how different socio-cognitive mechanisms and processes affect whether prevalence
+dynamics lead to widespread diffusion. In this case, we drop the subscript $t$
+on prevalence, and hide the $(t)$ part of the continuous prevalence $a(t)$
+so that the prevalence dynamic becomes
+\newcommand{\dadt}{\frac{da}{dt}}
+$$
+\dadt = (1 - a)\pal + a\pla.
+$$
 
-<!-- Box and arrow diagrams are a great start, but we'll need either mathematics or -->
-<!-- simulation to help us make predictions about how different social factors, -->
-<!-- processes, and behaviors affect long-term outcomes in terms of the adoption -->
-<!-- prevalence of sustainable practices. -->
+### Going Viral: Unbounded Contagion
 
-<!-- - Mathematics -->
-<!-- - Programming -->
-<!-- - A note on complimentarity -->
+We begin with the *Going Viral* model with minimal assumptions about behavior
+change via social learning. Diffusion is *unconstrained* because we assume that the population size is so large that it's practically
+infinite, i.e., $N \to \infty$. Individuals are equally likely to select one
+another as interaction partners, which is equivalent to interactions being
+structured by a complete network. Since the population is large it is
+computationally slow and wasteful to explicitly specify the social network in
+the agent-based model version we demonstrate last in this section. 
+We also assume that it's impossible to tell individuals apart. 
+This is the *baseline* model because we specify the fewest details of how 
+social interaction and behavior diffusion work. From this baseline we will add 
+further complexity curated from a set of additional useful
+empirically-motivated, though highly simplified, model assumptions.
 
-<!-- <div class="table-responsive"> -->
-<!-- <table class="table table-sm table-borderless" style="width:100%"> -->
-<!--   <thead style="border-bottom: 2px solid #000;"> -->
-<!--     <tr> -->
-<!--       <th style="text-align:left;">Growth Type</th> -->
-<!--       <th style="text-align:left;">Population</th> -->
-<!--       <th style="text-align:left;">Mechanism</th> -->
-<!--       <th style="text-align:left;">Dynamics</th> -->
-<!--       <th style="text-align:left;">Modeling</th> -->
-<!--       <th style="text-align:left;">Notes</th> -->
-<!--     </tr> -->
-<!--   </thead> -->
-<!--   <tbody> -->
-<!--     <tr> -->
-<!--       <td><strong>Unconstrained Growth</strong></td> -->
-<!--       <td>No limit to learners, N → ∞</td> -->
-<!--       <td>Analytical, computational, recursion</td> -->
-<!--       <td>Stochastic / non-adaptive</td> -->
-<!--       <td>Exponential</td> -->
-<!--       <td>Summarized in intro for now</td> -->
-<!--     </tr> -->
-<!--     <tr> -->
-<!--       <td><strong>Constrained Growth I</strong></td> -->
-<!--       <td>Finite, complete population</td> -->
-<!--       <td>Analytical, computational, recursion</td> -->
-<!--       <td>Stochastic / non-adaptive</td> -->
-<!--       <td>Logistic (contagion)</td> -->
-<!--       <td></td> -->
-<!--     </tr> -->
-<!--     <tr> -->
-<!--       <td><strong>Constrained Growth II</strong></td> -->
-<!--       <td>Finite, complete</td> -->
-<!--       <td>Analytical, simulation (e.g., Kimura-Crow)</td> -->
-<!--       <td>Adaptive / guided randomness</td> -->
-<!--       <td>Logistic</td> -->
-<!--       <td>Social learning</td> -->
-<!--     </tr> -->
-<!--     <tr> -->
-<!--       <td><strong></strong></td> -->
-<!--       <td>Finite, varies</td> -->
-<!--       <td>Simulation</td> -->
-<!--       <td>Any</td> -->
-<!--       <td>Varies</td> -->
-<!--       <td></td> -->
-<!--     </tr> -->
-<!--     <tr> -->
-<!--     <td><strong>Constrained Growth III</strong></td> -->
-<!--       <td>Structured social networks</td> -->
-<!--       <td>Simulation</td> -->
-<!--       <td>Depends on structure</td> -->
-<!--       <td>Geometric, e.g., spatial grids, SWN</td> -->
-<!--       <td>Can be calibrated; cf. small-worlds</td> -->
-<!--     </tr> -->
-<!--   </tbody> -->
-<!-- </table> -->
-<!-- </div> -->
+The *contagion* part of *unconstrained contagion* signifies the learning model.
+In the contagion model of learning, if one doing the
+Erroneous/Exhaustion/Extinction behavior, $L$, interacts with someone doing the
+Adaptive behavior, $A$, there is a probability $\alpha \in [0, 1]$ that the one
+switches from doing the Exhaustion behavior to doing the Adaptive behavior,
+where $\alpha$ is called the *adoption rate*. We can add regression to $L$ as
+well by specifying the *drop rate*, $\delta$, i.e., the probability that one
+doing $A$ stops, reverting to $L$. Contagion learning could, then, be a suitable
+assumption for fads and trends with little inherent value. Complex contagion is
+a learning model where an agent adopts a behavior after a sufficiently large
+number of exposures, developed largely by sociologists
+[@Centola2007a;@Centola2018] with a notable use recently by a team of cognitive
+and social scientists to explain foraging behavior [@Garg_Padilla-Iglesias2021].
+Adopting contagion learning enables us to leverage techniques for epidemiological
+modeling for social behavior diffusion in finite populations. Finite populations
+provide the first constraint on behavior diffusion, and we'll use a formal
+system first developed for epidemiology, but we'll show it is also a special
+case of the cultural evolutionary replicator dynamic.
+
+We begin constructing the formal model by writing down how much the prevalence
+of the adaptive behavior changes in a single time step. We'll write $n_t$ or
+$n(t)$ for the $number$, or count, of how many individuals have adopted $A$ in the discrete and continuous 
+models, respectively. 
+We will close our development of the Unconstrained
+Contagion model by sketching the agent-based model implementation using
+`socmod`. 
+
+#### Prevalence Dynamics in Discrete Time {.unnumbered}
+
+Given the Unconstrained Contagion model assumptions we can write an equation
+that represents how much $n_t$ changes over one time step that has units of
+time. For example, if we are designing a model of ecosystem protection in the
+Masai Mara reserve in Kenya where we have *monthly* satellite data of fence
+construction in the reserve, we'd likely assume our model time steps have units
+of one month as well to harmonize with the target real-world system. If we want
+to study social factors in promoting wetland restoration or electric vehicle
+adoption within a relatively small geographic area, a yearly time step may be
+more appropriate. If there is no data available for your study, do your own
+reasoning to figure out what time step makes sense, either based on the time
+scale of learning about and implementing certain behaviors (i.e., mangrove
+forests grow slowly and restoration takes time, so year-over-year would be
+perhaps the smallest reasonable time step) or based on how frequently
+measurements *could* be made if an appropriate empirical study were designed
+based on the model, so that the model may one day be validated, used practically
+for real-world intervention design, and used for evaluating inconsistent
+hypotheses in theory development [@Deffner2024].
+
+On each time step in Unconstrained Contagion, each of the $n_t$ individuals 
+doing $A$ will transmit their behavior to one other individual every $\alpha$
+time steps, where we call $\alpha$ the *adoption rate*. 
+The change in the number of individuals doing $A$ on each time step is then:
+$$
+\Delta n_t = \alpha n_t - \delta n_t.
+$$
+
+That is, $\Delta n_t = n_{t+1} - n_t$, so we can rewrite the recurrence as:
+$$
+n_{t+1} = n_t + \alpha n_t - \delta n_t.
+$$
+
+Factoring out $n_t$ gives:
+$$
+n_{t+1} = n_t(1 + \alpha - \delta)
+$$
+and defining $\lambda = 1 + \alpha - \delta$, we get:
+$$
+n_{t+1} = \lambda n_t.
+$$
+
+This effectively says that the growth rate is constant, since $\lambda$ is constant and $\frac{n_{t+1}}{n_t} = \lambda$. In other words, growth never slows down, so 
+$n_t$ increases over time.
+
+If we know $\lambda$ and the initial number of adopters, $n_0$ (i.e., $n_{t=0}$), 
+we can calculate the number of adopters at time $t$ using the formula:
+$$
+n_t = \lambda^t n_0.
+$$
+
+We get this equation by iteratively applying the recurrence. For example:
+$$
+n_{t+1} = \lambda (\lambda n_{t-1}) = \lambda^2 n_{t-1}.
+$$
+
+<br>
+
+#### Prevalence Dynamics in Continuous Time {.unnumbered}
+
+When $t$ is continuous we can write the number of adopters of $A$ as a mathematical function of time with $t$ in parentheses: $n(t)$. Instead of a recursion equation:
+
+$$
+\frac{dn}{dt} = \alpha n - \delta n
+$$
+
+Which integrates to:
+$$
+n(t) = n_0 e^{\rho t},
+$$
+where $\rho = \alpha - \delta$. 
+
+If we restrict $t$ to integers, i.e., $t \in \{0, 1, \ldots, T\}$, then:
+$$
+n(t) = \{n_0, n_0 \cdot e^{\rho}, n_0 \cdot e^{2\rho}, \ldots, n_0 \cdot e^{T\rho}\}.
+$$
+
+This implies that $e^\rho = \lambda$, so:
+$$
+\rho = \ln \lambda.
+$$
+
+We can verify this algebraically. If:
+$$
+n_0 e^{t'\rho} = n_0 \lambda^{t'},
+$$
+then dividing both sides by $n_0$ and taking the natural logarithm gives:
+$$
+\ln e^{t'\rho} = \ln \lambda^{t'},
+$$
+and using the identity $\log_b(x^y) = y \log_b(x)$:
+$$
+t' \ln e^\rho = t' \ln \lambda.
+$$
+
+Dividing both sides by $t'$ and noting that $\ln e^\rho = \rho$, we confirm:
+$$
+\rho = \ln \lambda,
+$$
+visualized in Figure 4.X.
+
+<br>
+
+### Bounded Virality: Finite Populations
+
+Now we need to account for the fact that as time goes on and the adaptation
+spreads, the approximation $n << N$ becomes less accurate. We need dynamics that
+account for the fact that as more people adopt $A$ there are fewer people
+available to adopt $A$, so $\frac{dn}{dt}$ must eventually 
+decrease as $n$ increases. 
+
+A trick to make this analysis easier is to work with *prevalence* of $A$ instead
+of the number of adopters, which was $n$. 
+We write $a(t)$, or just $a$, for the
+prevalence of $A$ over time. The *prevalence* of a behavior in this case 
+is the fraction of individuals in a population who have adopted that behavior.
+Therefore $a(t) \in [0, 1]$. We'll continue working with differential 
+equations and continuous variables because it makes available the calculus
+toolset to analyze dynamics. 
+
+To incorporate finite populations into our learning dynamics, we scale the
+growth term from unbounded contagion by the prevalence of $L$ in the population,
+since only individuals performing $L$ can switch to adopt $A$ when these are the
+only two behaviors, as we constrain our model to here. In other words, $\alpha
+\to (1 - a) \alpha$ in the prevalence 
+
+### Guided Virality: When Cultural Evolution Powers Diffusion
+
+Cultural evolution has provided many explanations for previously mysterious
+phenomena, such as cultural ratcheting, identity signaling, the evolution of bad
+science, and more. Its power comes from its general formulation of social
+behavior diffusion as a system of self-replicators who pass on their "trait"
+to their "offspring". Traits in this model are just behaviors, and offspring are
+those who adopt the behavior after exposure or instruction. 
+
+This general model of replication at each time step is called the *replicator
+dynamic*, first used in theoretical genetics and population biology. There it
+was written as 
+
+$$
+\frac{da}{dt} = a(w_A - \bar{w})
+$$
+
+where:
+
+- $a$: frequency of type $A $
+- $w_A$: differential reproduction rate of type $A $
+- $\bar{w} = a w_A + (1 - a) w_L$: average reproduction rate
+
+This isn’t about imitation — it models how types spread when some individuals leave more offspring than others.
+
+In cultural evolution, though, traits spread through **learning**, not reproduction. So we reinterpret this equation using **behavioral transitions** instead.
+
+We now show how the replicator equation can be re-expressed in terms of individual-level transitions:
+
+Start from:
+$$
+\frac{da}{dt} = a(w_A - \bar{w})
+$$
+
+Substitute $\bar{w} = a w_A + (1 - a) w_L$:
+$$
+\frac{da}{dt} = a(w_A - a w_A - (1 - a) w_L) = a(1 - a)(w_A - w_L)
+$$
+
+Now divide and multiply by $\bar{w}$:
+$$
+\frac{da}{dt} = \frac{a(1 - a)}{\bar{w}}(w_A - w_L) \cdot \bar{w}
+$$
+
+Define:
+$$
+P(A \mid L) = \frac{a w_A}{\bar{w}}, \quad P(L \mid A) = \frac{(1 - a) w_L}{\bar{w}}
+$$
+
+Then:
+$$
+\frac{da}{dt} = (1 - a) P(A \mid L) - a P(L \mid A)
+$$
+
+#### Notation and terminology {.unnumbered}
+
+The replicator equation is a statement about how prevalence of some attribute A changes depending on how frequently individuals with the attribute pass it along to an individual of the next generation. It has no inherent concept of *fitness* but somehow the $w$ get called fitness, when really they represent the rate of reproduction for an individual with *allele* $A$ in biological evolutionary models. 
+
+Too frequently it seems the definition of these reproduction rates, i.e., $w_A$,
+becomes twisted into a reverse definition of fitness. It is often presented like
+this: "In cultural evolution, we assume that some fitnesses are greater and the
+difference in fitnesses determines... <span style="color: red;">XXX FINISH THIS NEXT (7:30AM
+7/16)!!</span> 
+
+#### A General Learning Dynamic
+
+We expressed the change in frequency of an adaptive behavior $a$ using **transition probabilities**:
+
+$$
+\frac{da}{dt} = (1 - a) P(A \mid L) - a P(L \mid A)
+$$
+
+where:
+- $P(A \mid L)$: probability a legacy learner adopts the adaptive behavior
+- $P(L \mid A)$: probability an adaptive learner switches back to legacy
+
+This structure lets us plug in different learning rules while keeping the dynamical logic simple and modular.
+
+---
+
+#### Success-Biased Learning
+
+Learners using the success-biased strategy preferentially select teachers with greater apparent fitness. In our models fitness values are the same for every behavior for every agent. We call $f_A$ the  from doing the behavior $A$, the adaptive behavior. Similarly, $f_L$ is the fitness gained from doing the legacy behavior, $L$. 
+
+We now formalize the success-biased learning model by writing equations for $P(A|L)$ and $P(L|A)$ based on their verbal description [@Smaldino2020d]. For someone currently doing $L$, the chance they will adopt practice $A$ instead is proportional to the prevalence of $A$, $a$, and the fitness of those doing that behavior, $f_A$. 
+$$
+P(A \mid L) \propto a f_A.
+$$
+
+Similarly, if one is doing $A$, the chance they will adopt $L$ instead is proportional to
+$$
+P(L \mid A) \propto (1 - a) f_L
+$$
+
+We need to normalize by the sum of the probabilities since these must sum to 1. This sum happens to be the mean 
+$$
+\bar{f} = a f_A + (1 - a) f_L.
+$$
+
+This gives:
+
+$$
+\frac{da}{dt} = \frac{a(1 - a)}{\bar{f}} (w_A - w_L)
+$$
+
+We showed this is algebraically equivalent to the replicator equation under success-biased social learning.
+
+---
+
+#### Frequency-Biased Learning
+
+We then modeled **frequency bias** using an exponent $\gamma = \log \kappa$, giving:
+
+$$
+P(A) = \frac{a^\gamma}{a^\gamma + (1 - a)^\gamma}
+$$
+
+If everyone copies in proportion to frequency, then:
+
+$$
+\frac{da}{dt} = P(A) - a = \frac{a^\gamma}{a^\gamma + (1 - a)^\gamma} - a
+$$
+
+We also simplified this to a symmetric form:
+
+$$
+\frac{da}{dt} = \frac{a^\gamma(1 - a) - a(1 - a)^\gamma}{a^\gamma + (1 - a)^\gamma}
+$$
+
+---
+
+#### Invasion Dynamics
+
+To analyze behavior near $a = 0 $, we expanded:
+
+- $a^\gamma \approx 0 $
+- $(1 - a)^\gamma \approx 1 - \gamma a + \frac{\gamma(\gamma - 1)}{2} a^2 - \frac{\gamma(\gamma - 1)(\gamma - 2)}{6} a^3 + \dots $
+
+Then:
+
+**Numerator**:
+$$
+-a + \gamma a^2 - \frac{\gamma(\gamma - 1)}{2} a^3
+$$
+
+**Denominator**:
+$$
+1 - \gamma a + \frac{\gamma(\gamma - 1)}{2} a^2
+$$
+
+So:
+
+$$
+\frac{da}{dt} \approx -a + \gamma a^2 - \left(\frac{\gamma(\gamma - 1)}{2} + \gamma^2\right) a^3 + \mathcal{O}(a^4)
+$$
+
+This shows that:
+- For **any finite $\gamma $**, $\frac{da}{dt} < 0 $near $a = 0 $
+- Only in the limit $\gamma \to -\infty$ (strong anti-conformity) does $\frac{da}{dt} > 0$ near zero
+
+---
+
+#### The Anti-Conformity Paradox
+
+- **Anti-conformity enables invasion but prevents retention**
+- **Conformity enables retention but blocks invasion**
+
+So frequency bias alone cannot explain the emergence and spread of adaptive behaviors. Other forces (e.g. success bias, drift, coordination) are required.
+
+---
+
+#### Broader Implication
+
+This framework — based on transition probabilities — unifies:
+- Success bias
+- Frequency bias
+- Replicator dynamics
+- Epidemic-style (SIS) models
+
+And it reveals a core result: **conformity blocks innovation**, while **anti-conformity can never sustain it**.
+
+These dynamics can also be tuned developmentally, suggesting new bridges to psychology and life-history theory.
+
+#### Agent-based diffusion modeling
+
+To develop an agent-based formulation of this model, we need to specify a large population of agents to avoid finite-population effects for enough time steps to see Malthusian growth. 
+
+Recall that agent-based models define:
+
+- The population size $N$,
+- How agents select partners,
+- How interaction (e.g., observation or teaching) works,
+- And what else happens socially and environmentally in each time step.
+
+In this model:
+
+- Partners are selected randomly (with replacement), with the learner agent included as a possible teacher.
+- When a focal agent doing $L$ encounters a teacher doing $A$, they adopt $A$ with probability $\alpha$.
+- Each agent doing $A$ at the end of a time step reverts to $L$ with probability $\delta$, representing a real-world inability or unwillingness to sustain the behavior.
+
+This agent-based implementation mirrors the analytic model under stochastic simulation, and allows us to explore variability, finite-size effects, and deviations from idealized assumptions.
+
+<br>
+
+#### Construction using `socmod` {.unnumbered}
+
+Fill in after Analysis done, i.e., after model is built and analyses posted in this chapter in the appropriate section below.
+
+## Analysis 
+
+<br>
+
+### Formal, mathematical model {.unnumbered}
+
+The discrete model can be represented as the following function that takes variables corresponding to time, `t`, an adoption rate, `adopt_rate`, and the drop rate, `drop_rate`, 
+which are $t$, $\alpha$, and $\delta$ in math. 
+```{r}
+n <- function(t, adopt_rate = 0.2, drop_rate = 0.1, n_0 = 1) {
+  rho <- adopt_rate - drop_rate
+  n_ret <- n_0 * exp(rho * t)
+  return (n_ret)
+}
+```
+
+I will now create a table of values for $n(t)$ for different adoption rates,
+$\alpha \in \{0.1, 0.105, 0.2, 0.5\}$, all with the same drop rate, $\delta = 0.1$.
+I'll make a function to encapsulate the boilerplate steps called `make_n_tbl`
+in the code block below (unfold to view). It uses some helpful default settings
+to make an interesting visualization, which we do below. Below is the function
+signature for `make_n_tbl`, with the full function definition provided in a folded code block below that. Click the triangle to unfold the full definition. 
+```{r}
+#| eval: false
+make_n_tbl <- function(tmin = 0.0, tmax = 20.0, dt = 0.2, 
+                       adopt_rates = seq(0.1, 0.2, 0.025), drop_rate = 0.05) 
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: "`make_n_tbl` function definition"
+make_n_tbl <- function(tmin = 0.0, tmax = 20.0, dt = 0.2, 
+                       adopt_rates = seq(0.1, 0.2, 0.025), drop_rate = 0.05) {
+  
+  # Define vector of time points passed to the n function defined above
+  tvec <- seq(tmin, tmax, dt)
+  
+  # Create table to plot n_t for different adoption rate (alpha) values
+  n_tbl <- tibble::tibble(
+    # Repeat time vector four times for each alpha.
+    t = rep(tvec, length(adopt_rates)),  
+    
+    # Create n_t vector for each adopt_rate, n_0=1 implicit
+    n_t = 
+      purrr::map(adopt_rates, ~ n(tvec, .x, drop_rate)) |> 
+      purrr::flatten_dbl(),
+    
+    # Repeat adopt rate for each tstep
+    adopt_rate = factor(
+      purrr::map(adopt_rates, ~ rep(.x, length(tvec))) |> 
+      purrr::flatten_dbl(),
+      levels = adopt_rates
+    )
+  )
+  
+  return (n_tbl)
+}
+```
+
+Now let's use `ggplot2` to plot the series for each adoption rate, which will
+be indicated by line color and type. 
+
+```{r}
+library(ggplot2)
+n_tbl <- make_n_tbl()
+unconstrained_plot <- ggplot(n_tbl, aes(x = t, y = n_t, 
+                       color = adopt_rate, 
+                       linetype=adopt_rate)) +
+  geom_line(linewidth = 1.2) + theme_classic(base_size = 12)
+print(unconstrained_plot)
+```
+
+Let's close our analysis by checking that $n_t = \lambda^t n_0$ generates
+equivalent values of $n(t')$ for integer values $t'=0,1,2,\ldots,T$. To do this
+we'll create another `make_` function but for the discrete formula for $n_t$ 
+(Equation 2). We'll then (literally) add those points 
+to the `unconstrained_plot`, coloring by adoption rate. 
+
+In the code block below we write an R function for $n_t$, `n_t_discrete`, which
+is used by `make_n_discrete_tbl` to create a table of discrete-model values from
+time steps 0 to 20, this time setting `dt = 1`. The function signatures are below. Expand the code block below that to see the full function definitions.
+```{r}
+#| eval: false
+n_t_discrete <- function()
+make_n_discrete_tbl <- function(tmin = 0L, tmax = 20L,  
+                                adopt_rates = seq(0.1, 0.2, 0.025), 
+                                drop_rate = 0.05)
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: "`make_n_discrete_tbl` function definition"
+n_t_discrete <- function(t, adopt_rate = 0.2, drop_rate = 0.1, n_0 = 1) { 
+  lambda <- (1 + adopt_rate - drop_rate)
+  n_t <- n_0 * (lambda ** t)
+  return (n_t)
+}
+make_n_discrete_tbl <- function(tmin = 0L, tmax = 20L,  
+                                adopt_rates = seq(0.1, 0.2, 0.025), 
+                                drop_rate = 0.05) {
+  
+  # Define vector of time points passed to the n function defined above
+  tvec <- tmin:tmax
+  
+  # Create table to plot n_t for different adoption rate (alpha) values
+  n_tbl <- tibble::tibble(
+    # Repeat time vector four times for each alpha.
+    t = rep(tvec, length(adopt_rates)),  
+    
+    # Create n_t vector for each adopt_rate, n_0=1 implicit
+    n_t = 
+      purrr::map(adopt_rates, ~ n(tvec, .x, drop_rate)) |> 
+      purrr::flatten_dbl(),
+    
+    # Repeat adopt rate for each tstep
+    adopt_rate = factor(
+      purrr::map(adopt_rates, ~ rep(.x, length(tvec))) |> 
+      purrr::flatten_dbl(),
+      levels = adopt_rates
+    )
+  )
+  
+  return (n_tbl)
+}
+
+```
+
+```{r}
+n_discrete_tbl <- make_n_discrete_tbl()
+head(n_discrete_tbl, n = 20)
+```
+Plot objects returned by `ggplot2` can be extended. In this case we add points for the discrete time steps, expecting they will line up with the lines plotted above.
+```{r}
+unconstrained_plot_update <- unconstrained_plot + 
+  geom_point(aes(x = t, y = n_t), data = n_discrete_tbl, size = 4, alpha = 0.8)
+print(unconstrained_plot_update)
+```
+
+Success!
+
+##### Agent-based model {.unnumbered}
+
+```{r}
+library(socmod)
+
+# XXX REDEFINING LearningStrategy to be its planned name change in `socmod`
+# XXX REMOVE WHEN FIXED IN SOCMOD. -mt 7/10/2025
+n_agents <- 1
+# Create agents
+agents <- purrr::map(1:n_agents, ~ Agent$new(.x))
+# Initialize one as the seed agent
+seed_id <- sample(1:n_agents, 1)
+agents[[seed_id]]$set_behavior("Adaptive")
+agents[[seed_id]]$set_next_behavior("Adaptive")
+
+# Set up model dynamics
+contagion_partner_selection <- function(focal_agent, model) {
+  # Sample randomly from the population, including self-learning for efficiency
+  return (sample(model$agents, 1)[[1]])
+}
+
+# Contagion interaction depends on 
+contagion_interaction <- function(focal_agent, partner, model) {
+  
+  # If focal does Legacy and parter Adaptive, focal adopts with prob alpha
+  if (focal_agent$behavior_current == "Legacy" && 
+      partner$behavior_current == "Adaptive") {
+    if (runif(1) < model$get_parameter()) {
+      
+    }
+  }
+  
+  # If focal is adaptive or partner legacy, do nothing 
+  # (possibly drop behavior in model step)
+}
 
 
+dynamics <- make_model_dynamics(contagion_partner_selection, 
+                                contagion_interaction, 
+                                contagion_model_step, 
+                                label = "Going Viral")
 
-<!-- ### Discrete- and continuous-time formalism -->
+# Create model
+abm <- 
+  make_abm(
+    n_agents = length(agents),  # need this or a network for `make_abm` 
+    agents = agents,  # required if no graph provided,
+    adoption_rate = 0.2,
+    drop_rate = 0.1
+  )
 
-<!-- Mathematics helps us be specific in a way prose cannot. A mathematical -->
-<!-- *formalism* is a system of symbols, relationships, and equations that specify -->
-<!-- a model of a real-world system. In the social diffusion of sustainable practices,  -->
-<!-- we develop mathematical symbols and  -->
-<!-- equations that describe how the *prevalence* of different behaviors changes over -->
-<!-- time. We will need to describe how likely it is that one person learns a -->
-<!-- behavior from another person, and how likely it is for any one person to stop -->
-<!-- doing the sustainable behavior, reverting to some exhaustive behavior.  -->
+print(abm$get_parameters()$as_list())
+```
 
-<!-- {{< include tables/formal-symbology.html >}} -->
+## Analysis
 
+### Dynamical Systems Invasion Analysis
 
-<!-- ### Simulation -->
+#### Educational Campaigns Provide 1-to-1 Benefits
 
-<!-- Agent-based models help us represent complexity by formalizing how _cognition_ and _social structure_ interact. Each component is modeled separately. _Cognition_ refers to the processes agents use to evaluate and adopt behaviors—drawing on existing knowledge, experience, and social feedback. _Social structure_ refers to constraints on who interacts with whom, shaped by acquaintanceship, geography, institutions, and chance. We model social structure as a _network_: a graph where _nodes_ represent individuals and _edges_ represent relationships through which information or influence can flow. -->
+#### Conformity Cannot Diffuse Sustainable Practices
 
-<!-- We design our simulations to evaluate different intervention strategies based on cognitive factors we deem most important, with social structure that is "good enough" for representing a real-world system.   by vary which agents start with a given behavior or belief, a process often called _seeding_. For example, in a diffusion model, we might seed a behavior with the most connected individuals, a randomly selected group, or individuals located in a particular community. These differences allow us to explore how network structure interacts with initial conditions to shape diffusion outcomes—helping us identify strategies that are more robust, equitable, or efficient. -->
+### Stochastic Dynamics Success Rate Analysis
 
-
-## Models and Analyses
-
-1. Going Viral: Unconstrained Contagion
-1. Bounded Virality: Diffusion in Finite Populations
-1. Viral Friends: Social Networks Constrain Diffusion
-1. Guided Virality: Cultural Evolution via Adaptive Social Learning
-
-### Going Viral: Unconstrained Contagion
-
-
-{{< include Include/diffusion-unconstrained-contagion.qmd >}}
-
-
-### Bounded virality: Finite Populations
-
-
-{{< include Include/diffusion-finite-population.qmd}}
-
-
-
-### Viral friends: social network constraints on diffusion 
-
-
-
-#### The good and the bad of social structure and long-range ties
-
-
-#### Homophily: choice and induced 
-
-**Homophily** is the tendency for similar individuals to associate. We distinguish two forms:
-
--   **Choice homophily**, where individuals actively prefer similar partners;
--   **Induced homophily**, where external constraints (e.g., institutions, geography) create segregation even without conscious preference.
-
-Two empirical illustrations:
-
--   An analysis of remote-work-eligible occupations shows clustering by education, income, and race.
--   A study of minority students in a mostly white MBA program finds that homophily can foster solidarity and resilience.
-
-These examples show that homophily can inhibit or support adaptation, depending on the context.
-
-We also discuss experimental results from Centola (2010, 2011), which show that homophilous networks can outperform random ones in spreading health behaviors—especially when reinforcement and social learning are important.
-
-#### Asymmetric homophily and diffusion
-
-In some cases, homophily is **asymmetric**. One group (often the minority) is more exposed to the other than vice versa. In the "Minority Incubator, Majority Reservoir" model, this asymmetry allows minority-originating adaptations to diffuse outward more effectively.
-
-This structural asymmetry isn’t necessarily intentional—it can emerge from how connections are formed. Yet it has real implications for diffusion, visibility, and adaptation speed.
-
-#### Core-periphery structure
-
-In a **core-periphery** network, a dense core of well-connected individuals is surrounded by a sparsely connected periphery. This structure supports fast diffusion through the core but may limit peripheral influence.
-
-The South Pacific Island case provides an example: core-periphery organization enabled stable adaptation strategies under conditions of uncertainty and risk. These designs may emerge deliberately or organically.
-
-<!-- #### When ties break: cumulative loss -->
-
-<!-- To illustrate the consequences of broken connections, we turn to Henrich’s study of tool diversity in Oceania. When long-range maritime ties between islands broke down, isolated communities lost complex technologies. -->
-
-<!-- This example highlights how network fragmentation can halt or reverse cumulative cultural evolution—a key dynamic in adaptation and innovation. -->
-
-
-### Guided Virality: Cultural Evolution
-
-<!-- {{< include Include/diffusion-guided-virality.qmd >}} -->
-
-
-
-{{< include Include/diffusion-contagion-ce-equivalence.qmd}}
+### Agent-based models
 
 
 
 ## Discussion
 
-The social diffusion of sustainable practices, or any behavior, occurs through social learning between individuals over time. If there are many who have not yet adopted some practice and that practice is more likely to to be adopted than dropped, the spread of that practice will seem like it will forever accelerate. When a significant proportion of individuals in a population begin to 
-
-
-
-This conceptualization generates some new questions whose answers could further serve the cause of promoting sustainability through intelligent intervention design. 
+- The social diffusion of sustainable practices, or any behavior, occurs through
+  social learning between individuals over time. 
+  If there are many who have not yet adopted some practice and that practice is
+  more likely to to be adopted than dropped, the spread of that practice will
+  seem like it will forever accelerate. However, when a significant 
+  proportion of individuals in a population begin to adopt the behavior, the
+  number of potential learners decreases and the change in adaptive behavior
+  prevalence over time begins to decrease. The replicator equation, the
+  cornerstone of evolutionary theory, can be written as a state transition
+  equation, where state transition probabilities correspond to different
+  learning processes. This includes contagion learning. This implies that
+  contagion learning is a special case of the replicator dynamic, which further
+  implies that contagion learning is a special case of cultural evolution,
+  generally construed. 
+- we prove with this that conformity alone cannot diffuse an adaptation.
+  Smaldino (2018) says "sigmoid curves are good indicators of conformist
+  transmission", but this seems to imply that conformist transmission alone
+  cannot possibly generate a sigmoid curve. Since we can obtain contagion
+  diffusion dynamics from the replicator equation, but not vice-versa, this
+  tells us that a sigmoidal prevalence time series alone cannot tell us much
+  beyond some sort of replicator is at work. 
+  The evolutionary replicator dynamic, then, was shown to be equivalent to a state
+  transition dynamic, including contagion transmission. 
+  The behavior switching probabilities provide an abstract
+  process to be filled in and customized for specific investigations. This
+  unlocks the power of invasion analysis for a larger class of learning
+  processes that don't necessarily neatly map onto concepts of *fitness* and
+  *reproduction*, but do specify under what conditions one individual doing one
+  behavior may adopt the alternative behavior. From this we 
+- This conceptualization generates some new questions whose answers could
+  further serve the cause of promoting sustainability through intelligent
+  intervention design. First, it provides a method for formal analysis of invasion
+  dynamics with highly non-linear differential equations. It seems plausible
+  that complex contagion, prestige bias, and social network constraints could be
+  expressed in this framework. Then one simply expands the derivative around 
+  $a << 1$ and calculates the sign, as we did to prove conformity cannot diffuse
+  adaptations.
