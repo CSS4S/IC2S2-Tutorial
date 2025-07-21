@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>2&nbsp; Diffusion – Computational Social Science for Sustainability</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./cooperation.html" rel="next">
+<link href="./intro.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-461959a8d42c1557bf4d45ac26041a3a.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b2ac4f073dc9ae3e7c4033d9166d02d9.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-461959a8d42c1557bf4d45ac26041a3a.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-3e77b230ce543805660c2f380925b0fe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-8c6691cb4d7a5429a410e69681080e83.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-3e77b230ce543805660c2f380925b0fe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<!-- header.html -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&amp;family=Source+Code+Pro:wght@400;500;600;700&amp;display=swap">
+
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    window.setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      window.setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    window.hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(darkModeDefault) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const darkModeDefault = false;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !window.hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+    };
+    // Switch to dark mode if need be
+    if (window.hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./diffusion.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Diffusion</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./css4s-logo-2.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Computational Social Science for Sustainability</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome and preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./diffusion.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Diffusion</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cooperation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Cooperative conservation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">2.1</span> Introduction</a>
+  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview"><span class="header-section-number">2.1.1</span> Overview</a></li>
+  <li><a href="#these-models-not-endorsed-for-beliefopinion-change" id="toc-these-models-not-endorsed-for-beliefopinion-change" class="nav-link" data-scroll-target="#these-models-not-endorsed-for-beliefopinion-change"><span class="header-section-number">2.1.2</span> These models not endorsed for belief/opinion change</a></li>
+  </ul></li>
+  <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model"><span class="header-section-number">2.2</span> Model</a>
+  <ul class="collapse">
+  <li><a href="#the-prevalence-dynamic" id="toc-the-prevalence-dynamic" class="nav-link" data-scroll-target="#the-prevalence-dynamic"><span class="header-section-number">2.2.1</span> The Prevalence Dynamic</a></li>
+  <li><a href="#going-viral-contagion" id="toc-going-viral-contagion" class="nav-link" data-scroll-target="#going-viral-contagion"><span class="header-section-number">2.2.2</span> Going Viral: Contagion</a></li>
+  <li><a href="#guided-virality-cultural-evolution" id="toc-guided-virality-cultural-evolution" class="nav-link" data-scroll-target="#guided-virality-cultural-evolution"><span class="header-section-number">2.2.3</span> Guided Virality: Cultural Evolution</a></li>
+  </ul></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis"><span class="header-section-number">2.3</span> Analysis</a>
+  <ul class="collapse">
+  <li><a href="#frequency-biased-learning" id="toc-frequency-biased-learning" class="nav-link" data-scroll-target="#frequency-biased-learning"><span class="header-section-number">2.3.1</span> Frequency-Biased Learning</a></li>
+  <li><a href="#agent-based-analysis" id="toc-agent-based-analysis" class="nav-link" data-scroll-target="#agent-based-analysis"><span class="header-section-number">2.3.2</span> Agent-based analysis</a></li>
+  </ul></li>
+  <li><a href="#analysis-1" id="toc-analysis-1" class="nav-link" data-scroll-target="#analysis-1"><span class="header-section-number">2.4</span> Analysis</a>
+  <ul class="collapse">
+  <li><a href="#contagion" id="toc-contagion" class="nav-link" data-scroll-target="#contagion"><span class="header-section-number">2.4.1</span> Contagion</a></li>
+  <li><a href="#dynamical-systems-invasion-analysis" id="toc-dynamical-systems-invasion-analysis" class="nav-link" data-scroll-target="#dynamical-systems-invasion-analysis"><span class="header-section-number">2.4.2</span> Dynamical Systems Invasion Analysis</a></li>
+  <li><a href="#stochastic-dynamics-success-rate-analysis" id="toc-stochastic-dynamics-success-rate-analysis" class="nav-link" data-scroll-target="#stochastic-dynamics-success-rate-analysis"><span class="header-section-number">2.4.3</span> Stochastic Dynamics Success Rate Analysis</a></li>
+  <li><a href="#agent-based-models" id="toc-agent-based-models" class="nav-link" data-scroll-target="#agent-based-models"><span class="header-section-number">2.4.4</span> Agent-based models</a></li>
+  </ul></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion"><span class="header-section-number">2.5</span> Discussion</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Diffusion</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><br></p>
+<p>In the context of sustainability and climate adaptation, behavior change often depends not only on individual decisions but also on social networks that constrain who interacts with whom, and whether individuals use adaptive social learning to choose behaviors, as opposed to mindless, probabilistic adoption of new behaviors. When individuals use adaptive social learning to choose between behaviors, this provides the selection mechanism that generates cultural evolution.</p>
+<p><br></p>
+<section id="introduction" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">2.1</span> Introduction</h2>
+<p>The puzzles of diffusion and belief change provide resistance to spreading sustainable practices unless they are addressed. Today a Cambrian explosion in green tech startups and new products and data analytics continues continues. Ancient Indigenous practices have helped humans adapt to climate change for generations upon generations. Unfortunately these practices are ignored in favor of expensive, poorly tested, maladaptive “grey infrastructure”, like sea walls that act more like dams once breached and soak up humanitarian aid like a money sponge. Similarly, In this chapter we build up models of social diffusion via social learning, starting from a minimal specification of how social interaction and learning work. Specifically, we start with the <em>Unconstrained Contagion</em> model of stochastic transmission in a very large population, so new learners of sustainable practices are always available. In this chapter we only consider behaviors that individuals do alone gain benefit. However, the material in this chapter provides the foundation for the next two chapters.</p>
+<p>In the next two chapters, we extend the models developed here to understand the diffusion of behaviors that yield benefits or payoffs only in <em>coordination</em> with others doing either <em>cooperative</em> (i.e., the same) or <em>complementary</em> (i.e., different) behaviors. Promoting the diffusion of cooperation could improve the success rate of natural resource conservation interventions, such as sustainable groundwater usage cooperation to avoid exhausting underground aquifers that people and farms depend on. In the second chapter, we use leader-follower decisions between men and women as a model for how negative social judgements against men who follow women could support despite progress towards gender pay equity, more maternal leave, and other material improvements.</p>
+<section id="overview" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">2.1.1</span> Overview</h3>
+<p>In this chapter we start building our framework for social diffusion, represented by mechanistic mathematical and software models of social transmission and learning. We begin with a simple model of a chain of unconstrained social transmission starting from a single teacher, with no limit on how many people might learn from teachers of teachers of teachers, and so on. We also assume behaviors do not require coordination with others, and so the benefit of doing a behavior is independent of the number of people doing the behavior. I show how we can use discrete-time difference equations, continuous-time differential equations, or agent-based simulation to arrive at the same conclusion: prevalence increases exponentially over time under these assumption. We tag this the <em>Going Viral</em> model as it could represent the “going viral” stage of an emerging trend when there are many potential new adopters and few current adopters <span class="citation" data-cites="Rogers2003 Smaldino2023_Ch4Contagion">(<a href="references.html#ref-Rogers2003" role="doc-biblioref">Rogers 2003</a>; <a href="references.html#ref-Smaldino2023_Ch4Contagion" role="doc-biblioref">Smaldino 2023</a>)</span>.</p>
+<p>To understand how real-world constraints affect diffusion, we scaffold from this unconstrained <em>Going Viral</em> model, adding constraints one at a time and observing their effects. First is the constraint of <em>finite populations</em> in the section <em>Bounded Virality</em> below. Next is the <em>Viral Friends</em> section where we consider the effect of interaction structure, which could be represented by homophily or a social network, for example. Finally, adaptive social learning constrains diffusion to cultural evolutionary dynamics, presented in the section <em>Guided Virality</em>.</p>
+<p>One side effect of this organization is that cultural evolution is revealed as diffusion process. Cultural evolution is enabled and driven by adaptive social learning, which provides selection pressure on behaviors <span class="citation" data-cites="Richerson2020">(<a href="references.html#ref-Richerson2020" role="doc-biblioref">Richerson and Boyd 2020</a>)</span>. <em>Behavior</em> is the analogue of <em>phenotype</em> in genetic evolution; <em>adaptive social learning</em> is the analogue of <em>preferential mating</em> in genetic evolution <span class="citation" data-cites="CavalliFeldman1981 Boyd1995 BoydRicherson2005">(<a href="references.html#ref-CavalliFeldman1981" role="doc-biblioref">Cavalli-Sforza and Feldman 1981</a>; <a href="references.html#ref-Boyd1995" role="doc-biblioref">Boyd and Richerson 1995</a>, <a href="references.html#ref-BoydRicherson2005" role="doc-biblioref">2005</a>)</span>. In both cases, the <em>behavioral gambit</em> and <em>phenotypic gambit</em> are common names for the modeling assumption that knowledge of how to do a behavior, or the genetic encoding for the pheotype, are faithfully transmitted. Furthermore, this <em>gambit</em> assumes that once an individual knows how to do a behavior, they perform it perfectly, or the individual’s genotype is perfectly expressed in the phenotype. A final assumption embedded in this gambit is a one-to-one correspondence between knowledge/genetics and behavior/phenotype.</p>
+<p>In <em>adaptive social learning</em>, model individuals prefer learning from others who are more successful, for example, or perhaps prefer adopting behaviors practiced by a greater number of their social partners <span class="citation" data-cites="Laland2004 Kendal2018 Toyokawa2019">(<a href="references.html#ref-Laland2004" role="doc-biblioref">Laland 2004</a>; <a href="references.html#ref-Kendal2018" role="doc-biblioref">Kendal et al. 2018</a>; <a href="references.html#ref-Toyokawa2019" role="doc-biblioref">Toyokawa, Whalen, and Laland 2019</a>)</span>. If individual psychology is such that more successful individuals are more likely to be chosen as teachers, this is called <em>success-biased learning</em>. When more prevalent behaviors are preferentially learned, this is <em>frequency-biased learning</em>. Keep in mind that these adaptive learning strategies are to cultural evolution what preferential mating is to genetic evolution: adaptive social learning induces evolutionary diffusion dynamics.</p>
+<p>In the two chapters following this one we will harness cultural evolution to understand how norms of cooperation and gender equity in leadership could evolve to sticky equilibria that may take special efforts to deconstruct, even in idealized simulations. These models are the final scaffold on the diffusion model presented here. We represent these coordination problems in sustainability in terms of <em>evolutionary game theory</em>.</p>
+</section>
+<section id="these-models-not-endorsed-for-beliefopinion-change" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="these-models-not-endorsed-for-beliefopinion-change"><span class="header-section-number">2.1.2</span> These models not endorsed for belief/opinion change</h3>
+<p>Social influence dynamics of beliefs or opinions <span class="citation" data-cites="Blau1974 DeGroot1974 Lorenz2007 Flache2011 Turner2018 Galesic2021">(<a href="references.html#ref-Blau1974" role="doc-biblioref">Blau 1974</a>; <a href="references.html#ref-DeGroot1974" role="doc-biblioref">DeGroot 1974</a>; <a href="references.html#ref-Lorenz2007" role="doc-biblioref">Lorenz 2007</a>; <a href="references.html#ref-Flache2011" role="doc-biblioref">Flache and Macy 2011</a>; <a href="references.html#ref-Turner2018" role="doc-biblioref">Turner and Smaldino 2018</a>; <a href="references.html#ref-Galesic2021" role="doc-biblioref">Galesic et al. 2021</a>)</span> are considered as a different class of models in this framework since the thing being transmitted is <em>latent</em>, i.e., not directly observable. In these cases, we can only observe <em>behaviors</em> that either report or belie latent psychological beliefs or opinions. I develop social influence models in terms of our framework later in these notes.</p>
+</section>
+</section>
+<section id="model" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="model"><span class="header-section-number">2.2</span> Model</h2>
+<p>The abstract model of diffusion presented here provides a formal and agent-based framework to be filled in with specific social structure and socio-cognitive processes as appropriate for different contexts. Contexts are specified by, for example, the available behaviors, social network structure, and dominant social learning process, e.g., contagion, success-biased, and conformity.</p>
+<p>We begin by developing a formal modeling system for behavior diffusion that can be used for a number of applications. An evolutionary dynamical systems model that assumes a large (i.e., <span class="math inline">\(N \to \infty\)</span>), well-mixed population time series of behavioral adoption can generate time series and be used for <em>invasion analyses</em> that can provide simple heuristics for understanding how well different learning strategies can promote self-sustaining behavioral diffusion following a sustainability intervention. This diffusion model model is formed by manipulating the replicator equation to be expressed in terms of state transitions. As part of our Analysis section below, I will prove that conformity alone cannot stimulate self-sustaining behavior diffusion when the behavior is initially rare, as is the case currently for truly adaptive, sustainable practices. On the other hand, I will also show that success-biased social learning can be harnessed to stimulate faster spread of sustainable adaptations.</p>
+<p>These state transition probabilities naturally slot in to the Kimura-Crow model of trait diffusion under replicator-like dynamics, but with stochastic dynamics among finite populations. This approach can be used to generate time series of adaptation prevalence, but for our analyses we use another useful feature of this model: its ability to calculate the <em>success rate</em> of an intervention, i.e., the probability that all individuals adopt the adaptive sustainable practice, <span class="math inline">\(A\)</span>. This is commonly known as the <em>fixation probability</em> of a trait in theoretical biology.</p>
+<p>Agent-based modeling is a computational technique that explicitly specifies cognitive attributes and rules that <em>agents</em>, i.e., simulated people follow. I will close this section demonstrating how to develop agent-based models that use different learning rules, social networks, and other model dynamics that mechanistically represent the identical behavior change transition probabilities. For this we will use my R library for agent-based modeling, <a href="https://github.com/CSS4S/socmod"><code>socmod</code></a>. Social scientists can write code that describes how learning works, and who interacts with whom. Formal models help us understand the quantitative implications of our verbal models at the most basic level, often with the most unrealistic assumptions that still prove useful. Agent-based models complement more abstract formal mathematical models by providing scientists with a way to model detail on finer scales and test how additional factors like group structure and social networks affect diffusion.</p>
+<p>Our models generate both <em>observations</em> of prevalence time series and <em>outcomes</em> of whether a simulated intervention is <em>successful</em>. In addition to these, we will analyze the <em>onset dynamics</em> that tell us whether the adaptive behavior will endogenously diffuse. In other words, onset dynamics tell us whether the adaptive behavior will continue to diffuse sociall following direct instruction of the seed set of individuals who participated in the intervention. These analyses will be explained in further detail as needed in the Analysis following the model exposition.</p>
+<section id="the-prevalence-dynamic" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="the-prevalence-dynamic"><span class="header-section-number">2.2.1</span> The Prevalence Dynamic</h3>
+<p>The <em>prevalence</em> of a behavior is the fraction of a population that has adopted that behavior. The prevalence of adaptive behavior <span class="math inline">\(A\)</span> at time <span class="math inline">\(t\)</span> is denoted <span class="math inline">\(a_t\)</span> if we are considering discrete time, where the time between one time step and another is one, i.e., <span class="math inline">\(\Delta t = 1\)</span>. In computational science, <span class="math inline">\(\Delta\)</span> to the left of another variable means <em>change in</em>.</p>
+<p>The <em>prevalence dynamic</em> for behavior diffusion with two options represents the change in <span class="math inline">\(a\)</span> over one time step. For discrete time, the change in prevalence, <span class="math inline">\(\Delta a_t\)</span>, over one time step, <span class="math inline">\(\Delta t = 1\)</span>, is <span class="math display">\[
+\frac{\Delta a_t}{\Delta t}  = \Delta a_t = (1 - a_t)P(A \mid L)+ a_t~P(L \mid A).
+\]</span> In words this says that the change in <span class="math inline">\(a\)</span> <em>increases</em> by the chance that an <span class="math inline">\(L\)</span>-doer changes to be an <span class="math inline">\(A\)</span>-doer, scaled by the prevalence of <span class="math inline">\(L\)</span>-doers in the population, which is <span class="math inline">\(1 - a\)</span>. The</p>
+<p>We can do a mathematical trick where we let the change in time get very small, written as an arrow point towards, or “going to”, zero: <span class="math inline">\(\Delta t \to 0\)</span>. Then instead of writing <span class="math inline">\(\Delta t\)</span> we write the change as <span class="math inline">\(dt\)</span>, where the letter <em>d</em> stands in for the symbol indicating change, but now a <em>small</em> one. If time changes very little for every iteration of the model, then prevalence changes very little, too. Then we have that <span class="math inline">\(\Delta a \to da\)</span> as well. This brings us from a discrete to a continuous model, and now we can use calculus to understand how different socio-cognitive mechanisms and processes affect whether prevalence dynamics lead to widespread diffusion. In this case, we drop the subscript <span class="math inline">\(t\)</span> on prevalence, and hide the <span class="math inline">\((t)\)</span> part of the continuous prevalence <span class="math inline">\(a(t)\)</span> so that the prevalence dynamic becomes <span class="math display">\[
+\frac{da}{dt}= (1 - a)P(A \mid L)+ aP(L \mid A).
+\]</span></p>
+</section>
+<section id="going-viral-contagion" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="going-viral-contagion"><span class="header-section-number">2.2.2</span> Going Viral: Contagion</h3>
+<p>The contagion model of social transmission make minimal assumptions, but still enable helpful analyses. Here I present the contagion model of social diffusion obtained through specifying appropriate <span class="math inline">\(P(A \mid L)\)</span> and <span class="math inline">\(P(L \mid A)\)</span> in the prevalence dynamic. The first assumption of contagion is that <span class="math inline">\(L\)</span>-doers switch behavior and adopt <span class="math inline">\(A\)</span> with some chance, <span class="math inline">\(\alpha\)</span>, when they interact with an <span class="math inline">\(A\)</span>-doer. The second assumption is that <span class="math inline">\(A\)</span>-doers sometimes can not or do not continue doing the adaptive behavior, and <em>drop</em> it with probabiity <span class="math inline">\(\delta\)</span>. Dropping an adaptation could be incidental, for example if someone had installed residential solar at one home, but they are moving somewhere else that doesn’t have residential solar, and so will have to stop doing the behavior <em>generate home electricity with solar energy</em>, at least for some time. It could also be due to forgetting, changing preferences, or any other possible explanation.</p>
+<p>We represent contagion assumptions in <span class="math inline">\(P(A \mid L)\)</span> and <span class="math inline">\(P(L \mid A)\)</span> as <span class="math display">\[
+P(A \mid L)= \alpha a, \quad P(L \mid A)= \delta.
+\]</span></p>
+<p><br></p>
+<section id="bounded-virality-finite-populations" class="level4">
+<h4 class="anchored" data-anchor-id="bounded-virality-finite-populations">Bounded Virality: Finite Populations</h4>
+<p><span style="color: red">Redo this by writing full contagion <span class="math inline">\(a(t)\)</span> the doing <span class="math inline">\(a &lt;&lt; 1\)</span> approximation</span></p>
+<p>Now we need to account for the fact that as time goes on and the adaptation spreads, the approximation <span class="math inline">\(n &lt;&lt; N\)</span> becomes less accurate. We need dynamics that account for the fact that as more people adopt <span class="math inline">\(A\)</span> there are fewer people available to adopt <span class="math inline">\(A\)</span>, so <span class="math inline">\(\frac{dn}{dt}\)</span> must eventually decrease as <span class="math inline">\(n\)</span> increases.</p>
+<p>A trick to make this analysis easier is to work with <em>prevalence</em> of <span class="math inline">\(A\)</span> instead of the number of adopters, which was <span class="math inline">\(n\)</span>. We write <span class="math inline">\(a(t)\)</span>, or just <span class="math inline">\(a\)</span>, for the prevalence of <span class="math inline">\(A\)</span> over time. The <em>prevalence</em> of a behavior in this case is the fraction of individuals in a population who have adopted that behavior. Therefore <span class="math inline">\(a(t) \in [0, 1]\)</span>. We’ll continue working with differential equations and continuous variables because it makes available the calculus toolset to analyze dynamics.</p>
+<p>To incorporate finite populations into our learning dynamics, we scale the growth term from unbounded contagion by the prevalence of <span class="math inline">\(L\)</span> in the population, since only individuals performing <span class="math inline">\(L\)</span> can switch to adopt <span class="math inline">\(A\)</span> when these are the only two behaviors, as we constrain our model to here. In other words, <span class="math inline">\(\alpha
+\to (1 - a) \alpha\)</span> in the prevalence</p>
+</section>
+</section>
+<section id="guided-virality-cultural-evolution" class="level3" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="guided-virality-cultural-evolution"><span class="header-section-number">2.2.3</span> Guided Virality: Cultural Evolution</h3>
+<p>Cultural evolution has provided many explanations for previously mysterious phenomena, such as cultural ratcheting , identity signaling, the evolution of bad science <span class="citation" data-cites="Smaldino2016NatSel Smaldino2019">(<a href="references.html#ref-Smaldino2016NatSel" role="doc-biblioref">Smaldino and McElreath 2016</a>; <a href="references.html#ref-Smaldino2019" role="doc-biblioref">Smaldino, Turner, and Contreras Kallens 2019</a>)</span>, and more. Its power comes from its formulation of human populations as a system of replicators who pass on their “trait” to their “offspring”. However, as time has progressed, we can see that previous formulations perhaps overcomplicated the situation by assuming that the locus of the <em>cultural selection</em> process is preferential mating, resulting in Punnet-square style pairings of diploid <em>alleles</em> that stand in for <em>behaviors</em> in the classic formulation <span class="citation" data-cites="CavalliFeldman1981">(<a href="references.html#ref-CavalliFeldman1981" role="doc-biblioref">Cavalli-Sforza and Feldman 1981</a>)</span>. One additional hidden assumption powers the use of classic genetic evolution and cultural evolution alike: the <em>phenotypic gambit</em> in genetic evolution assumes that an individual’s phenotype (e.g., an expressed trait <span class="math inline">\(A\)</span>) is a suitable stand-in for the genetic material, the <em>allele</em>. In our model we make a similar, but distinct, assumption. When we say a behavior is transmitted, this includes acquiring the necessary skills to do the behavior. The learning process itself is abstracted away in basic models of cultural evolution like this one.</p>
+<p>To show that the prevalence dynamic can represent cultural evolution, we show it is actually equivalent to the <em>replicator equation</em> first, without mutation. We exclude mutation because in most cases there already are sustainable practices we could be doing more, but they haven’t diffused widely. Some Indigenous sustainable practices have existed for millenia, like mangrove forest management for mitigating sea inundation <span class="citation" data-cites="McNamara2020 Piggott-McKellar2020">(<a href="references.html#ref-McNamara2020" role="doc-biblioref">McNamara et al. 2020</a>; <a href="references.html#ref-Piggott-McKellar2020" role="doc-biblioref">Piggott-McKellar et al. 2020</a>)</span> and prescribed burns to mitigate the risk of catastrophic fire <span class="citation" data-cites="Eisenberg2019 Kolden2019">(<a href="references.html#ref-Eisenberg2019" role="doc-biblioref">Eisenberg et al. 2019</a>; <a href="references.html#ref-Kolden2019" role="doc-biblioref">Kolden 2019</a>)</span>. Our focus is endogenous dynamics, so mutation could be ignored for strategic reasons as well. To summarize, the</p>
+<p><span class="math display">\[
+\frac{da}{dt} = a(w_A - \bar{w})
+\]</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(a\)</span>: frequency of type $A $</li>
+<li><span class="math inline">\(w_A\)</span>: differential reproduction rate of type $A $</li>
+<li><span class="math inline">\(\bar{w} = a w_A + (1 - a) w_L\)</span>: average reproduction rate</li>
+</ul>
+<p>This isn’t about imitation — it models how types spread when some individuals leave more offspring than others.</p>
+<p>In cultural evolution, though, traits spread through <strong>learning</strong>, not reproduction. So we reinterpret this equation using <strong>behavioral transitions</strong> instead.</p>
+<p>We now show how the replicator equation can be re-expressed in terms of individual-level transitions:</p>
+<p>Start from: <span class="math display">\[
+\frac{da}{dt} = a(w_A - \bar{w})
+\]</span></p>
+<p>Substitute <span class="math inline">\(\bar{w} = a w_A + (1 - a) w_L\)</span>: <span class="math display">\[
+\frac{da}{dt} = a(w_A - a w_A - (1 - a) w_L) = a(1 - a)(w_A - w_L)
+\]</span></p>
+<p>Now divide and multiply by <span class="math inline">\(\bar{w}\)</span>: <span class="math display">\[
+\frac{da}{dt} = \frac{a(1 - a)}{\bar{w}}(w_A - w_L) \cdot \bar{w}
+\]</span></p>
+<p>Define: <span class="math display">\[
+P(A \mid L) = \frac{a w_A}{\bar{w}}, \quad P(L \mid A) = \frac{(1 - a) w_L}{\bar{w}}
+\]</span></p>
+<p>Then: <span class="math display">\[
+\frac{da}{dt} = (1 - a) P(A \mid L) - a P(L \mid A)
+\]</span></p>
+<section id="success-biased-learning" class="level4">
+<h4 class="anchored" data-anchor-id="success-biased-learning">Success-Biased Learning</h4>
+<p>Learners using the success-biased strategy preferentially select teachers with greater apparent fitness. In our models fitness values are the same for every behavior for every agent. We call <span class="math inline">\(f_A\)</span> the from doing the behavior <span class="math inline">\(A\)</span>, the adaptive behavior. Similarly, <span class="math inline">\(f_L\)</span> is the fitness gained from doing the legacy behavior, <span class="math inline">\(L\)</span>.</p>
+<p>We now formalize the success-biased learning model by writing equations for <span class="math inline">\(P(A|L)\)</span> and <span class="math inline">\(P(L|A)\)</span> based on their verbal description <span class="citation" data-cites="Smaldino2020d">(<a href="references.html#ref-Smaldino2020d" role="doc-biblioref">Smaldino 2020</a>)</span>. For someone currently doing <span class="math inline">\(L\)</span>, the chance they will adopt practice <span class="math inline">\(A\)</span> instead is proportional to the prevalence of <span class="math inline">\(A\)</span>, <span class="math inline">\(a\)</span>, and the fitness of those doing that behavior, <span class="math inline">\(f_A\)</span>. <span class="math display">\[
+P(A \mid L) \propto a f_A.
+\]</span></p>
+<p>Similarly, if one is doing <span class="math inline">\(A\)</span>, the chance they will adopt <span class="math inline">\(L\)</span> instead is proportional to <span class="math display">\[
+P(L \mid A) \propto (1 - a) f_L
+\]</span></p>
+<p>We need to normalize by the sum of the probabilities since these must sum to 1. This sum happens to be the mean <span class="math display">\[
+\bar{f} = a f_A + (1 - a) f_L.
+\]</span></p>
+<p>This gives:</p>
+<p><span class="math display">\[
+\frac{da}{dt} = \frac{a(1 - a)}{\bar{f}} (w_A - w_L)
+\]</span></p>
+</section>
+<section id="construction-using-socmod" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="construction-using-socmod">Construction using <code>socmod</code></h4>
+<p>Fill in after Analysis done, i.e., after model is built and analyses posted in this chapter in the appropriate section below.</p>
+</section>
+</section>
+</section>
+<section id="analysis" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="analysis"><span class="header-section-number">2.3</span> Analysis</h2>
+<section id="frequency-biased-learning" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="frequency-biased-learning"><span class="header-section-number">2.3.1</span> Frequency-Biased Learning</h3>
+<p>We then modeled <strong>frequency bias</strong> using an exponent <span class="math inline">\(\gamma = \log \kappa\)</span>, giving:</p>
+<p><span class="math display">\[
+P(A) = \frac{a^{1+\gamma}}{a^{1+\gamma}+ (1 - a)^{1 + \gamma}}
+\]</span></p>
+<p>If everyone copies in proportion to frequency, then:</p>
+<p><span class="math display">\[
+\frac{da}{dt} = P(A) - a = \frac{a^\gamma}{a^\gamma + (1 - a)^\gamma} - a
+\]</span></p>
+<p>We also simplified this to a symmetric form:</p>
+<p><span class="math display">\[
+\frac{da}{dt} = \frac{a^\gamma(1 - a) - a(1 - a)^\gamma}{a^\gamma + (1 - a)^\gamma}
+\]</span></p>
+<section id="onset-dynamics" class="level4">
+<h4 class="anchored" data-anchor-id="onset-dynamics">Onset dynamics</h4>
+<p>To analyze behavior near <span class="math inline">\(a = 0\)</span>, we expanded:</p>
+<ul>
+<li>$a^ $</li>
+<li>$(1 - a)^ - a + a^2 - a^3 + $</li>
+</ul>
+<p>Then:</p>
+<p><strong>Numerator</strong>: <span class="math display">\[
+-a + \gamma a^2 - \frac{\gamma(\gamma - 1)}{2} a^3
+\]</span></p>
+<p><strong>Denominator</strong>: <span class="math display">\[
+1 - \gamma a + \frac{\gamma(\gamma - 1)}{2} a^2
+\]</span></p>
+<p>So:</p>
+<p><span class="math display">\[
+\frac{da}{dt} \approx -a + \gamma a^2 - \left(\frac{\gamma(\gamma - 1)}{2} + \gamma^2\right) a^3 + \mathcal{O}(a^4)
+\]</span></p>
+<p>This shows that: - For <strong>any finite $$</strong>, $ &lt; 0 $near $a = 0 $ - Only in the limit <span class="math inline">\(\gamma \to -\infty\)</span> (strong anti-conformity) does <span class="math inline">\(\frac{da}{dt} &gt; 0\)</span> near zero</p>
+<hr>
+</section>
+<section id="the-anti-conformity-paradox" class="level4">
+<h4 class="anchored" data-anchor-id="the-anti-conformity-paradox">The Anti-Conformity Paradox</h4>
+<ul>
+<li><strong>Anti-conformity enables invasion but prevents retention</strong></li>
+<li><strong>Conformity enables retention but blocks invasion</strong></li>
+</ul>
+<p>So frequency bias alone cannot explain the emergence and spread of adaptive behaviors. Other forces (e.g.&nbsp;success bias, drift, coordination) are required.</p>
+</section>
+<section id="broader-implication" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="broader-implication">Broader Implication</h4>
+<p>This framework — based on transition probabilities — unifies: - Success bias - Frequency bias - Replicator dynamics - Epidemic-style (SIS) models</p>
+<p>And it reveals a core result: <strong>conformity blocks innovation</strong>, while <strong>anti-conformity can never sustain it</strong>.</p>
+<p>These dynamics can also be tuned developmentally, suggesting new bridges to psychology and life-history theory.</p>
+</section>
+</section>
+<section id="agent-based-analysis" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="agent-based-analysis"><span class="header-section-number">2.3.2</span> Agent-based analysis</h3>
+<section id="prevalence-dyanmics" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="prevalence-dyanmics">Prevalence dyanmics</h4>
+<p>The discrete model can be represented as the following function that takes variables corresponding to time, <code>t</code>, an adoption rate, <code>adopt_rate</code>, and the drop rate, <code>drop_rate</code>, which are <span class="math inline">\(t\)</span>, <span class="math inline">\(\alpha\)</span>, and <span class="math inline">\(\delta\)</span> in math.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="cf">function</span>(t, <span class="at">adopt_rate =</span> <span class="fl">0.2</span>, <span class="at">drop_rate =</span> <span class="fl">0.1</span>, <span class="at">n_0 =</span> <span class="dv">1</span>) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  rho <span class="ot">&lt;-</span> adopt_rate <span class="sc">-</span> drop_rate</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  n_ret <span class="ot">&lt;-</span> n_0 <span class="sc">*</span> <span class="fu">exp</span>(rho <span class="sc">*</span> t)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (n_ret)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>I will now create a table of values for <span class="math inline">\(n(t)\)</span> for different adoption rates, <span class="math inline">\(\alpha \in \{0.1, 0.105, 0.2, 0.5\}\)</span>, all with the same drop rate, <span class="math inline">\(\delta = 0.1\)</span>. I’ll make a function to encapsulate the boilerplate steps called <code>make_n_tbl</code> in the code block below (unfold to view). It uses some helpful default settings to make an interesting visualization, which we do below. Below is the function signature for <code>make_n_tbl</code>, with the full function definition provided in a folded code block below that. Click the triangle to unfold the full definition.</p>
+<p><span class="math display">\[
+\frac{da}{dt}= \dot a =
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>make_n_tbl <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">tmin =</span> <span class="fl">0.0</span>, <span class="at">tmax =</span> <span class="fl">20.0</span>, <span class="at">dt =</span> <span class="fl">0.2</span>, </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">adopt_rates =</span> <span class="fu">seq</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.025</span>), <span class="at">drop_rate =</span> <span class="fl">0.05</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary><code>make_n_tbl</code> function definition</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>make_n_tbl <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">tmin =</span> <span class="fl">0.0</span>, <span class="at">tmax =</span> <span class="fl">20.0</span>, <span class="at">dt =</span> <span class="fl">0.2</span>, </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">adopt_rates =</span> <span class="fu">seq</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.025</span>), <span class="at">drop_rate =</span> <span class="fl">0.05</span>) {</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Define vector of time points passed to the n function defined above</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  tvec <span class="ot">&lt;-</span> <span class="fu">seq</span>(tmin, tmax, dt)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create table to plot n_t for different adoption rate (alpha) values</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  n_tbl <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Repeat time vector four times for each alpha.</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">t =</span> <span class="fu">rep</span>(tvec, <span class="fu">length</span>(adopt_rates)),  </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create n_t vector for each adopt_rate, n_0=1 implicit</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_t =</span> </span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>      purrr<span class="sc">::</span><span class="fu">map</span>(adopt_rates, <span class="sc">~</span> <span class="fu">n</span>(tvec, .x, drop_rate)) <span class="sc">|&gt;</span> </span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>      purrr<span class="sc">::</span><span class="fu">flatten_dbl</span>(),</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Repeat adopt rate for each tstep</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">adopt_rate =</span> <span class="fu">factor</span>(</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>      purrr<span class="sc">::</span><span class="fu">map</span>(adopt_rates, <span class="sc">~</span> <span class="fu">rep</span>(.x, <span class="fu">length</span>(tvec))) <span class="sc">|&gt;</span> </span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>      purrr<span class="sc">::</span><span class="fu">flatten_dbl</span>(),</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> adopt_rates</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (n_tbl)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Now let’s use <code>ggplot2</code> to plot the series for each adoption rate, which will be indicated by line color and type.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>n_tbl <span class="ot">&lt;-</span> <span class="fu">make_n_tbl</span>()</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>unconstrained_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(n_tbl, <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> n_t, </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">color =</span> adopt_rate, </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">linetype=</span>adopt_rate)) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span> <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(unconstrained_plot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="diffusion_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="check-discrete-and-continuous-are-equivalent" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="check-discrete-and-continuous-are-equivalent">Check discrete and continuous are equivalent</h4>
+<p>Let’s close our analysis by checking that <span class="math inline">\(n_t = \lambda^t n_0\)</span> generates equivalent values of <span class="math inline">\(n(t')\)</span> for integer values <span class="math inline">\(t'=0,1,2,\ldots,T\)</span>. To do this we’ll create another <code>make_</code> function but for the discrete formula for <span class="math inline">\(n_t\)</span> (Equation 2). We’ll then (literally) add those points to the <code>unconstrained_plot</code>, coloring by adoption rate.</p>
+<p>In the code block below we write an R function for <span class="math inline">\(n_t\)</span>, <code>n_t_discrete</code>, which is used by <code>make_n_discrete_tbl</code> to create a table of discrete-model values from time steps 0 to 20, this time setting <code>dt = 1</code>. The function signatures are below. Expand the code block below that to see the full function definitions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>n_t_discrete <span class="ot">&lt;-</span> <span class="cf">function</span>()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>make_n_discrete_tbl <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">tmin =</span> <span class="dv">0</span>L, <span class="at">tmax =</span> <span class="dv">20</span>L,  </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">adopt_rates =</span> <span class="fu">seq</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.025</span>), </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                                <span class="at">drop_rate =</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary><code>make_n_discrete_tbl</code> function definition</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>n_t_discrete <span class="ot">&lt;-</span> <span class="cf">function</span>(t, <span class="at">adopt_rate =</span> <span class="fl">0.2</span>, <span class="at">drop_rate =</span> <span class="fl">0.1</span>, <span class="at">n_0 =</span> <span class="dv">1</span>) { </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  lambda <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">+</span> adopt_rate <span class="sc">-</span> drop_rate)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  n_t <span class="ot">&lt;-</span> n_0 <span class="sc">*</span> (lambda <span class="sc">**</span> t)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (n_t)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>make_n_discrete_tbl <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">tmin =</span> <span class="dv">0</span>L, <span class="at">tmax =</span> <span class="dv">20</span>L,  </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                                <span class="at">adopt_rates =</span> <span class="fu">seq</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.025</span>), </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                                <span class="at">drop_rate =</span> <span class="fl">0.05</span>) {</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Define vector of time points passed to the n function defined above</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  tvec <span class="ot">&lt;-</span> tmin<span class="sc">:</span>tmax</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create table to plot n_t for different adoption rate (alpha) values</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  n_tbl <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Repeat time vector four times for each alpha.</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">t =</span> <span class="fu">rep</span>(tvec, <span class="fu">length</span>(adopt_rates)),  </span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create n_t vector for each adopt_rate, n_0=1 implicit</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_t =</span> </span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>      purrr<span class="sc">::</span><span class="fu">map</span>(adopt_rates, <span class="sc">~</span> <span class="fu">n</span>(tvec, .x, drop_rate)) <span class="sc">|&gt;</span> </span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>      purrr<span class="sc">::</span><span class="fu">flatten_dbl</span>(),</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Repeat adopt rate for each tstep</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">adopt_rate =</span> <span class="fu">factor</span>(</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>      purrr<span class="sc">::</span><span class="fu">map</span>(adopt_rates, <span class="sc">~</span> <span class="fu">rep</span>(.x, <span class="fu">length</span>(tvec))) <span class="sc">|&gt;</span> </span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>      purrr<span class="sc">::</span><span class="fu">flatten_dbl</span>(),</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> adopt_rates</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (n_tbl)</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>n_discrete_tbl <span class="ot">&lt;-</span> <span class="fu">make_n_discrete_tbl</span>()</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(n_discrete_tbl, <span class="at">n =</span> <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 20 × 3
+       t   n_t adopt_rate
+   &lt;int&gt; &lt;dbl&gt; &lt;fct&gt;     
+ 1     0  1    0.1       
+ 2     1  1.05 0.1       
+ 3     2  1.11 0.1       
+ 4     3  1.16 0.1       
+ 5     4  1.22 0.1       
+ 6     5  1.28 0.1       
+ 7     6  1.35 0.1       
+ 8     7  1.42 0.1       
+ 9     8  1.49 0.1       
+10     9  1.57 0.1       
+11    10  1.65 0.1       
+12    11  1.73 0.1       
+13    12  1.82 0.1       
+14    13  1.92 0.1       
+15    14  2.01 0.1       
+16    15  2.12 0.1       
+17    16  2.23 0.1       
+18    17  2.34 0.1       
+19    18  2.46 0.1       
+20    19  2.59 0.1       </code></pre>
+</div>
+</div>
+<p>Plot objects returned by <code>ggplot2</code> can be extended. In this case we add points for the discrete time steps, expecting they will line up with the lines plotted above.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>unconstrained_plot_update <span class="ot">&lt;-</span> unconstrained_plot <span class="sc">+</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> n_t), <span class="at">data =</span> n_discrete_tbl, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(unconstrained_plot_update)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="diffusion_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Success!</p>
+<section id="agent-based-model" class="level5 unnumbered">
+<h5 class="unnumbered anchored" data-anchor-id="agent-based-model">Agent-based model</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(socmod)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># XXX REDEFINING LearningStrategy to be its planned name change in `socmod`</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># XXX REMOVE WHEN FIXED IN SOCMOD. -mt 7/10/2025</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>n_agents <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create agents</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>agents <span class="ot">&lt;-</span> purrr<span class="sc">::</span><span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span>n_agents, <span class="sc">~</span> Agent<span class="sc">$</span><span class="fu">new</span>(.x))</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize one as the seed agent</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>seed_id <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>n_agents, <span class="dv">1</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>agents[[seed_id]]<span class="sc">$</span><span class="fu">set_behavior</span>(<span class="st">"Adaptive"</span>)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>agents[[seed_id]]<span class="sc">$</span><span class="fu">set_next_behavior</span>(<span class="st">"Adaptive"</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up model dynamics</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>contagion_partner_selection <span class="ot">&lt;-</span> <span class="cf">function</span>(focal_agent, model) {</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Sample randomly from the population, including self-learning for efficiency</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (<span class="fu">sample</span>(model<span class="sc">$</span>agents, <span class="dv">1</span>)[[<span class="dv">1</span>]])</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Contagion interaction depends on </span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>contagion_interaction <span class="ot">&lt;-</span> <span class="cf">function</span>(focal_agent, partner, model) {</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># If focal does Legacy and parter Adaptive, focal adopts with prob alpha</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (focal_agent<span class="sc">$</span>behavior_current <span class="sc">==</span> <span class="st">"Legacy"</span> <span class="sc">&amp;&amp;</span> </span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>      partner<span class="sc">$</span>behavior_current <span class="sc">==</span> <span class="st">"Adaptive"</span>) {</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">runif</span>(<span class="dv">1</span>) <span class="sc">&lt;</span> model<span class="sc">$</span><span class="fu">get_parameter</span>()) {</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># If focal is adaptive or partner legacy, do nothing </span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># (possibly drop behavior in model step)</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>dynamics <span class="ot">&lt;-</span> </span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">make_learning_strategy</span>(contagion_partner_selection, </span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>                         contagion_interaction, </span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>                         contagion_model_step, </span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>                         <span class="at">label =</span> <span class="st">"Going Viral"</span>)</span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Create model</span></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>abm <span class="ot">&lt;-</span> </span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">make_abm</span>(</span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_agents =</span> <span class="fu">length</span>(agents),  <span class="co"># need this or a network for `make_abm` </span></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">agents =</span> agents,  <span class="co"># required if no graph provided,</span></span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">adoption_rate =</span> <span class="fl">0.2</span>,</span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">drop_rate =</span> <span class="fl">0.1</span></span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(abm<span class="sc">$</span><span class="fu">get_parameters</span>()<span class="sc">$</span><span class="fu">as_list</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$learning_strategy
+&lt;LearningStrategy&gt;
+  Public:
+    clone: function (deep = FALSE) 
+    get_interaction: function () 
+    get_label: function () 
+    get_model_step: function () 
+    get_partner_selection: function () 
+    initialize: function (partner_selection, interaction, model_step, label) 
+  Private:
+    .interaction: function (learner, teacher, model) 
+    .label: Success-biased
+    .model_step: function (model) 
+    .partner_selection: function (learner, model) 
+
+$graph
+IGRAPH 2d3a0ab UN-- 1 0 -- Full graph
++ attr: name (g/c), loops (g/l), label (g/c), name (v/c)
++ edges from 2d3a0ab (vertex names):
+
+$n_agents
+[1] 1
+
+$adoption_rate
+[1] 0.2
+
+$drop_rate
+[1] 0.1</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section id="analysis-1" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="analysis-1"><span class="header-section-number">2.4</span> Analysis</h2>
+<section id="contagion" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="contagion"><span class="header-section-number">2.4.1</span> Contagion</h3>
+<section id="dynamics" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="dynamics">Dynamics</h4>
+<p>When <span class="math inline">\(t\)</span> is continuous we can write the number of adopters of <span class="math inline">\(A\)</span> as a mathematical function of time with <span class="math inline">\(t\)</span> in parentheses: <span class="math inline">\(n(t)\)</span>. Instead of a recursion equation:</p>
+<p><span class="math display">\[
+\frac{da}{dt} = \alpha a - \delta a
+\]</span></p>
+<p>Which integrates to: <span class="math display">\[
+a(t) = a_0 a^{\rho t},
+\]</span> where <span class="math inline">\(\rho = \alpha - \delta\)</span>.</p>
+<p>If we restrict <span class="math inline">\(t\)</span> to integers, i.e., <span class="math inline">\(t \in \{0, 1, \ldots, T\}\)</span>, then: <span class="math display">\[
+a(t) = \{a_0, a_0 \cdot e^{\rho}, a_0 \cdot e^{2\rho}, \ldots, a_0 \cdot e^{T\rho}\}.
+\]</span></p>
+<p>This implies that <span class="math inline">\(e^\rho = \lambda\)</span>, so: <span class="math display">\[
+\rho = \ln \lambda.
+\]</span></p>
+<p>We can verify this algebraically. If: <span class="math display">\[
+n_0 e^{t'\rho} = n_0 \lambda^{t'},
+\]</span> then dividing both sides by <span class="math inline">\(n_0\)</span> and taking the natural logarithm gives: <span class="math display">\[
+\ln e^{t'\rho} = \ln \lambda^{t'},
+\]</span> and using the identity <span class="math inline">\(\log_b(x^y) = y \log_b(x)\)</span>: <span class="math display">\[
+t' \ln e^\rho = t' \ln \lambda.
+\]</span></p>
+<p>Dividing both sides by <span class="math inline">\(t'\)</span> and noting that <span class="math inline">\(\ln e^\rho = \rho\)</span>, we confirm: <span class="math display">\[
+\rho = \ln \lambda,
+\]</span> visualized in Figure 4.X.</p>
+</section>
+</section>
+<section id="dynamical-systems-invasion-analysis" class="level3" data-number="2.4.2">
+<h3 data-number="2.4.2" class="anchored" data-anchor-id="dynamical-systems-invasion-analysis"><span class="header-section-number">2.4.2</span> Dynamical Systems Invasion Analysis</h3>
+<section id="educational-campaigns-provide-1-to-1-benefits" class="level4">
+<h4 class="anchored" data-anchor-id="educational-campaigns-provide-1-to-1-benefits">Educational Campaigns Provide 1-to-1 Benefits</h4>
+</section>
+<section id="conformity-cannot-diffuse-sustainable-practices" class="level4">
+<h4 class="anchored" data-anchor-id="conformity-cannot-diffuse-sustainable-practices">Conformity Cannot Diffuse Sustainable Practices</h4>
+</section>
+</section>
+<section id="stochastic-dynamics-success-rate-analysis" class="level3" data-number="2.4.3">
+<h3 data-number="2.4.3" class="anchored" data-anchor-id="stochastic-dynamics-success-rate-analysis"><span class="header-section-number">2.4.3</span> Stochastic Dynamics Success Rate Analysis</h3>
+</section>
+<section id="agent-based-models" class="level3" data-number="2.4.4">
+<h3 data-number="2.4.4" class="anchored" data-anchor-id="agent-based-models"><span class="header-section-number">2.4.4</span> Agent-based models</h3>
+</section>
+</section>
+<section id="discussion" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="discussion"><span class="header-section-number">2.5</span> Discussion</h2>
+<ul>
+<li>The social diffusion of sustainable practices, or any behavior, occurs through social learning between individuals over time. If there are many who have not yet adopted some practice and that practice is more likely to to be adopted than dropped, the spread of that practice will seem like it will forever accelerate. However, when a significant proportion of individuals in a population begin to adopt the behavior, the number of potential learners decreases and the change in adaptive behavior prevalence over time begins to decrease. The replicator equation, the cornerstone of evolutionary theory, can be written as a state transition equation, where state transition probabilities correspond to different learning processes. This includes contagion learning. This implies that contagion learning is a special case of the replicator dynamic, which further implies that contagion learning is a special case of cultural evolution, generally construed.</li>
+<li>we prove with this that conformity alone cannot diffuse an adaptation. Smaldino (2018) says “sigmoid curves are good indicators of conformist transmission”, but this seems to imply that conformist transmission alone cannot possibly generate a sigmoid curve. Since we can obtain contagion diffusion dynamics from the replicator equation, but not vice-versa, this tells us that a sigmoidal prevalence time series alone cannot tell us much beyond some sort of replicator is at work. The evolutionary replicator dynamic, then, was shown to be equivalent to a state transition dynamic, including contagion transmission. The behavior switching probabilities provide an abstract process to be filled in and customized for specific investigations. This unlocks the power of invasion analysis for a larger class of learning processes that don’t necessarily neatly map onto concepts of <em>fitness</em> and <em>reproduction</em>, but do specify under what conditions one individual doing one behavior may adopt the alternative behavior. From this we</li>
+<li>This conceptualization generates some new questions whose answers could further serve the cause of promoting sustainability through intelligent intervention design. First, it provides a method for formal analysis of invasion dynamics with highly non-linear differential equations. It seems plausible that complex contagion, prestige bias, and social network constraints could be expressed in this framework. Then one simply expands the derivative around <span class="math inline">\(a &lt;&lt; 1\)</span> and calculates the sign, as we did to prove conformity cannot diffuse adaptations.</li>
+</ul>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-Blau1974" class="csl-entry" role="listitem">
+Blau, Peter M. 1974. <span>“<span class="nocase">Parameters of social structure</span>.”</span> <em>American Sociological Review</em> 39 (5): 615–35.
+</div>
+<div id="ref-Boyd1995" class="csl-entry" role="listitem">
+Boyd, Robert, and Peter J. Richerson. 1995. <span>“<span class="nocase">Why culture is common, but cultural evolution is rare</span>.”</span> <em>Proceedings of the British Academy</em> 88: 77–93. <a href="https://doi.org/citeulike-article-id:1339814">https://doi.org/citeulike-article-id:1339814</a>.
+</div>
+<div id="ref-BoydRicherson2005" class="csl-entry" role="listitem">
+———. 2005. <em><span class="nocase">The Origin and Evolution of Cultures</span></em>. New York: Oxford University Press.
+</div>
+<div id="ref-CavalliFeldman1981" class="csl-entry" role="listitem">
+Cavalli-Sforza, Luigi Luca, and Marcus W. Feldman. 1981. <em><span class="nocase">Cultural Transmission and Evolution: A Quantitative Approach</span></em>. Princeton: Princeton University Press.
+</div>
+<div id="ref-DeGroot1974" class="csl-entry" role="listitem">
+DeGroot, Morris H. 1974. <span>“<span class="nocase">Reaching a Consensus</span>.”</span> <em>Journal of the American Statistical Association</em> 69 (345): 118–21.
+</div>
+<div id="ref-Eisenberg2019" class="csl-entry" role="listitem">
+Eisenberg, Cristina, Christopher L. Anderson, Adam Collingwood, Robert Sissons, Christopher J. Dunn, Garrett W. Meigs, Dave E. Hibbs, et al. 2019. <span>“<span class="nocase">Out of the Ashes: Ecological Resilience to Extreme Wildfire, Prescribed Burns, and Indigenous Burning in Ecosystems</span>.”</span> <em>Frontiers in Ecology and Evolution</em> 7 (November): 1–12. <a href="https://doi.org/10.3389/fevo.2019.00436">https://doi.org/10.3389/fevo.2019.00436</a>.
+</div>
+<div id="ref-Flache2011" class="csl-entry" role="listitem">
+Flache, Andreas, and Michael W. Macy. 2011. <span>“<span class="nocase">Small Worlds and Cultural Polarization</span>.”</span> <em>The Journal of Mathematical Sociology</em> 35 (1-3): 146–76.
+</div>
+<div id="ref-Galesic2021" class="csl-entry" role="listitem">
+Galesic, Mirta, Henrik Olsson, Jonas Dalege, Tamara Van Der Does, and Daniel L. Stein. 2021. <span>“<span class="nocase">Integrating social and cognitive aspects of belief dynamics: Towards a unifying framework</span>.”</span> <em>Journal of the Royal Society Interface</em> 18 (176). <a href="https://doi.org/10.1098/rsif.2020.0857">https://doi.org/10.1098/rsif.2020.0857</a>.
+</div>
+<div id="ref-Kendal2018" class="csl-entry" role="listitem">
+Kendal, Rachel L., Neeltje J. Boogert, Luke Rendell, Kevin N. Laland, Mike Webster, and Patricia L. Jones. 2018. <span>“<span class="nocase">Social Learning Strategies: Bridge-Building between Fields</span>.”</span> <em>Trends in Cognitive Sciences</em> 22 (7): 651–65. <a href="https://doi.org/10.1016/j.tics.2018.04.003">https://doi.org/10.1016/j.tics.2018.04.003</a>.
+</div>
+<div id="ref-Kolden2019" class="csl-entry" role="listitem">
+Kolden, Crystal A. 2019. <span>“<span class="nocase">We’re not doing enough prescribed fire in the western united states to mitigate wildfire risk</span>.”</span> <em>Fire</em> 2 (2): 1–10. <a href="https://doi.org/10.3390/fire2020030">https://doi.org/10.3390/fire2020030</a>.
+</div>
+<div id="ref-Laland2004" class="csl-entry" role="listitem">
+Laland, Kevin N. 2004. <span>“<span>Social Learning Strategies</span>.”</span> <em>Learning and Behavior</em> 32 (1): 4–14.
+</div>
+<div id="ref-Lorenz2007" class="csl-entry" role="listitem">
+Lorenz, Jan. 2007. <span>“<span>Continuous Opinion Dynamics Under Bounded Confidence: A Survey</span>.”</span> <em>International Journal of Modern Physics C</em> 18 (12): 1819–38. <a href="https://doi.org/10.1142/s0129183107011789">https://doi.org/10.1142/s0129183107011789</a>.
+</div>
+<div id="ref-McNamara2020" class="csl-entry" role="listitem">
+McNamara, Karen E., Rachel Clissold, Ross Westoby, Annah E. Piggott-McKellar, Roselyn Kumar, Tahlia Clarke, Frances Namoumou, et al. 2020. <span>“<span class="nocase">An assessment of community-based adaptation initiatives in the Pacific Islands</span>.”</span> <em>Nature Climate Change</em> 10 (7): 628–39. <a href="https://doi.org/10.1038/s41558-020-0813-1">https://doi.org/10.1038/s41558-020-0813-1</a>.
+</div>
+<div id="ref-Piggott-McKellar2020" class="csl-entry" role="listitem">
+Piggott-McKellar, Annah E, Patrick D Nunn, Karen E McNamara, and Seci T Sekinini. 2020. <span>“<span class="nocase">Dam(n) Seawalls: A Case of Climate Change Maladaptation in Fiji</span>.”</span> In <em>Managing Climate Change Adaptation in the Pacific Region</em>, edited by W. Leal Filho, 69–84. Springer. <a href="https://doi.org/10.1007/978-3-030-40552-6">https://doi.org/10.1007/978-3-030-40552-6</a>.
+</div>
+<div id="ref-Richerson2020" class="csl-entry" role="listitem">
+Richerson, Peter J., and Robert Boyd. 2020. <span>“<span class="nocase">The human life history is adapted to exploit the adaptive advantages of culture</span>.”</span> <em>Philosophical Transactions of the Royal Society B: Biological Sciences</em> 375 (1803). <a href="https://doi.org/10.1098/rstb.2019.0498">https://doi.org/10.1098/rstb.2019.0498</a>.
+</div>
+<div id="ref-Rogers2003" class="csl-entry" role="listitem">
+Rogers, Everett M. 2003. <em><span class="nocase">Diffusion of Innovations</span></em>. 5th ed. Free Press. <a href="https://doi.org/10.4324/9781315263434-16">https://doi.org/10.4324/9781315263434-16</a>.
+</div>
+<div id="ref-Smaldino2020d" class="csl-entry" role="listitem">
+Smaldino, Paul E. 2020. <span>“<span class="nocase">How to translate a verbal theory into a formal model</span>.”</span> <em>Social Psychology</em> 51 (4): 207–18. <a href="https://doi.org/10.1027/1864-9335/a000425">https://doi.org/10.1027/1864-9335/a000425</a>.
+</div>
+<div id="ref-Smaldino2023_Ch4Contagion" class="csl-entry" role="listitem">
+———. 2023. <span>“<span>Contagion</span>.”</span> In <em>Modeling Social Behavior: Mathematical and Agent-Based Models of Social Dynamics and Cultural Evolution</em>, 83–116.
+</div>
+<div id="ref-Smaldino2016NatSel" class="csl-entry" role="listitem">
+Smaldino, Paul E., and Richard McElreath. 2016. <span>“<span class="nocase">The Natural Selection of Bad Science</span>.”</span> <em>Royal Society Open Science</em> 3. <a href="https://doi.org/10.1098/rsos.160384">https://doi.org/10.1098/rsos.160384</a>.
+</div>
+<div id="ref-Smaldino2019" class="csl-entry" role="listitem">
+Smaldino, Paul E., Matthew A. Turner, and Pablo A. Contreras Kallens. 2019. <span>“<span class="nocase">Open science and modified funding lotteries can impede the natural selection of bad science</span>.”</span> <em>Royal Society Open Science</em> 6 (8): 191249. <a href="https://doi.org/10.1098/rsos.191249">https://doi.org/10.1098/rsos.191249</a>.
+</div>
+<div id="ref-Toyokawa2019" class="csl-entry" role="listitem">
+Toyokawa, Wataru, Andrew Whalen, and Kevin N Laland. 2019. <span>“<span class="nocase">Social learning strategies regulate the wisdom and madness of interactive crowds</span>.”</span> <em>Nature Human Behaviour</em>. <a href="https://doi.org/10.1101/326637">https://doi.org/10.1101/326637</a>.
+</div>
+<div id="ref-Turner2018" class="csl-entry" role="listitem">
+Turner, Matthew A., and Paul E. Smaldino. 2018. <span>“<span class="nocase">Paths to Polarization: How Extreme Views, Miscommunication, and Random Chance Drive Opinion Dynamics</span>.”</span> <em>Complexity</em>. <a href="https://doi.org/10.1155/2018/2740959">https://doi.org/10.1155/2018/2740959</a>.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    window.setColorSchemeToggle(window.hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./intro.html" class="pagination-link" aria-label="Introduction">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./cooperation.html" class="pagination-link" aria-label="Cooperative conservation">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Cooperative conservation</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
