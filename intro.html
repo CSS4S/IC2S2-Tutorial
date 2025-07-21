@@ -390,6 +390,12 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./writing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Writing and project development</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
@@ -413,16 +419,19 @@ window.Quarto = {
   </ul></li>
   <li><a href="#social-learning-strategies" id="toc-social-learning-strategies" class="nav-link" data-scroll-target="#social-learning-strategies"><span class="header-section-number">1.4</span> Social learning strategies</a>
   <ul class="collapse">
-  <li><a href="#formal-social-learning-models-with-example" id="toc-formal-social-learning-models-with-example" class="nav-link" data-scroll-target="#formal-social-learning-models-with-example"><span class="header-section-number">1.4.1</span> Formal social learning models with example</a></li>
-  <li><a href="#identity-and-influence" id="toc-identity-and-influence" class="nav-link" data-scroll-target="#identity-and-influence"><span class="header-section-number">1.4.2</span> Identity and Influence</a></li>
+  <li><a href="#social-learning-models-with-example" id="toc-social-learning-models-with-example" class="nav-link" data-scroll-target="#social-learning-models-with-example"><span class="header-section-number">1.4.1</span> Social learning models with example</a></li>
   </ul></li>
-  <li><a href="#computational-techniques-for-agent-based-modeling" id="toc-computational-techniques-for-agent-based-modeling" class="nav-link" data-scroll-target="#computational-techniques-for-agent-based-modeling"><span class="header-section-number">1.5</span> Computational techniques for agent-based modeling</a>
+  <li><a href="#identity-and-influence" id="toc-identity-and-influence" class="nav-link" data-scroll-target="#identity-and-influence"><span class="header-section-number">1.5</span> Identity and Influence</a>
   <ul class="collapse">
-  <li><a href="#data-collection-types-in-r" id="toc-data-collection-types-in-r" class="nav-link" data-scroll-target="#data-collection-types-in-r"><span class="header-section-number">1.5.1</span> Data collection types in R</a></li>
-  <li><a href="#functional-programming" id="toc-functional-programming" class="nav-link" data-scroll-target="#functional-programming"><span class="header-section-number">1.5.2</span> Functional programming</a></li>
-  <li><a href="#custom-objects-r6-classes-in-socmod" id="toc-custom-objects-r6-classes-in-socmod" class="nav-link" data-scroll-target="#custom-objects-r6-classes-in-socmod"><span class="header-section-number">1.5.3</span> Custom objects: R6 classes in socmod</a></li>
-  <li><a href="#an-aside-on-copy-vs-reference-semantics-in-r-assignment-and-mutation" id="toc-an-aside-on-copy-vs-reference-semantics-in-r-assignment-and-mutation" class="nav-link" data-scroll-target="#an-aside-on-copy-vs-reference-semantics-in-r-assignment-and-mutation"><span class="header-section-number">1.5.4</span> An aside on copy vs reference semantics in R: assignment and mutation</a></li>
-  <li><a href="#agent-based-models-of-social-behavior" id="toc-agent-based-models-of-social-behavior" class="nav-link" data-scroll-target="#agent-based-models-of-social-behavior"><span class="header-section-number">1.5.5</span> Agent-based models of social behavior</a></li>
+  <li><a href="#social-networks-homophily-and-core-periphery-structure" id="toc-social-networks-homophily-and-core-periphery-structure" class="nav-link" data-scroll-target="#social-networks-homophily-and-core-periphery-structure"><span class="header-section-number">1.5.1</span> Social networks, homophily, and core-periphery structure</a></li>
+  </ul></li>
+  <li><a href="#computational-techniques-for-agent-based-modeling" id="toc-computational-techniques-for-agent-based-modeling" class="nav-link" data-scroll-target="#computational-techniques-for-agent-based-modeling"><span class="header-section-number">1.6</span> Computational techniques for agent-based modeling</a>
+  <ul class="collapse">
+  <li><a href="#data-collection-types-in-r" id="toc-data-collection-types-in-r" class="nav-link" data-scroll-target="#data-collection-types-in-r"><span class="header-section-number">1.6.1</span> Data collection types in R</a></li>
+  <li><a href="#functional-programming" id="toc-functional-programming" class="nav-link" data-scroll-target="#functional-programming"><span class="header-section-number">1.6.2</span> Functional programming</a></li>
+  <li><a href="#custom-objects-r6-classes-in-socmod" id="toc-custom-objects-r6-classes-in-socmod" class="nav-link" data-scroll-target="#custom-objects-r6-classes-in-socmod"><span class="header-section-number">1.6.3</span> Custom objects: R6 classes in socmod</a></li>
+  <li><a href="#an-aside-on-copy-vs-reference-semantics-in-r-assignment-and-mutation" id="toc-an-aside-on-copy-vs-reference-semantics-in-r-assignment-and-mutation" class="nav-link" data-scroll-target="#an-aside-on-copy-vs-reference-semantics-in-r-assignment-and-mutation"><span class="header-section-number">1.6.4</span> An aside on copy vs reference semantics in R: assignment and mutation</a></li>
+  <li><a href="#agent-based-models-of-social-behavior" id="toc-agent-based-models-of-social-behavior" class="nav-link" data-scroll-target="#agent-based-models-of-social-behavior"><span class="header-section-number">1.6.5</span> Agent-based models of social behavior</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -528,8 +537,8 @@ Figure&nbsp;1.3: Agent-based modeling simulation cycle.
 <li><strong>Contagion</strong>: Individuals copy behaviors simply by observing others performing them.</li>
 </ol>
 <p>In the mangrove versus seawall example, success-biased learning might favor seawalls if influential external actors, who seem successful or wealthy, advocate for them, even if seawalls are ultimately less effective. Mangrove forests might become widely adopted if, on the other hand, frequency-biased learning predominates and many communities have adopted that method.</p>
-<section id="formal-social-learning-models-with-example" class="level3" data-number="1.4.1">
-<h3 data-number="1.4.1" class="anchored" data-anchor-id="formal-social-learning-models-with-example"><span class="header-section-number">1.4.1</span> Formal social learning models with example</h3>
+<section id="social-learning-models-with-example" class="level3" data-number="1.4.1">
+<h3 data-number="1.4.1" class="anchored" data-anchor-id="social-learning-models-with-example"><span class="header-section-number">1.4.1</span> Social learning models with example</h3>
 <p>To make this more concrete, we <em>formalize</em> (i.e., <em>give formulas for</em>) these three learning strategies as follows using the example in <a href="#fig-learning-illustration" class="quarto-xref">Figure&nbsp;<span>1.4</span></a>. In the example, there is one <em>focal agent</em> who is the one doing the observing/learning, labelled with the ID <em>1</em>, and three social network neighbors with IDs <em>2, 3,</em> and <em>4.</em> The focal agent is deciding whether or not to install residential solar. One of his neighbors has installed it, 2. Based on 1’s perception, 2 is the wealthiest, represented by four dollar symbols. 3 is perceived to have one dollar and 4 has two dollars.</p>
 <div id="fig-learning-illustration" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -579,8 +588,9 @@ Figure&nbsp;1.4: Agent 1, the focal agent, is considering whether to install res
 <p>For another potentially useful modification, <span class="math inline">\(\alpha\)</span> could be defined at the individual level, say <span class="math inline">\(\alpha_i\)</span>, or for <em>dyads</em> (i.e., a pair of interacting individuals) , <span class="math inline">\(\alpha_{ij}\)</span>, where <span class="math inline">\(i\)</span> is still the focal agent learner, but we have added <span class="math inline">\(j\)</span>, representing the selected teacher.</p>
 </section>
 </section>
-<section id="identity-and-influence" class="level3" data-number="1.4.2">
-<h3 data-number="1.4.2" class="anchored" data-anchor-id="identity-and-influence"><span class="header-section-number">1.4.2</span> Identity and Influence</h3>
+</section>
+<section id="identity-and-influence" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="identity-and-influence"><span class="header-section-number">1.5</span> Identity and Influence</h2>
 <p>Group identity critically influences social learning. Neuroscience research demonstrates that our brains distinctly respond to individuals identified as part of our group <span class="citation" data-cites="Cikara2014">(<a href="references.html#ref-Cikara2014" role="doc-biblioref">Cikara and Van Bavel 2014</a>)</span>, as revealed through fMRI neural imaging (<a href="#fig-cikara-mri-image" class="quarto-xref">Figure&nbsp;<span>1.5</span></a>). This ability likely evolved because when humans first emerged about two million years ago, it was much more important for survival to be able to rapidly identify whether someone was a friend or foe based on group markers. Although group membership can affect how we respond to information learned from others, group membership itself is quite plastic, meaning who belongs to which group can be rapidly reconfigured. For example, neural signals of race-based group perception was observed to be suppressed and overridden when individuals were in mixed-race groups created by experimenters that competed against other mixed-race groups in an psychological experimental task <span class="citation" data-cites="VanBavel2008">(<a href="references.html#ref-VanBavel2008" role="doc-biblioref">Van Bavel, Packer, and Cunningham 2008</a>)</span>.</p>
 <div id="fig-cikara-mri-image" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -593,8 +603,8 @@ Figure&nbsp;1.5: Figure 1 reorganized with original caption from Cikara and Van 
 </figure>
 </div>
 <p>Studies further show that group identity can strongly influence behavioral choices. For instance, experimental evidence reveals people resist adopting beneficial behaviors if associated with opposing political identities <span class="citation" data-cites="EhretConstantino2022">(<a href="references.html#ref-EhretConstantino2022" role="doc-biblioref">Ehret et al. 2022</a>)</span>, emphasizing how identity can create substantial barriers to sustainability. This general effect of group membership interfering with learning is called <em>outgroup aversion</em> <span class="citation" data-cites="Smaldino2017Adoption">(<a href="references.html#ref-Smaldino2017Adoption" role="doc-biblioref">Smaldino et al. 2017</a>)</span>.</p>
-<section id="social-networks-homophily-and-core-periphery-structure" class="level4">
-<h4 class="anchored" data-anchor-id="social-networks-homophily-and-core-periphery-structure">Social networks, homophily, and core-periphery structure</h4>
+<section id="social-networks-homophily-and-core-periphery-structure" class="level3" data-number="1.5.1">
+<h3 data-number="1.5.1" class="anchored" data-anchor-id="social-networks-homophily-and-core-periphery-structure"><span class="header-section-number">1.5.1</span> Social networks, homophily, and core-periphery structure</h3>
 <p>Social structure can significantly impact behavioral diffusion, especially in core-periphery configurations. Core-periphery networks emerge as a response to risk and uncertainty, e.g., in food sharing networks <span class="citation" data-cites="Ready2018">(<a href="references.html#ref-Ready2018" role="doc-biblioref">Ready and Power 2018</a>)</span>, so they are hypothesized to also be important in climate change adaptation transmission networks <span class="citation" data-cites="Jones2021">(<a href="references.html#ref-Jones2021" role="doc-biblioref">Jones, Ready, and Pisor 2021</a>)</span>. Core-periphery networks can be created by setting appropriate group sizes and <em>homophily</em> levels in homophily network models <span class="citation" data-cites="Turner2023">(<a href="references.html#ref-Turner2023" role="doc-biblioref">Turner et al. 2023</a>)</span> or specifying certain connectivity probabilities to the <em>stochastic block matrix</em> algorithm for creating structured random graphs <span class="citation" data-cites="Rombach2014 Milzman2023">(<a href="references.html#ref-Rombach2014" role="doc-biblioref">Rombach et al. 2014</a>; <a href="references.html#ref-Milzman2023" role="doc-biblioref">Milzman and Moser 2023</a>)</span>. Homophily is the measure of how much more likely an individual is to socially connect within their own group versus with a member of a different group. Homophily can range from -1 to +1, where -1 represents no within-group connections and only between-group connections (i.e., <em>anti-homophily</em>); 0 represents an equal probability of within- and between-group connections, and +1 represents only within-group connections. We will define homophily as either a global or group-level variable, though homophily could vary individually as well. There are two types of homophily:</p>
 <ul>
 <li><strong>Choice Homophily</strong>: Individuals actively prefer interacting with similar others.</li>
@@ -604,9 +614,8 @@ Figure&nbsp;1.5: Figure 1 reorganized with original caption from Cikara and Van 
 <p>Due to time restrictions we will not be able to analyze the effects of social networks in this tutorial.</p>
 </section>
 </section>
-</section>
-<section id="computational-techniques-for-agent-based-modeling" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="computational-techniques-for-agent-based-modeling"><span class="header-section-number">1.5</span> Computational techniques for agent-based modeling</h2>
+<section id="computational-techniques-for-agent-based-modeling" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="computational-techniques-for-agent-based-modeling"><span class="header-section-number">1.6</span> Computational techniques for agent-based modeling</h2>
 <p>This section introduces agent-based modeling in <code>socmod</code> starting with basic functional and object-oriented programming in R. It therefore builds on an assumed knowledge of R basics which can be gained by studying, for example, <a href="https://rstudio-education.github.io/hopr/index.html"><em>Hands-On Programming with R</em></a> or other basic R tutorial introductions.</p>
 <p>To model social behavior it helps to have intuitive software tools grounded in an empirically-motivated, self-consistent scientific theory. <code>socmod</code> provides those tools, but to put it to best use it’s helpful to know how it works, especially for people used to using R in a data science context. Many of the same tools are transferable, especially declarative/functional programming, as is used and encouraged by the <a href="https://r4ds.hadley.nz/">tidy approach in R for Data Science</a>.</p>
 <p>To create simulations that <em>generate</em> social behavior we have to go beyond tabular representations of the world to more complex representations of people and their interactions that can be measured. These measurements are recorded in a standard tabular format, e.g., CSV, which can then be analyzed using tidy/R for Data Science strategies.</p>
@@ -614,8 +623,8 @@ Figure&nbsp;1.5: Figure 1 reorganized with original caption from Cikara and Van 
 <p>To summarize, objects are a way to track and modify the state of different software entities. We can create simulations of real-world systems by defining custom object types called classes whose state and behaviors are modeled on relevant real-world features and behaviors.</p>
 <p>In <code>socmod</code>, we define custom R objects for agent-based models of social behavior using the <code>R6Class</code> method that creates a new object type, i.e., a new <em>class</em>. We use tidy-style functional programming where helpful to represent model features and dynamics.</p>
 <p>In the remainder of this chapter, I will first review variable assignment and data structures in R including vectors, lists, data.frames, and tibbles. We then review relevant topics in functional programming, then demonstrate how to create custom classes in R with the library <a href="https://r6.r-lib.org/">R6</a>. This tutorial then closes with a demonstration of a simple four-agent agent-based model of social behavior, kept simple to highlight the functional and object-oriented design patterns in <code>socmod</code>, representing <code>Agent</code>, an <code>AgentBasedModel</code>, and <code>Trial</code>classes defined using the <a href="https://r6.r-lib.org/reference/R6Class.html"><code>R6Class</code> function</a>.</p>
-<section id="data-collection-types-in-r" class="level3" data-number="1.5.1">
-<h3 data-number="1.5.1" class="anchored" data-anchor-id="data-collection-types-in-r"><span class="header-section-number">1.5.1</span> Data collection types in R</h3>
+<section id="data-collection-types-in-r" class="level3" data-number="1.6.1">
+<h3 data-number="1.6.1" class="anchored" data-anchor-id="data-collection-types-in-r"><span class="header-section-number">1.6.1</span> Data collection types in R</h3>
 <p>In R, there is a hierarchy of data collection types that are necessary to know about for functional programming, which often involves applying a function across every element of a collection of data. Data collections include vectors, lists, data.frames, and tibbles, which we’ll cover here.</p>
 <section id="collections-of-basic-data-types" class="level4">
 <h4 class="anchored" data-anchor-id="collections-of-basic-data-types">Collections of basic data types</h4>
@@ -760,8 +769,8 @@ Figure&nbsp;1.5: Figure 1 reorganized with original caption from Cikara and Van 
 <p>Finally, tibble operations always return a tibble. For example, if <code>df</code> were a data.frame, the operation <code>df[, 1]</code> would return a vector by default. If it were a tibble it would return another tibble, making behavior more predictable in data analysis pipelines.</p>
 </section>
 </section>
-<section id="functional-programming" class="level3" data-number="1.5.2">
-<h3 data-number="1.5.2" class="anchored" data-anchor-id="functional-programming"><span class="header-section-number">1.5.2</span> Functional programming</h3>
+<section id="functional-programming" class="level3" data-number="1.6.2">
+<h3 data-number="1.6.2" class="anchored" data-anchor-id="functional-programming"><span class="header-section-number">1.6.2</span> Functional programming</h3>
 <p>Functional programming is especially useful for writing code that applies the same function to several inputs, but wants to leave it up to the user to specify exactly which function should be applied. In <code>socmod</code> we pass functions as arguments to other functions to specify how agents pick their interaction partners (i.e., teachers in a learning context) and how social learning works. Here are some simple examples demonstrating the key concepts and techniques of functional programming that could help with <code>socmod</code> programming.</p>
 <section id="higher-order-functions-functions-with-function-arguments" class="level4">
 <h4 class="anchored" data-anchor-id="higher-order-functions-functions-with-function-arguments">Higher-order functions: functions with function arguments</h4>
@@ -815,8 +824,8 @@ Figure&nbsp;1.5: Figure 1 reorganized with original caption from Cikara and Van 
 </div>
 </section>
 </section>
-<section id="custom-objects-r6-classes-in-socmod" class="level3" data-number="1.5.3">
-<h3 data-number="1.5.3" class="anchored" data-anchor-id="custom-objects-r6-classes-in-socmod"><span class="header-section-number">1.5.3</span> Custom objects: R6 classes in socmod</h3>
+<section id="custom-objects-r6-classes-in-socmod" class="level3" data-number="1.6.3">
+<h3 data-number="1.6.3" class="anchored" data-anchor-id="custom-objects-r6-classes-in-socmod"><span class="header-section-number">1.6.3</span> Custom objects: R6 classes in socmod</h3>
 <p>Classes are ways to <em>encapsulate</em> diverse distinct, but related, processes, behaviors, data, attributes, and other types of information in a single <em>object</em>, i.e., a software representation of an <em>instance</em> of that entity. R6 is a library for creating our own custom classes that serve as an abstract template that specifies what distinguishes different types of objects/entities. Below we show first how to create a new agent, i.e., a new instance of the <code>Agent</code> class that is provided by <code>socmod</code>. After that is a fun example of how we can design a different social behavioral model, one of football/soccer matches. We write classes for players and teams and develop a <code>play_match(team1, team2)</code> function that pits two teams against each other.</p>
 <section id="the-agent-class-in-socmod" class="level4">
 <h4 class="anchored" data-anchor-id="the-agent-class-in-socmod">The <code>Agent</code> class in <code>socmod</code></h4>
@@ -1024,18 +1033,18 @@ Figure&nbsp;1.5: Figure 1 reorganized with original caption from Cikara and Van 
 <span id="cb61-12"><a href="#cb61-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Play three matches.</span></span>
 <span id="cb61-13"><a href="#cb61-13" aria-hidden="true" tabindex="-1"></a><span class="fu">play_match</span>(whales, squirrels)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Tie game!
-Whales :  2     Squirrels :  2 </code></pre>
+<pre><code>Squirrels wins!!!
+Whales :  2     Squirrels :  4 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">play_match</span>(squirrels, whales)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Tie game!
-Squirrels :  3     Whales :  3 </code></pre>
+<pre><code>Squirrels wins!!!
+Squirrels :  7     Whales :  5 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">play_match</span>(squirrels, whales)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Whales wins!!!
-Squirrels :  4     Whales :  7 </code></pre>
+<pre><code>Squirrels wins!!!
+Squirrels :  5     Whales :  4 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print how many games each time won.</span></span>
 <span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">After three games..."</span>, <span class="st">"</span><span class="sc">\n</span><span class="st">The Whales have won"</span>, </span>
@@ -1043,13 +1052,13 @@ Squirrels :  4     Whales :  7 </code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 After three games... 
-The Whales have won 1 games and the Squirrels have won 0</code></pre>
+The Whales have won 0 games and the Squirrels have won 3</code></pre>
 </div>
 </div>
 </section>
 </section>
-<section id="an-aside-on-copy-vs-reference-semantics-in-r-assignment-and-mutation" class="level3" data-number="1.5.4">
-<h3 data-number="1.5.4" class="anchored" data-anchor-id="an-aside-on-copy-vs-reference-semantics-in-r-assignment-and-mutation"><span class="header-section-number">1.5.4</span> An aside on copy vs reference semantics in R: assignment and mutation</h3>
+<section id="an-aside-on-copy-vs-reference-semantics-in-r-assignment-and-mutation" class="level3" data-number="1.6.4">
+<h3 data-number="1.6.4" class="anchored" data-anchor-id="an-aside-on-copy-vs-reference-semantics-in-r-assignment-and-mutation"><span class="header-section-number">1.6.4</span> An aside on copy vs reference semantics in R: assignment and mutation</h3>
 <p>When you change something in R, sometimes R makes a copy of the object so the original stays the same, and sometimes it changes the object by reference, meaning it updates the original directly. Understanding whether an operation creates a new copy or modifies an object in place (called mutation) is important because it affects whether you need to assign the result back to a variable or not. Even though this idea is usually taught in more advanced programming, it’s useful for beginners working with modeling and simulation because different parts of R (like data frames vs.&nbsp;agent-based models) follow different rules, and knowing which is which can help avoid confusing bugs.</p>
 <section id="the-underlying-tension-how-r-handles-object-copying-and-modification" class="level4">
 <h4 class="anchored" data-anchor-id="the-underlying-tension-how-r-handles-object-copying-and-modification">1. The underlying tension: how R handles object copying and modification</h4>
@@ -1064,8 +1073,8 @@ The Whales have won 1 games and the Squirrels have won 0</code></pre>
 <p>Much of <strong>igraph</strong> isn’t written in R itself, but in another programming language called <strong>C</strong>. C allows developers to write code that’s much faster and more efficient than what’s possible in R alone. This efficiency is great for users—igraph can handle large networks quickly—but it also introduces a subtle complication to how we work with graphs in R. When you modify an igraph object, you’re actually asking C code to change the graph behind the scenes. But instead of directly changing the graph you already have, igraph’s functions usually return a <strong>new graph object</strong> with the changes applied. This means that even though igraph mostly follows <strong>reference semantics</strong> (where an object can be updated without copying everything), you still need to <strong>explicitly reassign the result of a modification</strong> to keep the updated graph. It’s different from how <code>socmod</code>’s models and agents work: those are built with R6 classes, which really do modify objects “in place” without needing reassignment.</p>
 </section>
 </section>
-<section id="agent-based-models-of-social-behavior" class="level3" data-number="1.5.5">
-<h3 data-number="1.5.5" class="anchored" data-anchor-id="agent-based-models-of-social-behavior"><span class="header-section-number">1.5.5</span> Agent-based models of social behavior</h3>
+<section id="agent-based-models-of-social-behavior" class="level3" data-number="1.6.5">
+<h3 data-number="1.6.5" class="anchored" data-anchor-id="agent-based-models-of-social-behavior"><span class="header-section-number">1.6.5</span> Agent-based models of social behavior</h3>
 <p>Here we develop our first agent-based models of social behavior. We’ll start small, with the following four-household network of solar panel electrification using only success-biased learning (<a href="#fig-four-agent-example" class="quarto-xref">Figure&nbsp;<span>1.6</span></a>). Then we’ll do a detailed comparison of different social learning strategies with different parameterizations.</p>
 <div id="fig-four-agent-example" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1121,153 +1130,137 @@ Figure&nbsp;1.6: Example social network and sustainable adaptation diffusion pro
 </div>
 </div>
 </div>
-</section>
-<section id="example-comparison-of-learning-strategies-and-parameters" class="level4">
-<h4 class="anchored" data-anchor-id="example-comparison-of-learning-strategies-and-parameters">Example: comparison of learning strategies and parameters</h4>
-<p>Agent-based models in <code>socmod</code> are composed of sub-models of cognition and social behavior and social networks. One component of agent cognition is its <em>social learning strategy</em>. Three social learning strategies are included in <code>socmod</code>: success-biased, frequency-biased, and contagion learning strategies <a href="https://css4s.github.io/abm-notes/intro.html#social-learning-strategies">see ABM course notes for more details</a>.</p>
-<p>Here we show how to compare the three learning strategies across different learning parameters. One parameter we systematically vary affects only success-biased learning, and the other we systematically vary affects only contagion learning. We will design computational experiments to understand their effects, and overall differences between the three learning strategies.</p>
-<div class="cell" data-number-lines="true">
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load ggplot2 to avoid writing it during plotting below.</span></span>
-<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Model generation function used in both computational experiments below.</span></span>
-<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>gen <span class="ot">&lt;-</span> <span class="cf">function</span>(model_parameter_row) {</span>
-<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Extract adaptive_fitness to create agents.</span></span>
-<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a>  adaptive_fitness <span class="ot">&lt;-</span> model_parameter_row<span class="sc">$</span>adaptive_fitness</span>
-<span id="cb71-8"><a href="#cb71-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb71-9"><a href="#cb71-9" aria-hidden="true" tabindex="-1"></a>  agent_1 <span class="ot">&lt;-</span> socmod<span class="sc">::</span>Agent<span class="sc">$</span><span class="fu">new</span>(<span class="dv">1</span>, <span class="at">behavior =</span> <span class="st">"Legacy"</span>, </span>
-<span id="cb71-10"><a href="#cb71-10" aria-hidden="true" tabindex="-1"></a>                               <span class="at">fitness =</span> <span class="fl">1.0</span>, <span class="at">name =</span> <span class="st">"a1"</span>)</span>
-<span id="cb71-11"><a href="#cb71-11" aria-hidden="true" tabindex="-1"></a>  agent_2 <span class="ot">&lt;-</span> socmod<span class="sc">::</span>Agent<span class="sc">$</span><span class="fu">new</span>(<span class="dv">2</span>, <span class="at">behavior =</span> <span class="st">"Adaptive"</span>, </span>
-<span id="cb71-12"><a href="#cb71-12" aria-hidden="true" tabindex="-1"></a>                               <span class="at">fitness =</span> adaptive_fitness, <span class="at">name =</span> <span class="st">"a2"</span>)</span>
-<span id="cb71-13"><a href="#cb71-13" aria-hidden="true" tabindex="-1"></a>  agent_3 <span class="ot">&lt;-</span> socmod<span class="sc">::</span>Agent<span class="sc">$</span><span class="fu">new</span>(<span class="dv">3</span>, <span class="at">behavior =</span> <span class="st">"Legacy"</span>, </span>
-<span id="cb71-14"><a href="#cb71-14" aria-hidden="true" tabindex="-1"></a>                               <span class="at">fitness =</span> <span class="fl">1.0</span>, <span class="at">name =</span> <span class="st">"a3"</span>)</span>
-<span id="cb71-15"><a href="#cb71-15" aria-hidden="true" tabindex="-1"></a>  agent_4 <span class="ot">&lt;-</span> socmod<span class="sc">::</span>Agent<span class="sc">$</span><span class="fu">new</span>(<span class="dv">4</span>, <span class="at">behavior =</span> <span class="st">"Legacy"</span>, </span>
-<span id="cb71-16"><a href="#cb71-16" aria-hidden="true" tabindex="-1"></a>                               <span class="at">fitness =</span> <span class="fl">1.0</span>, <span class="at">name =</span> <span class="st">"a4"</span>)</span>
-<span id="cb71-17"><a href="#cb71-17" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb71-18"><a href="#cb71-18" aria-hidden="true" tabindex="-1"></a>  agents <span class="ot">&lt;-</span> <span class="fu">list</span>(agent_1, agent_2, agent_3, agent_4)</span>
-<span id="cb71-19"><a href="#cb71-19" aria-hidden="true" tabindex="-1"></a>  graph <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">make_graph</span>(<span class="sc">~</span> <span class="dv">1-2</span>, <span class="dv">1-3</span>, <span class="dv">1-4</span>, <span class="dv">3-2</span>)</span>
-<span id="cb71-20"><a href="#cb71-20" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb71-21"><a href="#cb71-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Extract other necessary model parameters.</span></span>
-<span id="cb71-22"><a href="#cb71-22" aria-hidden="true" tabindex="-1"></a>  learning_strategy <span class="ot">&lt;-</span> model_parameter_row<span class="sc">$</span>learning_strategy</span>
-<span id="cb71-23"><a href="#cb71-23" aria-hidden="true" tabindex="-1"></a>  drop_rate <span class="ot">&lt;-</span> model_parameter_row<span class="sc">$</span>drop_rate</span>
-<span id="cb71-24"><a href="#cb71-24" aria-hidden="true" tabindex="-1"></a>  adoption_rate <span class="ot">&lt;-</span> model_parameter_row<span class="sc">$</span>adoption_rate</span>
-<span id="cb71-25"><a href="#cb71-25" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb71-26"><a href="#cb71-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Make ModelParameters to encapsulate this model's parameters.</span></span>
-<span id="cb71-27"><a href="#cb71-27" aria-hidden="true" tabindex="-1"></a>  model_parameters <span class="ot">&lt;-</span> socmod<span class="sc">::</span><span class="fu">make_model_parameters</span>(</span>
-<span id="cb71-28"><a href="#cb71-28" aria-hidden="true" tabindex="-1"></a>    learning_strategy, graph, <span class="at">adaptive_fitness =</span> adaptive_fitness, </span>
-<span id="cb71-29"><a href="#cb71-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">adoption_rate =</span> adoption_rate, <span class="at">drop_rate =</span> drop_rate</span>
-<span id="cb71-30"><a href="#cb71-30" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb71-31"><a href="#cb71-31" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb71-32"><a href="#cb71-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (</span>
-<span id="cb71-33"><a href="#cb71-33" aria-hidden="true" tabindex="-1"></a>    socmod<span class="sc">::</span><span class="fu">make_abm</span>(</span>
-<span id="cb71-34"><a href="#cb71-34" aria-hidden="true" tabindex="-1"></a>      model_parameters,</span>
-<span id="cb71-35"><a href="#cb71-35" aria-hidden="true" tabindex="-1"></a>      <span class="at">agents =</span> agents</span>
-<span id="cb71-36"><a href="#cb71-36" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb71-37"><a href="#cb71-37" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb71-38"><a href="#cb71-38" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<section id="experiment-over-adaptive-fitness-values" class="level5">
-<h5 class="anchored" data-anchor-id="experiment-over-adaptive-fitness-values">Experiment over adaptive fitness values</h5>
-<div class="cell" data-number-lines="true">
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the adaptive fitness trials if there is not already a variable</span></span>
-<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="co"># name for it in the current environment. Change n_trials_per_param to</span></span>
-<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a><span class="co"># a small number like 2-20 for development purposes.</span></span>
-<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span>(<span class="st">"trials_adaptive_fitness"</span> <span class="sc">%in%</span> <span class="fu">ls</span>(<span class="at">all.names =</span> <span class="cn">TRUE</span>))) {</span>
-<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>  trials_adaptive_fitness <span class="ot">&lt;-</span> socmod<span class="sc">::</span><span class="fu">run_trials</span>(</span>
-<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a>    gen, </span>
-<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_trials_per_param =</span> <span class="dv">100</span>,  <span class="co"># change to 2-20 for shorter runs</span></span>
-<span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">stop =</span> socmod<span class="sc">::</span>fixated, </span>
-<span id="cb72-9"><a href="#cb72-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">syncfile =</span> <span class="st">"trials-adaptive_fitness.RData"</span>,</span>
-<span id="cb72-10"><a href="#cb72-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># overwrite = TRUE,</span></span>
-<span id="cb72-11"><a href="#cb72-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">learning_strategy =</span> <span class="fu">c</span>(socmod<span class="sc">::</span>success_bias_learning_strategy,</span>
-<span id="cb72-12"><a href="#cb72-12" aria-hidden="true" tabindex="-1"></a>                          socmod<span class="sc">::</span>frequency_bias_learning_strategy,</span>
-<span id="cb72-13"><a href="#cb72-13" aria-hidden="true" tabindex="-1"></a>                          socmod<span class="sc">::</span>contagion_learning_strategy),</span>
-<span id="cb72-14"><a href="#cb72-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">adaptive_fitness =</span> <span class="fu">seq</span>(<span class="fl">0.8</span>, <span class="fl">2.4</span>, <span class="fl">0.2</span>),</span>
-<span id="cb72-15"><a href="#cb72-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">adoption_rate =</span> <span class="fl">0.6</span>,</span>
-<span id="cb72-16"><a href="#cb72-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">drop_rate =</span> <span class="fl">0.2</span></span>
-<span id="cb72-17"><a href="#cb72-17" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb72-18"><a href="#cb72-18" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb72-19"><a href="#cb72-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb72-20"><a href="#cb72-20" aria-hidden="true" tabindex="-1"></a>trials_summary <span class="ot">&lt;-</span> socmod<span class="sc">::</span><span class="fu">summarise_outcomes</span>(</span>
-<span id="cb72-21"><a href="#cb72-21" aria-hidden="true" tabindex="-1"></a>  trials_adaptive_fitness, <span class="fu">c</span>(<span class="st">"learning_strategy"</span>, <span class="st">"adaptive_fitness"</span>)</span>
-<span id="cb72-22"><a href="#cb72-22" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb72-23"><a href="#cb72-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb72-24"><a href="#cb72-24" aria-hidden="true" tabindex="-1"></a>trials_success_rate <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(trials_summary, Measure <span class="sc">==</span> <span class="st">"success_rate"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Now plot…</p>
-<div class="cell" data-number-lines="true">
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(trials_success_rate, </span>
-<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x=</span>adaptive_fitness, <span class="at">y=</span>Value, </span>
-<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">color=</span>learning_strategy)</span>
-<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
-<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth=</span><span class="fl">1.0</span>) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size=</span><span class="fl">2.15</span>) <span class="sc">+</span></span>
-<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>  ggsci<span class="sc">::</span><span class="fu">scale_color_aaas</span>() <span class="sc">+</span> ggsci<span class="sc">::</span><span class="fu">scale_fill_aaas</span>() <span class="sc">+</span></span>
-<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Adaptive fitness"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"Success rate"</span>) <span class="sc">+</span></span>
-<span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">sort</span>(</span>
-<span id="cb73-9"><a href="#cb73-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unique</span>(trials_summary<span class="sc">$</span>adaptive_fitness)</span>
-<span id="cb73-10"><a href="#cb73-10" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">+</span></span>
-<span id="cb73-11"><a href="#cb73-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size=</span><span class="dv">14</span>) <span class="sc">+</span></span>
-<span id="cb73-12"><a href="#cb73-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="fl">1.0</span>) <span class="sc">+</span></span>
-<span id="cb73-13"><a href="#cb73-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">title =</span> <span class="st">"Learning strategy"</span>)) <span class="sc">+</span></span>
-<span id="cb73-14"><a href="#cb73-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Adoption rate = 0.6, drop rate = 0.2"</span>)</span>
-<span id="cb73-15"><a href="#cb73-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb73-16"><a href="#cb73-16" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"adaptive_fitness_experiment.png"</span>, p, </span>
-<span id="cb73-17"><a href="#cb73-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">width =</span> <span class="dv">5</span>, <span class="at">height =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/adaptive_fitness_experiment.png" class="img-fluid figure-img"></p>
-<figcaption>Example computational experiment testing effect of adaptive fitness on success rate across the three learning strategies.</figcaption>
-</figure>
-</div>
-</section>
-<section id="experiment-over-adoption-rate-values" class="level5">
-<h5 class="anchored" data-anchor-id="experiment-over-adoption-rate-values">Experiment over adoption rate values</h5>
-<div class="cell" data-number-lines="true">
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span>(<span class="st">"trials_adoption"</span> <span class="sc">%in%</span> <span class="fu">ls</span>(<span class="at">all.names =</span> <span class="cn">TRUE</span>))) {</span>
-<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>  trials_adoption <span class="ot">&lt;-</span> socmod<span class="sc">::</span><span class="fu">run_trials</span>(</span>
-<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>    gen,</span>
-<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_trials_per_param =</span> <span class="dv">100</span>,</span>
-<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">stop =</span> socmod<span class="sc">::</span>fixated, </span>
-<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">syncfile =</span> <span class="st">"trials-adoption-rate.RData"</span>,</span>
-<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">overwrite =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">learning_strategy =</span> <span class="fu">c</span>(socmod<span class="sc">::</span>success_bias_learning_strategy,</span>
-<span id="cb74-9"><a href="#cb74-9" aria-hidden="true" tabindex="-1"></a>                          socmod<span class="sc">::</span>frequency_bias_learning_strategy,</span>
-<span id="cb74-10"><a href="#cb74-10" aria-hidden="true" tabindex="-1"></a>                          socmod<span class="sc">::</span>contagion_learning_strategy),</span>
-<span id="cb74-11"><a href="#cb74-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">adaptive_fitness =</span> <span class="fl">1.4</span>,</span>
-<span id="cb74-12"><a href="#cb74-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">adoption_rate =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.6</span>, <span class="fl">0.8</span>, <span class="fl">1.0</span>),</span>
-<span id="cb74-13"><a href="#cb74-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">drop_rate =</span> <span class="fl">0.2</span></span>
-<span id="cb74-14"><a href="#cb74-14" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb74-15"><a href="#cb74-15" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb74-16"><a href="#cb74-16" aria-hidden="true" tabindex="-1"></a>trials_summary <span class="ot">&lt;-</span> socmod<span class="sc">::</span><span class="fu">summarise_by_parameters</span>(</span>
-<span id="cb74-17"><a href="#cb74-17" aria-hidden="true" tabindex="-1"></a>  trials_adoption, <span class="fu">c</span>(<span class="st">"learning_strategy"</span>, <span class="st">"adoption_rate"</span>)</span>
-<span id="cb74-18"><a href="#cb74-18" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb74-19"><a href="#cb74-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-20"><a href="#cb74-20" aria-hidden="true" tabindex="-1"></a>trials_success_rate <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(</span>
-<span id="cb74-21"><a href="#cb74-21" aria-hidden="true" tabindex="-1"></a>  trials_summary, Measure <span class="sc">==</span> <span class="st">"success_rate"</span></span>
-<span id="cb74-22"><a href="#cb74-22" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-number-lines="true">
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(trials_success_rate, </span>
-<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x=</span>adoption_rate, <span class="at">y=</span>Value, <span class="at">color=</span>learning_strategy)) <span class="sc">+</span></span>
-<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth=</span><span class="fl">1.0</span>) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size=</span><span class="fl">2.15</span>) <span class="sc">+</span></span>
-<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>  ggsci<span class="sc">::</span><span class="fu">scale_color_aaas</span>() <span class="sc">+</span> ggsci<span class="sc">::</span><span class="fu">scale_fill_aaas</span>() <span class="sc">+</span></span>
-<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Adoption rate"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"Success rate"</span>) <span class="sc">+</span></span>
-<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">sort</span>(<span class="fu">unique</span>(trials_summary<span class="sc">$</span>adoption_rate))) <span class="sc">+</span></span>
-<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size=</span><span class="dv">14</span>) <span class="sc">+</span></span>
-<span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="fl">1.0</span>) <span class="sc">+</span></span>
-<span id="cb75-9"><a href="#cb75-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">title =</span> <span class="st">"Learning strategy"</span>)) <span class="sc">+</span></span>
-<span id="cb75-10"><a href="#cb75-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Adaptive fitness = 1.4, drop rate = 0.2"</span>)</span>
-<span id="cb75-11"><a href="#cb75-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb75-12"><a href="#cb75-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"adoption_rate_experiment.png"</span>, </span>
-<span id="cb75-13"><a href="#cb75-13" aria-hidden="true" tabindex="-1"></a>       p, <span class="at">width=</span><span class="dv">5</span>, <span class="at">height=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/adoption_rate_experiment.png" class="img-fluid figure-img"></p>
-<figcaption>Example computational experiment testing effect of adoption rate on success rate across the three learning strategies.</figcaption>
-</figure>
-</div>
+<!-- #### Example: comparison of learning strategies and parameters -->
+<!-- Agent-based models in `socmod` are composed of sub-models of cognition and social behavior and social networks. One component of agent cognition is its *social learning strategy*. Three social learning strategies are included in `socmod`: success-biased, frequency-biased, and contagion learning strategies [see ABM course notes for more details](https://css4s.github.io/abm-notes/intro.html#social-learning-strategies). -->
+<!-- Here we show how to compare the three learning strategies across different learning parameters. One parameter we systematically vary affects only success-biased learning, and the other we systematically vary affects only contagion learning. We will design computational experiments to understand their effects, and overall differences between the three learning strategies. -->
+<!-- ```{r} -->
+<!-- #| eval: false -->
+<!-- #| number-lines: true -->
+<!-- # Load ggplot2 to avoid writing it during plotting below. -->
+<!-- library(ggplot2) -->
+<!-- # Model generation function used in both computational experiments below. -->
+<!-- gen <- function(model_parameter_row) { -->
+<!--   # Extract adaptive_fitness to create agents. -->
+<!--   adaptive_fitness <- model_parameter_row$adaptive_fitness -->
+<!--   agent_1 <- socmod::Agent$new(1, behavior = "Legacy",  -->
+<!--                                fitness = 1.0, name = "a1") -->
+<!--   agent_2 <- socmod::Agent$new(2, behavior = "Adaptive",  -->
+<!--                                fitness = adaptive_fitness, name = "a2") -->
+<!--   agent_3 <- socmod::Agent$new(3, behavior = "Legacy",  -->
+<!--                                fitness = 1.0, name = "a3") -->
+<!--   agent_4 <- socmod::Agent$new(4, behavior = "Legacy",  -->
+<!--                                fitness = 1.0, name = "a4") -->
+<!--   agents <- list(agent_1, agent_2, agent_3, agent_4) -->
+<!--   graph <- igraph::make_graph(~ 1-2, 1-3, 1-4, 3-2) -->
+<!--   # Extract other necessary model parameters. -->
+<!--   learning_strategy <- model_parameter_row$learning_strategy -->
+<!--   drop_rate <- model_parameter_row$drop_rate -->
+<!--   adoption_rate <- model_parameter_row$adoption_rate -->
+<!--   # Make ModelParameters to encapsulate this model's parameters. -->
+<!--   model_parameters <- socmod::make_model_parameters( -->
+<!--     learning_strategy, graph, adaptive_fitness = adaptive_fitness,  -->
+<!--     adoption_rate = adoption_rate, drop_rate = drop_rate -->
+<!--   ) -->
+<!--   return ( -->
+<!--     socmod::make_abm( -->
+<!--       model_parameters, -->
+<!--       agents = agents -->
+<!--     ) -->
+<!--   ) -->
+<!-- } -->
+<!-- ``` -->
+<!-- ##### Experiment over adaptive fitness values -->
+<!-- ```{r} -->
+<!-- #| eval: false -->
+<!-- #| number-lines: true -->
+<!-- # Run the adaptive fitness trials if there is not already a variable -->
+<!-- # name for it in the current environment. Change n_trials_per_param to -->
+<!-- # a small number like 2-20 for development purposes. -->
+<!-- if (!("trials_adaptive_fitness" %in% ls(all.names = TRUE))) { -->
+<!--   trials_adaptive_fitness <- socmod::run_trials( -->
+<!--     gen,  -->
+<!--     n_trials_per_param = 100,  # change to 2-20 for shorter runs -->
+<!--     stop = socmod::fixated,  -->
+<!--     syncfile = "trials-adaptive_fitness.RData", -->
+<!--     # overwrite = TRUE, -->
+<!--     learning_strategy = c(socmod::success_bias_learning_strategy, -->
+<!--                           socmod::frequency_bias_learning_strategy, -->
+<!--                           socmod::contagion_learning_strategy), -->
+<!--     adaptive_fitness = seq(0.8, 2.4, 0.2), -->
+<!--     adoption_rate = 0.6, -->
+<!--     drop_rate = 0.2 -->
+<!--   ) -->
+<!-- } -->
+<!-- trials_summary <- socmod::summarise_outcomes( -->
+<!--   trials_adaptive_fitness, c("learning_strategy", "adaptive_fitness") -->
+<!-- ) -->
+<!-- trials_success_rate <- dplyr::filter(trials_summary, Measure == "success_rate") -->
+<!-- ``` -->
+<!-- Now plot... -->
+<!-- ```{r} -->
+<!-- #| eval: false -->
+<!-- #| number-lines: true -->
+<!-- p <- ggplot(trials_success_rate,  -->
+<!--               aes(x=adaptive_fitness, y=Value,  -->
+<!--                   color=learning_strategy) -->
+<!-- ) + -->
+<!--   geom_line(linewidth=1.0) + geom_point(size=2.15) + -->
+<!--   ggsci::scale_color_aaas() + ggsci::scale_fill_aaas() + -->
+<!--   xlab("Adaptive fitness") + ylab("Success rate") + -->
+<!--   scale_x_continuous(breaks = sort( -->
+<!--     unique(trials_summary$adaptive_fitness) -->
+<!--   )) + -->
+<!--   theme_classic(base_size=14) + -->
+<!--   ylim(0, 1.0) + -->
+<!--   guides(color = guide_legend(title = "Learning strategy")) + -->
+<!--   ggtitle("Adoption rate = 0.6, drop rate = 0.2") -->
+<!-- ggsave("adaptive_fitness_experiment.png", p,  -->
+<!--        width = 5, height = 3) -->
+<!-- ``` -->
+<!-- ![Example computational experiment testing effect of adaptive fitness on success rate across the three learning strategies.](images/adaptive_fitness_experiment.png) -->
+<!-- ##### Experiment over adoption rate values -->
+<!-- ```{r} -->
+<!-- #| eval: FALSE -->
+<!-- #| number-lines: TRUE -->
+<!-- if (!("trials_adoption" %in% ls(all.names = TRUE))) { -->
+<!--   trials_adoption <- socmod::run_trials( -->
+<!--     gen, -->
+<!--     n_trials_per_param = 100, -->
+<!--     stop = socmod::fixated,  -->
+<!--     syncfile = "trials-adoption-rate.RData", -->
+<!--     overwrite = TRUE, -->
+<!--     learning_strategy = c(socmod::success_bias_learning_strategy, -->
+<!--                           socmod::frequency_bias_learning_strategy, -->
+<!--                           socmod::contagion_learning_strategy), -->
+<!--     adaptive_fitness = 1.4, -->
+<!--     adoption_rate = c(0.05, 0.2, 0.4, 0.6, 0.8, 1.0), -->
+<!--     drop_rate = 0.2 -->
+<!--   ) -->
+<!-- } -->
+<!-- trials_summary <- socmod::summarise_by_parameters( -->
+<!--   trials_adoption, c("learning_strategy", "adoption_rate") -->
+<!-- ) -->
+<!-- trials_success_rate <- dplyr::filter( -->
+<!--   trials_summary, Measure == "success_rate" -->
+<!-- ) -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- #| eval: false -->
+<!-- #| number-lines: true -->
+<!-- p <- ggplot(trials_success_rate,  -->
+<!--             aes(x=adoption_rate, y=Value, color=learning_strategy)) + -->
+<!--   geom_line(linewidth=1.0) + geom_point(size=2.15) + -->
+<!--   ggsci::scale_color_aaas() + ggsci::scale_fill_aaas() + -->
+<!--   xlab("Adoption rate") + ylab("Success rate") + -->
+<!--   scale_x_continuous(breaks = sort(unique(trials_summary$adoption_rate))) + -->
+<!--   theme_classic(base_size=14) + -->
+<!--   ylim(0, 1.0) + -->
+<!--   guides(color = guide_legend(title = "Learning strategy")) + -->
+<!--   ggtitle("Adaptive fitness = 1.4, drop rate = 0.2") -->
+<!-- ggsave("adoption_rate_experiment.png",  -->
+<!--        p, width=5, height=3) -->
+<!-- ``` -->
+<!-- ![Example computational experiment testing effect of adoption rate on success rate across the three learning strategies.](images/adoption_rate_experiment.png) -->
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -1350,7 +1343,6 @@ Van Bavel, Jay J, Dominic J Packer, and William A Cunningham. 2008. <span>“<sp
 Witt, Alexandra, Wataru Toyokawa, Kevin N. Lala, Wolfgang Gaissmaier, and Charley M. Wu. 2024. <span>“<span class="nocase">Humans flexibly integrate social information despite interindividual differences in reward</span>.”</span> <em>Proceedings of the National Academy of Sciences</em> 121 (39). <a href="https://doi.org/10.1073/pnas.2404928121/-/DCSupplemental.Published">https://doi.org/10.1073/pnas.2404928121/-/DCSupplemental.Published</a>.
 </div>
 </div>
-</section>
 </section>
 </section>
 </section>
