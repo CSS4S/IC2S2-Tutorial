@@ -198,7 +198,7 @@ $$
 The discrete model can be represented as the following function that takes variables corresponding to time, `t`, an adoption rate, `adopt_rate`, and the drop rate, `drop_rate`, 
 which are $t$, $\alpha$, and $\delta$ in math. 
 ```{r}
-n <- function(t, adopt_rate = 0.2, drop_rate = 0.1, a_0 = 1) {
+a <- function(t, adopt_rate = 0.2, drop_rate = 0.1, a_0 = 1) {
   rho <- adopt_rate - drop_rate
   a_ret <- a_0 * exp(rho * t)
   return (a_ret)
@@ -239,7 +239,7 @@ make_a_tbl <- function(tmin = 0.0, tmax = 20.0, dt = 0.2,
     
     # Create a_t vector for each adopt_rate, a_0=1 implicit
     a_t = 
-      purrr::map(adopt_rates, ~ n(tvec, .x, drop_rate)) |> 
+      purrr::map(adopt_rates, ~ a(tvec, .x, drop_rate)) |> 
       purrr::flatten_dbl(),
     
     # Repeat adopt rate for each tstep
@@ -250,7 +250,7 @@ make_a_tbl <- function(tmin = 0.0, tmax = 20.0, dt = 0.2,
     )
   )
   
-  return (tbl)
+  return (a_tbl)
 }
 ```
 
@@ -309,7 +309,7 @@ make_a_discrete_tbl <- function(tmin = 0L, tmax = 20L,
     
     # Create a_t vector for each adopt_rate, a_0=1 implicit
     a_t = 
-      purrr::map(adopt_rates, ~ n(tvec, .x, drop_rate)) |> 
+      purrr::map(adopt_rates, ~ a(tvec, .x, drop_rate)) |> 
       purrr::flatten_dbl(),
     
     # Repeat adopt rate for each tstep
