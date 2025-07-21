@@ -10,22 +10,13 @@ Briefly about me, the instructor, my name is Matt Turner.
 I am a lecturer in the Stanford Doerr School of Sustainability in
 the department of Environmental Social Sciences. So far I have developed two
 courses for the department: *Computational Social Science for Sustainability*
-and *Agent-based Modeling*. This short course for IC2S2 is a combination of
-material from the two, plus a preview of an additional course I am developing
-for the coming academic year, *Opinion Change Modeling and Measurement*.
-
-Below I summarize what I contribute here, including my motivations for and lessons learned
-by focusing on the problem of our epoch, sustainability. This approach develops
-theoretical models of behavior and opinion change. Idealized mechanistic models
-can help us understand how various, simultaneous, and dynamic constraints
-such as population size, social network, and social learning strategy affect
-the diffusion of adaptive sustainable beahviors. 
+and *Agent-based Modeling*. This short course for IC2S2 is a sampling of
+material from the two.
 
 The question of our age is whether people can join forces to collectively
 and meaningfully push history out of its current rut of rapid ecological
-collapse towards a sustainable future. Technological solutions to the climate and general ecological crisis are 
-proliferating. But will enough people do them to matter? How can we design
-social inteventions with confidence to promote sustainable practices to replace 
+collapse towards a sustainable future. Technological solutions to the climate and general ecological crisis are proliferating. But will enough people do them to matter? How can we design
+social interventions with confidence to promote sustainable practices to replace 
 maladaptive behaviors that exhaust local resources? 
 
 The model framework I develop here can help, or so I believe and hope you agree. 
@@ -69,11 +60,11 @@ coordinated charging.
 
 Developing theories of why some sustainable practices spread but others don't
 is essential to promote sustainable adaptation to climate change and other
-pressing sustainability problems. These are thoroughly encapsulated in the
-United Nation's Sustainable Development Goals (aka SDGs), a set of seventeen
-pillars of sustainability cutting across developing strong Institutions that
+pressing sustainability problems. Sustainability encompasses many dimensions of human life, which are thoroughly encapsulated in the
+[United Nation's Sustainable Development Goals](https://sdgs.un.org/goals) (aka SDGs). There are  seventeen Sustainable Development Goals, which can address how to build strong Vibrant Institutions that
 protect Basic rights including sustainable access to resources. This requires
-Environmental and Ecological protection, especially climate action.
+Environmental and Ecological protection, especially climate action. Together I call this the Sustainability VIBE, which is the vibe we're trying to promote. 
+
 Theoretical modeling is a powerful way to predict how common contextual
 differences, such as the heterogeneity of social contacts in a population, 
 will affect outcomes, so a general strategy can be chosen for an application
@@ -81,12 +72,12 @@ of interest. In modern best-practices for social science,
 any collection of data-driven approaches are most useful when they utilize 
 at least a common vocabulary or framework [@Deffner2024]. 
 
-This provides a new iteration of concepts and language to accommodate alternative mechanistic formulations
-of the process of social diffusion. I designed this framework and 
-software to simultaneously introduces newcomers 
-to the field who could put the theoretical
-core of social science to use. It seemed no single resource existed to
+This work provides a new framework to accommodate alternative mechanistic formulations
+of the cognitive and social factors that power social diffusion. I designed this framework and 
+software to introduce newcomers 
+to the field so they can fluently put social science to good use. 
+It seemed no single resource existed to
 do this in a highly-transferable programming language like R. R, furthermore,
 has a wide, active, disciplined, diverse, and vibrant set of scientific developers
 who could collectively be called the *tidyverse*, led by Hadley Wickham and
-the Posit Developers who create the RStudio IDE.
+the Posit Developers who create the RStudio IDE. The `socmod` software being developed along with the conceptual framework is designed to fit *tidily* within this system.
