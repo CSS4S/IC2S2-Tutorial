@@ -1,11 +1,11 @@
-# Computational techniques for agent-based modeling
+## Computational techniques for agent-based modeling
 
 ```{r setup, include=FALSE}
 library(socmod)
 library(magrittr)
 ```
 
-This chapter introduces agent-based modeling in `socmod` starting with basic functional and object-oriented programming in R. It therefore builds on an assumed knowledge of R basics which can be gained by studying, for example, [*Hands-On Programming with R*](https://rstudio-education.github.io/hopr/index.html) or other basic R tutorial introductions.
+This section introduces agent-based modeling in `socmod` starting with basic functional and object-oriented programming in R. It therefore builds on an assumed knowledge of R basics which can be gained by studying, for example, [*Hands-On Programming with R*](https://rstudio-education.github.io/hopr/index.html) or other basic R tutorial introductions.
 
 To model social behavior it helps to have intuitive software tools grounded in an empirically-motivated, self-consistent scientific theory. `socmod` provides those tools, but to put it to best use it's helpful to know how it works, especially for people used to using R in a data science context. Many of the same tools are transferable, especially declarative/functional programming, as is used and encouraged by the [tidy approach in R for Data Science](https://r4ds.hadley.nz/).
 
@@ -19,11 +19,11 @@ In `socmod`, we define custom R objects for agent-based models of social behavio
 
 In the remainder of this chapter, I will first review variable assignment and data structures in R including vectors, lists, data.frames, and tibbles. We then review relevant topics in functional programming, then demonstrate how to create custom classes in R with the library [R6](https://r6.r-lib.org/). This tutorial then closes with a demonstration of a simple four-agent agent-based model of social behavior, kept simple to highlight the functional and object-oriented design patterns in `socmod`, representing `Agent`, an `AgentBasedModel`, and `Trial`classes defined using the [`R6Class` function](https://r6.r-lib.org/reference/R6Class.html).
 
-## Data collection types in R
+### Data collection types in R
 
 In R, there is a hierarchy of data collection types that are necessary to know about for functional programming, which often involves applying a function across every element of a collection of data. Data collections include vectors, lists, data.frames, and tibbles, which we'll cover here.
 
-### Collections of basic data types
+#### Collections of basic data types
 
 In computer science, a *collection* is an abstract data type that organizes and stores instances of other data types. In R, the most basic data types are numbers (e.g., `double` or `integer`) and text, whose data type is `character` in R whether it's a single character or several:
 
@@ -32,7 +32,7 @@ print(typeof('c'))
 print(typeof("social science is kewl"))
 ```
 
-### Vectors
+#### Vectors
 
 R vectors are defined using the `c()` function, e.g., `vec <- c(0, 0, 1)`. The data type of all vector elements must be the same. This is enforced by R coercing data to different types, for example:
 
@@ -49,7 +49,7 @@ print(vec[1])
 print(vec[length(vec)])
 ```
 
-### Lists
+#### Lists
 
 If one wants to keep elements of different types in a single collection, use the R `list`:
 
@@ -76,7 +76,7 @@ This is useful if you want to create a new sub-list with more than one element:
 print(l[c(2, 3)])
 ```
 
-### Named lists
+#### Named lists
 
 Named lists are the primary key-value store in R, just like `dict` in Python. It allows us to label entries of the list and access them using double square brackets with the character name or using the `$` access operator:
 
@@ -86,7 +86,7 @@ print(named_l$a == named_l[["a"]]) # compares element-by-element
 print(all(named_l$b == named_l[["b"]]))
 ```
 
-### `tibble` (and `data.frame`)
+#### `tibble` (and `data.frame`)
 
 Both the `tibble` and `data.frame` classes represent tabular data, meaning data that can be represented in table format, e.g., in comma- or tab-separated value format. There are some subtle differences listed below, but we'll use `tibble` for representing our tables.
 
@@ -115,7 +115,7 @@ mean_measurement_tbl <-
 print(mean_measurement_tbl)
 ```
 
-### Difference between `data.frame` and `tibble`
+#### Difference between `data.frame` and `tibble`
 
 The `tibble` library provides a table data representation (also called `tibble`) that is a bit more flexible and intuitive than the R built-in `data.frame`. One reason I prefer tibbles is because traditional data.frames automatically convert strings to factors unless you tell them not to. Tibbles don't, so you're never surprised.
 
@@ -123,11 +123,11 @@ Column naming is also more flexible with tibbles. A data.frame requires syntacti
 
 Finally, tibble operations always return a tibble. For example, if `df` were a data.frame, the operation `df[, 1]` would return a vector by default. If it were a tibble it would return another tibble, making behavior more predictable in data analysis pipelines.
 
-## Functional programming
+### Functional programming
 
 Functional programming is especially useful for writing code that applies the same function to several inputs, but wants to leave it up to the user to specify exactly which function should be applied. In `socmod` we pass functions as arguments to other functions to specify how agents pick their interaction partners (i.e., teachers in a learning context) and how social learning works. Here are some simple examples demonstrating the key concepts and techniques of functional programming that could help with `socmod` programming.
 
-### Higher-order functions: functions with function arguments
+#### Higher-order functions: functions with function arguments
 
 In R, and other programming languages supporting the functional style, one can treat functions like any other data and pass it as an argument to other functions. A function that accepts a function as an argument is called a *higher-order function*. Here is a simple example of a higher order function that takes some `data` as a first argument and applies the function `f` to that data twice, putting the result of each calculation in a two-element vector.
 
@@ -152,7 +152,7 @@ The above is the representation of a vector printed to screen, so we see that ou
 c(4, 4)
 ```
 
-### `map`: a common, useful higher-order function used often in `socmod`
+#### `map`: a common, useful higher-order function used often in `socmod`
 
 One of the most useful and common higher-order functions is the map function. This function *maps* a function, denoted `.f` below, onto every element in a collection, denoted `.x`. This notation is from the `map` family of functions in the [`purrr` library](https://purrr.tidyverse.org/) for tidy functional programming.
 
@@ -176,11 +176,11 @@ input_vec <- c(2, 5050, 6)
 purrr::imap_vec(input_vec, \(el, idx) { return (idx * el) })
 ```
 
-## Custom objects: R6 classes in socmod
+### Custom objects: R6 classes in socmod
 
 Classes are ways to *encapsulate* diverse distinct, but related, processes, behaviors, data, attributes, and other types of information in a single *object*, i.e., a software representation of an *instance* of that entity. R6 is a library for creating our own custom classes that serve as an abstract template that specifies what distinguishes different types of objects/entities. Below we show first how to create a new agent, i.e., a new instance of the `Agent` class that is provided by `socmod`. After that is a fun example of how we can design a different social behavioral model, one of football/soccer matches. We write classes for players and teams and develop a `play_match(team1, team2)` function that pits two teams against each other.
 
-### The `Agent` class in `socmod`
+#### The `Agent` class in `socmod`
 
 Below we create a new instance of the `Agent` class using the class *constructor*, the function written `socmod::Agent$new()` below that creates a new instance of the class.
 
@@ -222,7 +222,7 @@ print(neighbor_names)
 print(unlist(neighbor_names))
 ```
 
-### Exercise: design and define classes from scratch
+#### Exercise: design and define classes from scratch
 
 In class we started creating our model of a soccer player agent called `Footballer`, defined below. We ran out of time at the end of class to write *methods* for `Footballer`, i.e., ways that a football player could interact with the world, or that the world could act upon a soccer player. However we only had time to create a *stub* for two methods. A stub is a minimal chunk of code that does very little to nothing, but doesn't get in the way by causing errors or anything like that. It enables us to document our plans for future development in the exact place where it would happen in the code.
 
@@ -380,24 +380,24 @@ cat("\nAfter three games...", "\nThe Whales have won",
     whales$wins, "games and the Squirrels have won", squirrels$wins)
 ```
 
-## An aside on copy vs reference semantics in R: assignment and mutation
+### An aside on copy vs reference semantics in R: assignment and mutation
 
 When you change something in R, sometimes R makes a copy of the object so the original stays the same, and sometimes it changes the object by reference, meaning it updates the original directly. Understanding whether an operation creates a new copy or modifies an object in place (called mutation) is important because it affects whether you need to assign the result back to a variable or not. Even though this idea is usually taught in more advanced programming, it’s useful for beginners working with modeling and simulation because different parts of R (like data frames vs. agent-based models) follow different rules, and knowing which is which can help avoid confusing bugs.
 
-### 1. The underlying tension: how R handles object copying and modification
+#### 1. The underlying tension: how R handles object copying and modification
 
 At the heart of R’s behavior lies a subtle technical distinction: whether an object is *copied* or *modified in place* when you change it. By default, R uses **copy-on-modify semantics**, meaning that if you change an object, R creates a new copy behind the scenes and leaves the original unchanged. This protects your data from unintended side effects and reflects R’s origins as a functional programming language for statistics. But as R evolved to support more object-oriented programming and to interface with other languages like C and C++, it introduced types of objects—such as environments, external pointers, and R6 classes—that instead use **reference semantics**. With these objects, changes happen directly to the object itself without making a copy. Internally, R’s i nterpreter keeps track of when it needs to copy or reuse memory, but these mechanics aren’t always visible, which can lead to surprises when working with more complex objects.
 
-### 2. A practical guide for navigating copy and reference semantics
+#### 2. A practical guide for navigating copy and reference semantics
 
 For most core R data types—vectors, lists, data frames—you can assume that R makes a copy whenever you modify an object. But for certain kinds of objects, especially environments, **R6 classes** (used in `socmod`), and graphs from the **igraph** package, the behavior is different: these follow **reference semantics**, meaning they’re modified directly. In `socmod`, all models and agents are implemented using R6 classes, so when you call something like `model$set_parameter("n_agents", 100)`, the model’s state is updated directly and immediately—no need to reassign `model <- ...`. This makes working with simulations feel more natural, but it also means that habits from working with regular R objects don’t fully apply. A simple rule of thumb: if it’s an R6 object or a special object like an igraph graph, expect it to behave by reference; otherwise, expect copy-on-modify.
 
-### 3. How igraph fits in: working with C-backed graphs in R
+#### 3. How igraph fits in: working with C-backed graphs in R
 
 Much of **igraph** isn’t written in R itself, but in another programming language called **C**. C allows developers to write code that’s much faster and more efficient than what’s possible in R alone. This efficiency is great for users—igraph can handle large networks quickly—but it also introduces a subtle complication to how we work with graphs in R. When you modify an igraph object, you’re actually asking C code to change the graph behind the scenes. But instead of directly changing the graph you already have, igraph’s functions usually return a **new graph object** with the changes applied. This means that even though igraph mostly follows **reference semantics** (where an object can be updated without copying everything), you still need to **explicitly reassign the result of a modification** to keep the updated graph. It’s different from how `socmod`’s models and agents work: those are built with R6 classes, which really do modify objects “in place” without needing reassignment.
 
 
-## Agent-based models of social behavior
+### Agent-based models of social behavior
 
 Here we develop our first agent-based models of social behavior. We'll start small, with the following four-household network of solar panel electrification using only success-biased learning (@fig-four-agent-example). Then we'll do a detailed comparison of different social learning strategies with different parameterizations.
 
@@ -407,7 +407,7 @@ In the example, agent 2 has adopted rooftop solar. It has some adaptive fitness,
 
 The `adoption_rate` parameter specifies how likely another agent is to adopt the adaptive behavior when exposed to it. The `drop_rate` is how likely an agent doing the adaptive behavior is to stop doing it and revert to the non-adaptive behavior.
 
-### Example 1: Time series of adaptation diffusion
+#### Example 1: Time series of adaptation diffusion
 
 ```{r}
 #| fig-width: 4.75
@@ -422,7 +422,7 @@ mps <- make_model_parameters(
 cabm <- make_abm(mps); 
 cabm$get_agent(2)$set_behavior("Adaptive"); 
 trial <- run_trial(cabm, stop = fixated)
-plot_prevalence(trial, tracked_behaviors = c("Legacy", "Adaptive"))
+plot_prevalence(trial, tracked_behaviors = c("Adaptive", "Legacy"))
 
 ```
 
@@ -442,7 +442,7 @@ trial <- run_trial(cabm, stop = fixated, adaptive_behavior = "Baglowie")
 plot_prevalence(trial, tracked_behaviors = c("Legacy", "Baglowie"))
 ```
 
-### Example: comparison of learning strategies and parameters
+#### Example: comparison of learning strategies and parameters
 
 Agent-based models in `socmod` are composed of sub-models of cognition and social behavior and social networks. One component of agent cognition is its *social learning strategy*. Three social learning strategies are included in `socmod`: success-biased, frequency-biased, and contagion learning strategies [see ABM course notes for more details](https://css4s.github.io/abm-notes/intro.html#social-learning-strategies).
 
@@ -491,7 +491,7 @@ gen <- function(model_parameter_row) {
 }
 ```
 
-#### Experiment over adaptive fitness values
+##### Experiment over adaptive fitness values
 
 ```{r}
 #| eval: false
@@ -515,7 +515,7 @@ if (!("trials_adaptive_fitness" %in% ls(all.names = TRUE))) {
   )
 }
 
-trials_summary <- socmod::summarise_by_parameters(
+trials_summary <- socmod::summarise_outcomes(
   trials_adaptive_fitness, c("learning_strategy", "adaptive_fitness")
 )
 
@@ -548,7 +548,7 @@ ggsave("adaptive_fitness_experiment.png", p,
 
 ![Example computational experiment testing effect of adaptive fitness on success rate across the three learning strategies.](images/adaptive_fitness_experiment.png)
 
-#### Experiment over adoption rate values
+##### Experiment over adoption rate values
 
 ```{r}
 #| eval: FALSE

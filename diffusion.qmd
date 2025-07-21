@@ -7,6 +7,7 @@
 library(socmod)
 ```
 
+
 # Diffusion
 
 <br>
@@ -20,6 +21,7 @@ behaviors, this provides the selection mechanism that generates cultural
 evolution. 
 
 <br>
+
 
 ## Introduction
 
@@ -50,15 +52,6 @@ social judgements against men who follow women could support despite progress
 towards gender pay equity, more maternal leave, and other material improvements. 
 
 
-
-
-
-
-
-
-
-
-
 ### Overview
 
 In this chapter we start building our framework for social diffusion, represented by mechanistic mathematical and software models of social transmission and learning. We begin with a simple model of a chain of unconstrained social transmission starting from a single teacher, with no limit on how many people might learn from teachers of teachers of teachers, and so on. We also assume behaviors do not require coordination with others, and so the benefit of doing a behavior is independent of the number of people doing the behavior. I show how we can use discrete-time difference equations, continuous-time differential equations, or agent-based simulation to arrive at the same conclusion: prevalence increases exponentially over time under these assumption. We tag this the *Going Viral* model as it could represent the "going viral" stage of an emerging trend when there are many potential new adopters and few current adopters [@Rogers2003;@Smaldino2023_Ch4Contagion].
@@ -66,7 +59,7 @@ In this chapter we start building our framework for social diffusion, represente
 To understand how real-world constraints affect diffusion, we scaffold from this unconstrained *Going Viral* model, adding constraints one at a time and observing their effects.  First is the constraint of *finite populations* in the section *Bounded Virality* below. Next is the *Viral Friends* section where we consider the effect of interaction structure, which could be represented by homophily or a social network, for example. Finally,
 adaptive social learning constrains diffusion to cultural evolutionary dynamics, presented in the section *Guided Virality*. 
 
-One side effect of this organization is that cultural evolution is revealed as  diffusion process. Cultural evolution is enabled and driven by adaptive social learning, which provides selection pressure on behaviors [@@Richerson2020]. *Behavior* is the analogue of *phenotype* in genetic evolution; *adaptive social learning* is the analogue of *preferential mating* in genetic evolution [@CavalliFeldman1981;@Boyd1995;@BoydRicherson2005]. In both cases, the *behavioral gambit* and *phenotypic gambit* are common names for the modeling assumption that knowledge of how to do a behavior, or the genetic encoding for the pheotype, are faithfully transmitted. Furthermore, this *gambit* assumes that once an individual knows how to do a behavior, they perform it perfectly, or the individual's genotype is perfectly expressed in the phenotype. A final assumption embedded in this gambit is a one-to-one correspondence between knowledge/genetics and behavior/phenotype. 
+One side effect of this organization is that cultural evolution is revealed as  diffusion process. Cultural evolution is enabled and driven by adaptive social learning, which provides selection pressure on behaviors [@Richerson2020]. *Behavior* is the analogue of *phenotype* in genetic evolution; *adaptive social learning* is the analogue of *preferential mating* in genetic evolution [@CavalliFeldman1981;@Boyd1995;@BoydRicherson2005]. In both cases, the *behavioral gambit* and *phenotypic gambit* are common names for the modeling assumption that knowledge of how to do a behavior, or the genetic encoding for the pheotype, are faithfully transmitted. Furthermore, this *gambit* assumes that once an individual knows how to do a behavior, they perform it perfectly, or the individual's genotype is perfectly expressed in the phenotype. A final assumption embedded in this gambit is a one-to-one correspondence between knowledge/genetics and behavior/phenotype. 
 
 In *adaptive social learning*, model individuals prefer learning from others who are more successful, for example, or perhaps prefer adopting behaviors practiced by a greater number of their social partners [@Laland2004;@Kendal2018;@Toyokawa2019]. If individual psychology is such that more successful individuals are more likely to be chosen as teachers, this is called *success-biased learning*. When more prevalent behaviors are preferentially learned, this is *frequency-biased learning*. Keep in mind that these adaptive learning strategies are to cultural evolution what
 preferential mating is to genetic evolution: adaptive social learning induces
@@ -75,11 +68,14 @@ evolutionary diffusion dynamics.
 In the two chapters following this one we will harness cultural evolution to
 understand how norms of cooperation and gender equity in leadership could evolve to sticky equilibria that may take special efforts to deconstruct, even in idealized simulations. These models are the final scaffold on the diffusion model presented here. We represent these coordination problems in sustainability in terms of *evolutionary game theory*. 
 
+
 ### These models not endorsed for belief/opinion change
+
 Social influence dynamics of beliefs or opinions [@Blau1974;@DeGroot1974;@Lorenz2007;@Flache2011;@Turner2018;@Galesic2021] are
 considered as a different class of models in this framework since the thing being transmitted is *latent*, i.e., not directly observable. In these cases, we can only observe *behaviors* 
 that either report or belie latent psychological beliefs or opinions. I develop social influence
 models in terms of our framework later in these notes.
+
 
 ## Model
 
@@ -131,6 +127,15 @@ mathematical models by providing scientists with a way to model detail on
 finer scales and test how additional factors like group structure and social
 networks affect diffusion.
 
+Our models generate both *observations* of prevalence time series and *outcomes*
+of whether a simulated intervention is *successful*. In addition to these, we
+will analyze the *onset dynamics* that tell us whether the adaptive behavior
+will endogenously diffuse. In other words, onset dynamics tell us whether 
+the adaptive behavior will continue to diffuse sociall following direct
+instruction of the seed set of individuals who participated in the intervention. 
+These analyses will be explained in further detail as needed in the Analysis
+following the model exposition.
+
 
 ### The Prevalence Dynamic
 
@@ -169,152 +174,22 @@ $$
 \dadt = (1 - a)\pal + a\pla.
 $$
 
-### Going Viral: Unbounded Contagion
+### Going Viral: Contagion
 
-We begin with the *Going Viral* model with minimal assumptions about behavior
-change via social learning. Diffusion is *unconstrained* because we assume that the population size is so large that it's practically
-infinite, i.e., $N \to \infty$. Individuals are equally likely to select one
-another as interaction partners, which is equivalent to interactions being
-structured by a complete network. Since the population is large it is
-computationally slow and wasteful to explicitly specify the social network in
-the agent-based model version we demonstrate last in this section. 
-We also assume that it's impossible to tell individuals apart. 
-This is the *baseline* model because we specify the fewest details of how 
-social interaction and behavior diffusion work. From this baseline we will add 
-further complexity curated from a set of additional useful
-empirically-motivated, though highly simplified, model assumptions.
+The contagion model of social transmission make minimal assumptions, but still enable helpful analyses. Here I present the contagion model of social diffusion obtained through specifying appropriate $\pal$ and $\pla$ in the prevalence dynamic. The first assumption of contagion is that $L$-doers switch behavior and adopt $A$ with some chance, $\alpha$, when they interact with an $A$-doer. The second assumption is that $A$-doers sometimes can not or do not continue doing the adaptive behavior, and *drop* it with probabiity $\delta$. Dropping an adaptation could be incidental, for example if someone had installed residential solar at one home, but they are moving somewhere else that doesn't have residential solar, and so will have to stop doing the behavior *generate home electricity with solar energy*, at least for some time. It could also be due to forgetting, changing preferences, or any other possible explanation.
 
-The *contagion* part of *unconstrained contagion* signifies the learning model.
-In the contagion model of learning, if one doing the
-Erroneous/Exhaustion/Extinction behavior, $L$, interacts with someone doing the
-Adaptive behavior, $A$, there is a probability $\alpha \in [0, 1]$ that the one
-switches from doing the Exhaustion behavior to doing the Adaptive behavior,
-where $\alpha$ is called the *adoption rate*. We can add regression to $L$ as
-well by specifying the *drop rate*, $\delta$, i.e., the probability that one
-doing $A$ stops, reverting to $L$. Contagion learning could, then, be a suitable
-assumption for fads and trends with little inherent value. Complex contagion is
-a learning model where an agent adopts a behavior after a sufficiently large
-number of exposures, developed largely by sociologists
-[@Centola2007a;@Centola2018] with a notable use recently by a team of cognitive
-and social scientists to explain foraging behavior [@Garg_Padilla-Iglesias2021].
-Adopting contagion learning enables us to leverage techniques for epidemiological
-modeling for social behavior diffusion in finite populations. Finite populations
-provide the first constraint on behavior diffusion, and we'll use a formal
-system first developed for epidemiology, but we'll show it is also a special
-case of the cultural evolutionary replicator dynamic.
-
-We begin constructing the formal model by writing down how much the prevalence
-of the adaptive behavior changes in a single time step. We'll write $n_t$ or
-$n(t)$ for the $number$, or count, of how many individuals have adopted $A$ in the discrete and continuous 
-models, respectively. 
-We will close our development of the Unconstrained
-Contagion model by sketching the agent-based model implementation using
-`socmod`. 
-
-#### Prevalence Dynamics in Discrete Time {.unnumbered}
-
-Given the Unconstrained Contagion model assumptions we can write an equation
-that represents how much $n_t$ changes over one time step that has units of
-time. For example, if we are designing a model of ecosystem protection in the
-Masai Mara reserve in Kenya where we have *monthly* satellite data of fence
-construction in the reserve, we'd likely assume our model time steps have units
-of one month as well to harmonize with the target real-world system. If we want
-to study social factors in promoting wetland restoration or electric vehicle
-adoption within a relatively small geographic area, a yearly time step may be
-more appropriate. If there is no data available for your study, do your own
-reasoning to figure out what time step makes sense, either based on the time
-scale of learning about and implementing certain behaviors (i.e., mangrove
-forests grow slowly and restoration takes time, so year-over-year would be
-perhaps the smallest reasonable time step) or based on how frequently
-measurements *could* be made if an appropriate empirical study were designed
-based on the model, so that the model may one day be validated, used practically
-for real-world intervention design, and used for evaluating inconsistent
-hypotheses in theory development [@Deffner2024].
-
-On each time step in Unconstrained Contagion, each of the $n_t$ individuals 
-doing $A$ will transmit their behavior to one other individual every $\alpha$
-time steps, where we call $\alpha$ the *adoption rate*. 
-The change in the number of individuals doing $A$ on each time step is then:
+We represent contagion assumptions in $\pal$ and $\pla$ as
 $$
-\Delta n_t = \alpha n_t - \delta n_t.
+\pal = \alpha a, \quad \pla = \delta.
 $$
 
-That is, $\Delta n_t = n_{t+1} - n_t$, so we can rewrite the recurrence as:
-$$
-n_{t+1} = n_t + \alpha n_t - \delta n_t.
-$$
 
-Factoring out $n_t$ gives:
-$$
-n_{t+1} = n_t(1 + \alpha - \delta)
-$$
-and defining $\lambda = 1 + \alpha - \delta$, we get:
-$$
-n_{t+1} = \lambda n_t.
-$$
-
-This effectively says that the growth rate is constant, since $\lambda$ is constant and $\frac{n_{t+1}}{n_t} = \lambda$. In other words, growth never slows down, so 
-$n_t$ increases over time.
-
-If we know $\lambda$ and the initial number of adopters, $n_0$ (i.e., $n_{t=0}$), 
-we can calculate the number of adopters at time $t$ using the formula:
-$$
-n_t = \lambda^t n_0.
-$$
-
-We get this equation by iteratively applying the recurrence. For example:
-$$
-n_{t+1} = \lambda (\lambda n_{t-1}) = \lambda^2 n_{t-1}.
-$$
 
 <br>
 
-#### Prevalence Dynamics in Continuous Time {.unnumbered}
+#### Bounded Virality: Finite Populations
 
-When $t$ is continuous we can write the number of adopters of $A$ as a mathematical function of time with $t$ in parentheses: $n(t)$. Instead of a recursion equation:
-
-$$
-\frac{dn}{dt} = \alpha n - \delta n
-$$
-
-Which integrates to:
-$$
-n(t) = n_0 e^{\rho t},
-$$
-where $\rho = \alpha - \delta$. 
-
-If we restrict $t$ to integers, i.e., $t \in \{0, 1, \ldots, T\}$, then:
-$$
-n(t) = \{n_0, n_0 \cdot e^{\rho}, n_0 \cdot e^{2\rho}, \ldots, n_0 \cdot e^{T\rho}\}.
-$$
-
-This implies that $e^\rho = \lambda$, so:
-$$
-\rho = \ln \lambda.
-$$
-
-We can verify this algebraically. If:
-$$
-n_0 e^{t'\rho} = n_0 \lambda^{t'},
-$$
-then dividing both sides by $n_0$ and taking the natural logarithm gives:
-$$
-\ln e^{t'\rho} = \ln \lambda^{t'},
-$$
-and using the identity $\log_b(x^y) = y \log_b(x)$:
-$$
-t' \ln e^\rho = t' \ln \lambda.
-$$
-
-Dividing both sides by $t'$ and noting that $\ln e^\rho = \rho$, we confirm:
-$$
-\rho = \ln \lambda,
-$$
-visualized in Figure 4.X.
-
-<br>
-
-### Bounded Virality: Finite Populations
+<span style="color: red">Redo this by writing full contagion $a(t)$ the doing $a << 1$ approximation</span>
 
 Now we need to account for the fact that as time goes on and the adaptation
 spreads, the approximation $n << N$ becomes less accurate. We need dynamics that
@@ -337,18 +212,16 @@ since only individuals performing $L$ can switch to adopt $A$ when these are the
 only two behaviors, as we constrain our model to here. In other words, $\alpha
 \to (1 - a) \alpha$ in the prevalence 
 
-### Guided Virality: When Cultural Evolution Powers Diffusion
+### Guided Virality: Cultural Evolution
 
 Cultural evolution has provided many explanations for previously mysterious
-phenomena, such as cultural ratcheting, identity signaling, the evolution of bad
-science, and more. Its power comes from its general formulation of social
-behavior diffusion as a system of self-replicators who pass on their "trait"
-to their "offspring". Traits in this model are just behaviors, and offspring are
-those who adopt the behavior after exposure or instruction. 
+phenomena, such as cultural ratcheting \cite{Garland2022,Andersson2016}, identity signaling, the evolution of bad
+science [@Smaldino2016NatSel;@Smaldino2019], and more. Its power comes from its  formulation of human populations as a system of replicators who pass on their "trait"
+to their "offspring". However, as time has progressed, we can see that previous formulations perhaps overcomplicated the situation by assuming that the locus of the *cultural selection* process is preferential mating, resulting in Punnet-square style pairings of diploid *alleles* that stand in for *behaviors* in the classic formulation [@CavalliFeldman1981]. One additional hidden assumption powers the use of classic genetic evolution and cultural evolution alike: the *phenotypic gambit* in genetic evolution assumes that an individual's phenotype (e.g., an expressed trait $A$) is a suitable stand-in for the genetic material, the *allele*. In our model we make a similar, but distinct, assumption. When we say a behavior is transmitted, this includes acquiring the necessary skills to do the behavior. The learning process itself is abstracted away in basic models of cultural evolution like this one.
 
-This general model of replication at each time step is called the *replicator
-dynamic*, first used in theoretical genetics and population biology. There it
-was written as 
+To show that the prevalence dynamic can represent cultural evolution, we show it is actually equivalent to the *replicator equation* first, without mutation. We exclude mutation because in most cases there already are sustainable practices we could be doing more, but they haven't diffused widely. Some Indigenous sustainable practices have existed for millenia, like mangrove forest management for mitigating sea inundation [@McNamara2020;@Piggott-McKellar2020] and prescribed burns to mitigate the risk of catastrophic fire [@Eisenberg2019;@Kolden2019]. Our focus is endogenous dynamics, so mutation could be ignored for strategic reasons as well. To summarize, the 
+
+
 
 $$
 \frac{da}{dt} = a(w_A - \bar{w})
@@ -391,32 +264,6 @@ $$
 \frac{da}{dt} = (1 - a) P(A \mid L) - a P(L \mid A)
 $$
 
-#### Notation and terminology {.unnumbered}
-
-The replicator equation is a statement about how prevalence of some attribute A changes depending on how frequently individuals with the attribute pass it along to an individual of the next generation. It has no inherent concept of *fitness* but somehow the $w$ get called fitness, when really they represent the rate of reproduction for an individual with *allele* $A$ in biological evolutionary models. 
-
-Too frequently it seems the definition of these reproduction rates, i.e., $w_A$,
-becomes twisted into a reverse definition of fitness. It is often presented like
-this: "In cultural evolution, we assume that some fitnesses are greater and the
-difference in fitnesses determines... <span style="color: red;">XXX FINISH THIS NEXT (7:30AM
-7/16)!!</span> 
-
-#### A General Learning Dynamic
-
-We expressed the change in frequency of an adaptive behavior $a$ using **transition probabilities**:
-
-$$
-\frac{da}{dt} = (1 - a) P(A \mid L) - a P(L \mid A)
-$$
-
-where:
-- $P(A \mid L)$: probability a legacy learner adopts the adaptive behavior
-- $P(L \mid A)$: probability an adaptive learner switches back to legacy
-
-This structure lets us plug in different learning rules while keeping the dynamical logic simple and modular.
-
----
-
 #### Success-Biased Learning
 
 Learners using the success-biased strategy preferentially select teachers with greater apparent fitness. In our models fitness values are the same for every behavior for every agent. We call $f_A$ the  from doing the behavior $A$, the adaptive behavior. Similarly, $f_L$ is the fitness gained from doing the legacy behavior, $L$. 
@@ -442,16 +289,21 @@ $$
 \frac{da}{dt} = \frac{a(1 - a)}{\bar{f}} (w_A - w_L)
 $$
 
-We showed this is algebraically equivalent to the replicator equation under success-biased social learning.
 
----
+#### Construction using `socmod` {.unnumbered}
 
-#### Frequency-Biased Learning
+Fill in after Analysis done, i.e., after model is built and analyses posted in this chapter in the appropriate section below.
+
+## Analysis 
+
+### Frequency-Biased Learning
 
 We then modeled **frequency bias** using an exponent $\gamma = \log \kappa$, giving:
 
+\newcommand{\apg}{a^{1+\gamma}}
+\newcommand{\mapg}{(1 - a)^{1 + \gamma}}
 $$
-P(A) = \frac{a^\gamma}{a^\gamma + (1 - a)^\gamma}
+P(A) = \frac{\apg}{\apg + \mapg}
 $$
 
 If everyone copies in proportion to frequency, then:
@@ -466,11 +318,11 @@ $$
 \frac{da}{dt} = \frac{a^\gamma(1 - a) - a(1 - a)^\gamma}{a^\gamma + (1 - a)^\gamma}
 $$
 
----
 
-#### Invasion Dynamics
 
-To analyze behavior near $a = 0 $, we expanded:
+#### Onset dynamics
+
+To analyze behavior near $a = 0$, we expanded:
 
 - $a^\gamma \approx 0 $
 - $(1 - a)^\gamma \approx 1 - \gamma a + \frac{\gamma(\gamma - 1)}{2} a^2 - \frac{\gamma(\gamma - 1)(\gamma - 2)}{6} a^3 + \dots $
@@ -506,9 +358,8 @@ This shows that:
 
 So frequency bias alone cannot explain the emergence and spread of adaptive behaviors. Other forces (e.g. success bias, drift, coordination) are required.
 
----
 
-#### Broader Implication
+#### Broader Implication {.unnumbered}
 
 This framework — based on transition probabilities — unifies:
 - Success bias
@@ -520,36 +371,9 @@ And it reveals a core result: **conformity blocks innovation**, while **anti-con
 
 These dynamics can also be tuned developmentally, suggesting new bridges to psychology and life-history theory.
 
-#### Agent-based diffusion modeling
+### Agent-based analysis
 
-To develop an agent-based formulation of this model, we need to specify a large population of agents to avoid finite-population effects for enough time steps to see Malthusian growth. 
-
-Recall that agent-based models define:
-
-- The population size $N$,
-- How agents select partners,
-- How interaction (e.g., observation or teaching) works,
-- And what else happens socially and environmentally in each time step.
-
-In this model:
-
-- Partners are selected randomly (with replacement), with the learner agent included as a possible teacher.
-- When a focal agent doing $L$ encounters a teacher doing $A$, they adopt $A$ with probability $\alpha$.
-- Each agent doing $A$ at the end of a time step reverts to $L$ with probability $\delta$, representing a real-world inability or unwillingness to sustain the behavior.
-
-This agent-based implementation mirrors the analytic model under stochastic simulation, and allows us to explore variability, finite-size effects, and deviations from idealized assumptions.
-
-<br>
-
-#### Construction using `socmod` {.unnumbered}
-
-Fill in after Analysis done, i.e., after model is built and analyses posted in this chapter in the appropriate section below.
-
-## Analysis 
-
-<br>
-
-### Formal, mathematical model {.unnumbered}
+#### Prevalence dyanmics {.unnumbered}
 
 The discrete model can be represented as the following function that takes variables corresponding to time, `t`, an adoption rate, `adopt_rate`, and the drop rate, `drop_rate`, 
 which are $t$, $\alpha$, and $\delta$ in math. 
@@ -567,6 +391,12 @@ I'll make a function to encapsulate the boilerplate steps called `make_n_tbl`
 in the code block below (unfold to view). It uses some helpful default settings
 to make an interesting visualization, which we do below. Below is the function
 signature for `make_n_tbl`, with the full function definition provided in a folded code block below that. Click the triangle to unfold the full definition. 
+
+$$
+\dadt = \dot a = 
+$$
+
+
 ```{r}
 #| eval: false
 make_n_tbl <- function(tmin = 0.0, tmax = 20.0, dt = 0.2, 
@@ -616,6 +446,9 @@ unconstrained_plot <- ggplot(n_tbl, aes(x = t, y = n_t,
   geom_line(linewidth = 1.2) + theme_classic(base_size = 12)
 print(unconstrained_plot)
 ```
+
+
+#### Check discrete and continuous are equivalent {.unnumbered}
 
 Let's close our analysis by checking that $n_t = \lambda^t n_0$ generates
 equivalent values of $n(t')$ for integer values $t'=0,1,2,\ldots,T$. To do this
@@ -722,10 +555,11 @@ contagion_interaction <- function(focal_agent, partner, model) {
 }
 
 
-dynamics <- make_model_dynamics(contagion_partner_selection, 
-                                contagion_interaction, 
-                                contagion_model_step, 
-                                label = "Going Viral")
+dynamics <- 
+  make_learning_strategy(contagion_partner_selection, 
+                         contagion_interaction, 
+                         contagion_model_step, 
+                         label = "Going Viral")
 
 # Create model
 abm <- 
@@ -740,6 +574,53 @@ print(abm$get_parameters()$as_list())
 ```
 
 ## Analysis
+
+
+### Contagion
+
+#### Dynamics {.unnumbered}
+
+When $t$ is continuous we can write the number of adopters of $A$ as a mathematical function of time with $t$ in parentheses: $n(t)$. Instead of a recursion equation:
+
+$$
+\frac{da}{dt} = \alpha a - \delta a
+$$
+
+Which integrates to:
+$$
+a(t) = a_0 a^{\rho t},
+$$
+where $\rho = \alpha - \delta$. 
+
+If we restrict $t$ to integers, i.e., $t \in \{0, 1, \ldots, T\}$, then:
+$$
+a(t) = \{a_0, a_0 \cdot e^{\rho}, a_0 \cdot e^{2\rho}, \ldots, a_0 \cdot e^{T\rho}\}.
+$$
+
+This implies that $e^\rho = \lambda$, so:
+$$
+\rho = \ln \lambda.
+$$
+
+We can verify this algebraically. If:
+$$
+n_0 e^{t'\rho} = n_0 \lambda^{t'},
+$$
+then dividing both sides by $n_0$ and taking the natural logarithm gives:
+$$
+\ln e^{t'\rho} = \ln \lambda^{t'},
+$$
+and using the identity $\log_b(x^y) = y \log_b(x)$:
+$$
+t' \ln e^\rho = t' \ln \lambda.
+$$
+
+Dividing both sides by $t'$ and noting that $\ln e^\rho = \rho$, we confirm:
+$$
+\rho = \ln \lambda,
+$$
+visualized in Figure 4.X.
+
 
 ### Dynamical Systems Invasion Analysis
 

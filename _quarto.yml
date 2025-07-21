@@ -5,7 +5,7 @@ book:
   title: "Computational Social Science for Sustainability"
   subtitle: "11th International Conference on Computational Social Science in Norrköping, Sweden"
   sidebar:
-    logo: IC2S2-Logo.png
+    logo: css4s-logo-2.png
   author: "Matt Turner"
   date: "21 July 2025"
   chapters:
@@ -15,8 +15,8 @@ book:
     # - writing.qmd
     - diffusion.qmd
     - cooperation.qmd
-    - unfairness.qmd
-    - opinion-change.qmd
+    # - unfairness.qmd
+    # - opinion-change.qmd
     - references.qmd
   
 bibliography: 
@@ -35,8 +35,10 @@ format:
         - darkly 
         - theme-dark.scss
         - styles.scss
-    fontsize: 0.9em
+    fontsize: 1.0em
     linestretch: 1.2
+    number-sections: true
+    number-depth: 3
   pdf:
     documentclass: scrreprt
 

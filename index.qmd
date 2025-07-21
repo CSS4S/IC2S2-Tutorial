@@ -34,7 +34,9 @@ modeling social behavior with applications to behavior diffusion,
 cooperation for natural resource conservation, norm inversion, and opinion
 change. I will frame social science theory and computational model development
 in terms of various problems in sustainability to demonstrate intended use and
-to introduce sustainability to newcomers. We will see together
+to introduce sustainability to newcomers. 
+
+We will see together
 through programming examples how to rigorously test 
 different intervention strategies. We will effectively prototype these
 interventions as software simulations in a sort of "wind tunnel" like used to
@@ -50,50 +52,41 @@ email](mailto:maturner@stanford.edu) is appreciated.
 
 This website and associated course content is and will always be free, licensed under the [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) License.
 
-## Preface
 
-- The structure of this framework emerged as I developed my course
-  *Computational Social Science for Sustainability*, with the selection pressure
-  of being digestible and useful for students in the sustainability school. 
-  In the course we present models of social behavior diffusion to understand how
-  sustainable practices spread in different idealized social contexts. 
-- This IC2S2 tutorial introduces a framework for models of social behavior to
-  organize them based on their assumptions, structure, applications, and other
-  details. This is meant to complement data-driven approaches such as data
-  analysis to incentivize and optimize real-world sustainable behaviors such as
-  coordinated charging.
-- Developing theories of why some sustainable practices spread but others don't
-  is essential to promote sustainable adaptation to climate change and other
-  pressing sustainability problems. These are thoroughly encapsulated in the
-  United Nation's Sustainable Development Goals (aka SDGs), a set of seventeen
-  pillars of sustainability cutting across developing strong Institutions that
-  protect Basic rights including sustainable access to resources. This requires
-  Environmental and Ecological protection, especially climate action.
-  Theoretical modeling is a powerful way to predict how common contextual
-  differences, such as the heterogeneity of social contacts in a population, 
-  will affect outcomes, so a general strategy can be chosen for an application
-  of interest. In modern best-practices for social science, 
-  any collection of data-driven approaches are most useful when they utilize 
-  at least a common vocabulary or framework [@Deffner2024]. 
-- A new observation language to accommodate alternative mechanistic formulations
-  of the process of social diffusion. I designed this framework and 
-  software as a step forward that simultaneously introduces newcomers 
-  to the field who could put the theoretical
-  core of social science to use. It seemed no single resource existed to
-  do this in a highly-transferable programming language like R. R, furthermore,
-  has a wide, active, disciplined, diverse, and vibrant set of scientific developers
-  who could collectively be called the *tidyverse*, led by Hadley Wickham and
-  the Posit Developers who create the RStudio IDE.
-- So, in summary, these notes are a humble suggestion for a social behavior
-  modeling framework for studying behavior diffusion, cooperation, norm
-  inversion, and opinion change, just as the first four I have explored myself.
-  This framework is meant to be generative, enabling users to explore the
-  consequences of using one modeling assumption or another, such as comparing
-  contagion-style learning with success-biased social learning. In Chapter 2 on
-  Diffusion, I explain that  
-  cultural evolution only occurs when learning is adaptive, for example if 
-  behavior choices are made based on how successful the people are who do them.
-  This is known as *success-biased learning* in the cultural evolution
-  literature. Still, sometimes people choose things more or less randomly, so a
-  *contagion*-based approach is better, where behaviors are learned completely
-  stochastically.
+## Prefatory notes
+
+The structure of this framework emerged as I developed my course
+*Computational Social Science for Sustainability*, with the selection pressure
+of being digestible and useful for students in the sustainability school. 
+In the course we present models of social behavior diffusion to understand how
+sustainable practices spread in different idealized social contexts. 
+
+This IC2S2 tutorial introduces a framework for models of social behavior to
+organize them based on their assumptions, structure, applications, and other
+details. This is meant to complement data-driven approaches such as data
+analysis to incentivize and optimize real-world sustainable behaviors such as
+coordinated charging.
+
+Developing theories of why some sustainable practices spread but others don't
+is essential to promote sustainable adaptation to climate change and other
+pressing sustainability problems. These are thoroughly encapsulated in the
+United Nation's Sustainable Development Goals (aka SDGs), a set of seventeen
+pillars of sustainability cutting across developing strong Institutions that
+protect Basic rights including sustainable access to resources. This requires
+Environmental and Ecological protection, especially climate action.
+Theoretical modeling is a powerful way to predict how common contextual
+differences, such as the heterogeneity of social contacts in a population, 
+will affect outcomes, so a general strategy can be chosen for an application
+of interest. In modern best-practices for social science, 
+any collection of data-driven approaches are most useful when they utilize 
+at least a common vocabulary or framework [@Deffner2024]. 
+
+This provides a new iteration of concepts and language to accommodate alternative mechanistic formulations
+of the process of social diffusion. I designed this framework and 
+software to simultaneously introduces newcomers 
+to the field who could put the theoretical
+core of social science to use. It seemed no single resource existed to
+do this in a highly-transferable programming language like R. R, furthermore,
+has a wide, active, disciplined, diverse, and vibrant set of scientific developers
+who could collectively be called the *tidyverse*, led by Hadley Wickham and
+the Posit Developers who create the RStudio IDE.

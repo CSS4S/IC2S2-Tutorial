@@ -193,7 +193,7 @@ There is no reason different learning models cannot be combined. The software we
 
 For another potentially useful modification, $\alpha$ could be defined at the individual level, say $\alpha_i$, or for *dyads* (i.e., a pair of interacting individuals) , $\alpha_{ij}$, where $i$ is still the focal agent learner, but we have added $j$, representing the selected teacher.
 
-## Identity and Influence
+### Identity and Influence
 
 Group identity critically influences social learning. Neuroscience research demonstrates that our brains distinctly respond to individuals identified as part of our group [@Cikara2014], as revealed through fMRI neural imaging (@fig-cikara-mri-image). This ability likely evolved because when humans first emerged about two million years ago, it was much more important for survival to be able to rapidly identify whether someone was a friend or foe based on group markers. Although group membership can affect how we respond to information learned from others, group membership itself is quite plastic, meaning who belongs to which group can be rapidly reconfigured. For example, neural signals of race-based group perception was observed to be suppressed and overridden when individuals were in mixed-race groups created by experimenters that competed against other mixed-race groups in an psychological experimental task [@VanBavel2008].
 
@@ -201,12 +201,15 @@ Group identity critically influences social learning. Neuroscience research demo
 
 Studies further show that group identity can strongly influence behavioral choices. For instance, experimental evidence reveals people resist adopting beneficial behaviors if associated with opposing political identities [@EhretConstantino2022], emphasizing how identity can create substantial barriers to sustainability. This general effect of group membership interfering with learning is called *outgroup aversion* [@Smaldino2017Adoption].
 
-## Social networks, homophily, and core-periphery structure
+### Social networks, homophily, and core-periphery structure
 
 Social structure can significantly impact behavioral diffusion, especially in core-periphery configurations. Core-periphery networks emerge as a response to risk and uncertainty, e.g., in food sharing networks [@Ready2018], so they are hypothesized to also be important in climate change adaptation transmission networks [@Jones2021]. Core-periphery networks can be created by setting appropriate group sizes and *homophily* levels in homophily network models [@Turner2023] or specifying certain connectivity probabilities to the *stochastic block matrix* algorithm for creating structured random graphs [@Rombach2014; @Milzman2023]. Homophily is the measure of how much more likely an individual is to socially connect within their own group versus with a member of a different group. Homophily can range from -1 to +1, where -1 represents no within-group connections and only between-group connections (i.e., *anti-homophily*); 0 represents an equal probability of within- and between-group connections, and +1 represents only within-group connections. We will define homophily as either a global or group-level variable, though homophily could vary individually as well. There are two types of homophily:
 
 -   **Choice Homophily**: Individuals actively prefer interacting with similar others.
 -   **Induced Homophily**: Social interactions limited by historical or external conditions like geography, profession, birthplace, etc.
 
-These structural elements can significantly limit the diffusion of sustainable practices from peripheries, like the mangrove management on smaller islands, to central cores. However, as colleagues and I have showed, this core-periphery structure, defined by moderately high majority-group homophily can actually *promote* the diffusion of adaptations, provided the adaptation is practiced by the minority group [@Turner2023], as is the case for mangrove forest management or prescribed burns. Formal definitions of homophily and core-peripheriness will be given in the networks chapter.
+These structural elements can significantly limit the diffusion of sustainable practices from peripheries, like the mangrove management on smaller islands, to central cores. However, as colleagues and I have showed, this core-periphery structure, defined by moderately high majority-group homophily can actually *promote* the diffusion of adaptations, provided the adaptation is practiced by the minority group [@Turner2023], as is the case for mangrove forest management or prescribed burns. 
 
+
+
+{{< include technical-intro.qmd >}}

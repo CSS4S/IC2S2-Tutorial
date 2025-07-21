@@ -1,0 +1,16 @@
+---
+title: "tutorial-worksheet"
+format: html
+---
+
+```{r}
+#| setup: true
+
+
+library(socmod)
+```
+
+```{r}
+
+```
+
