@@ -4,7 +4,7 @@
 # Welcome and preface {.unnumbered}
 
 Thanks for your interest in this short course on Computational Social Science
-for Sustainability. 
+for Sustainability. Please note there is a Quarto worksheet that we will work through as part of the tutorial: [css4s/IC2S2-Tutorial-Worksheet](https://github.com/CSS4S/IC2S2-Tutorial-Worksheet).
 
 Briefly about me, the instructor, my name is Matt Turner. 
 I am a lecturer in the Stanford Doerr School of Sustainability in
@@ -40,6 +40,8 @@ over time.
 
 Sincere thanks again for your time and attention. [Feedback via
 email](mailto:maturner@stanford.edu) is appreciated.
+
+This book's source code is available on GitHub: [css4s/IC2S2-Tutorial]()
 
 This website and associated course content is and will always be free, licensed under the [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) License.
 

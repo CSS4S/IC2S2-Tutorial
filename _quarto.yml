@@ -39,8 +39,5 @@ format:
     linestretch: 1.2
     number-sections: true
     number-depth: 3
-  pdf:
-    documentclass: scrreprt
-
 
 

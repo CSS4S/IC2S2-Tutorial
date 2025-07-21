@@ -10,7 +10,9 @@ The focus of this course is developing agent-based models that can help us simpl
 
 ## Sustainability as Social Science's (Ethical) "Manhattan Project"
 
-The agent-based modeling approach developed in this course provides a structured way to test the effectiveness of social interventions aimed at promoting sustainable behavior. By formalizing and testing our assumptions about social dynamics, agent-based modeling supports better design and evaluation of policies and programs aimed at driving real-world change. This deductive, experimental approach allows us to explore how cooperation, coordination, identity, homophily, and influence affect the likelihood that beneficial behaviors will spread. In the coming chapters and associated problem sets we will analyze social learning of behaviors and social influence of opinions in various contexts.
+The agent-based modeling approach developed in this course provides a structured way to test the effectiveness of social *interventions* aimed at promoting sustainable behavior. An intervention is some structured introduction of a sustainable practice through education or other means with the intention of sparking the endogenous diffusion of the practice after direct instruction has ended. For example, @Airoldi2024 developed a public health intervention to improve health outcomes for residents of villages in rural Ecuador far from hospitals. Airoldi and Christakis educated residents over an extended period of time about hand washing and warning signs of pregnancy complications, then surveyed residents to see if those not involved in the initial intervention had learned the information from the intervention. Airoldi and Christakis's study was designed to test a hypothesis about whether the *friendship-nomination* strategy for forming the *seed set* of individuals selected for direct instruction from the intervention.
+
+By formalizing and testing our assumptions about social dynamics, agent-based modeling supports better design and evaluation of policies and programs aimed at driving real-world change. This deductive, experimental approach allows us to explore how cooperation, coordination, identity, homophily, and influence affect the likelihood that beneficial behaviors will spread. In the coming chapters and associated problem sets we will analyze social learning of behaviors and social influence of opinions in various contexts. This could save serious resources. We could use computational models to test the hypothesis from @Airoldi2024 that friendship nominated seed sets indeed better sparked endogenous diffusion in many different social networks with different group structures, which would give us a more comprehensive understanding of when friendship nomination does well or not.
 
 The goal is to build up a repertoire of agent-based modeling techniques for incorporating different assumptions about how social learning or influence work, whether group structure is important to these processes, and for modeling social network structure. This repertoire can then be applied to sustainability contexts of interest to understand how different sustainability intervention strategies, such as who should learn about sustainable adaptations first in an educational intervention or how best to assist stakeholder deliberations to reduce opinion polarization that can derail collective adaptation. To choose model components wisely requires an understanding of elements of sustainability, cognitive and social science, network science, and software engineering.
 
@@ -31,7 +33,9 @@ we will apply to sustainability interventions. While many of us in computational
 social science know our work is important as basic science partly because we are
 confident it can apply to real-world problems, it is not clear how. Part of this
 problem seems to stem from the lack of a clear goal for this science beyond
-evaluating alternative theories of social behavior. *Sustainability* serves as a
+evaluating alternative theories of social behavior. 
+
+*Sustainability* serves as a
 sort of never-ending Manhattan Project for social scientists, an ethically
 praiseworthy pursuit that will provide a selection pressure on social science
 frameworks or theories that theory-comparison goals cannot: our social science
@@ -94,6 +98,10 @@ means that mechanisms have tended to be only vaguely specified,
 and changes in assumptions
 cannot be quantitatively, let alone systematically, explored [@Turner2022].
 
+
+
+## Social diffusion of sustainable practices
+
 Here we sketch a general theoretical framework that avoids the gridlock of
 deciding which social science theory is best by starting at one level of
 abstraction higher than we typically use for social science. The level we start
@@ -104,20 +112,21 @@ examining the most general features of social interaction and behavior
 diffusion, filling out details with assumptions drawn from the more
 implementation-level social science theories.
 
-### A model 
+In these models we assume there are two possible behaviors, or classes of behaviors, that individuals can do. These are called the *Adaptive* behavior or practice, or behavior $A$ for short. The non-adaptive or maladaptive behavior is the *Legacy* behavior, i.e., the *business-as-usual* behavior. An individual who does the adaptive behavior is an $A$-doer, and one doing the legacy behavior is an $L$-doer.
 
-A  (@fig-abm-sketch):
+To represent interventions, we initialize agent populations with one behavior or the other, specify environmental or ecological conditions such as the apparent benefit of different behaviors, and set agent learning strategies. Learning strategies that we consider are *contagion* (probabilistic adoption on exposure),
+*success-biased* learning (successful individuals are more likely to be chosen as teachers), and *conformity* or *frequency-biased* learning (more prevalent behaviors are more likely to be adopted).
 
-
--   Initializing agent populations and environmental conditions
--   Iterative steps where agents select partners, interact, and update behaviors based on outcomes and learning rules
--   Repeating these steps until specific conditions or thresholds are met
--   Generating output data for analysis
+The model represents time in steps. On each time step, agents select partners, interact, and update behaviors based on outcomes and learning rules. These steps are repeated until specific conditions or thresholds are met. Stopping conditions are typically specified as when a maximum time step is reached, when the entire population *fixates* (i.e., all do the same) on one behavior or the other. After the model stops, the dynamics can be inspected or the outcomes can be aggregated across simulations in the case of agent-based modeling.
 
 ![Agent-based modeling simulation cycle.](images/clipboard-2271438655.png){#fig-abm-sketch fig-align="center" width="850"}
 
 
-### Why agent-based models are useful
+### Formal models of diffusion
+
+In the next chapter I explain how to develop various *formal* models of behavior diffusion that represent changes in *prevalence* of different behaviors.
+
+### Agent-based models of diffusion
 
 Agent-based models (ABMs) provide a structured way to explore complex systems by simulating interactions between autonomous *agents*, i.e., simulated people. In sustainability contexts, ABMs offer a low-cost testbed for understanding how interventions might impact social dynamics and environmental outcomes. For example, @Airoldi2024 demonstrated through regression analysis across that one method for selecting individuals targeted in a public health education campaign worked better than another. They studied over 20,000 individuals across Honduran villages of about 100 people each to reach their findings. Real-world verification of the efficacy of different intervention strategies is important. However, we can also use agent-based models to represent the diffusion of information in simulated populations where interactions are structured by model social networks. We can initialize thousands or millions of simulated villages in which this information could diffuse with different intervention strategies, and observe the distribution of the adoption of sustainable behaviors for each potential intervention strategy. We can then analyze which performed best *in silico*, which can be helpful if interventions will be taken to different contexts. In other worlds, we can use ABMs to deduce how different learning rules, group identities, and social structures shape sustainability outcomes generally, which can guide our selection of real-world intervention strategies.
 
@@ -201,7 +210,7 @@ Group identity critically influences social learning. Neuroscience research demo
 
 Studies further show that group identity can strongly influence behavioral choices. For instance, experimental evidence reveals people resist adopting beneficial behaviors if associated with opposing political identities [@EhretConstantino2022], emphasizing how identity can create substantial barriers to sustainability. This general effect of group membership interfering with learning is called *outgroup aversion* [@Smaldino2017Adoption].
 
-### Social networks, homophily, and core-periphery structure
+#### Social networks, homophily, and core-periphery structure
 
 Social structure can significantly impact behavioral diffusion, especially in core-periphery configurations. Core-periphery networks emerge as a response to risk and uncertainty, e.g., in food sharing networks [@Ready2018], so they are hypothesized to also be important in climate change adaptation transmission networks [@Jones2021]. Core-periphery networks can be created by setting appropriate group sizes and *homophily* levels in homophily network models [@Turner2023] or specifying certain connectivity probabilities to the *stochastic block matrix* algorithm for creating structured random graphs [@Rombach2014; @Milzman2023]. Homophily is the measure of how much more likely an individual is to socially connect within their own group versus with a member of a different group. Homophily can range from -1 to +1, where -1 represents no within-group connections and only between-group connections (i.e., *anti-homophily*); 0 represents an equal probability of within- and between-group connections, and +1 represents only within-group connections. We will define homophily as either a global or group-level variable, though homophily could vary individually as well. There are two types of homophily:
 
@@ -210,6 +219,6 @@ Social structure can significantly impact behavioral diffusion, especially in co
 
 These structural elements can significantly limit the diffusion of sustainable practices from peripheries, like the mangrove management on smaller islands, to central cores. However, as colleagues and I have showed, this core-periphery structure, defined by moderately high majority-group homophily can actually *promote* the diffusion of adaptations, provided the adaptation is practiced by the minority group [@Turner2023], as is the case for mangrove forest management or prescribed burns. 
 
-
+Due to time restrictions we will not be able to analyze the effects of social networks in this tutorial. 
 
 {{< include technical-intro.qmd >}}

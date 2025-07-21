@@ -52,11 +52,15 @@ social judgements against men who follow women could support despite progress
 towards gender pay equity, more maternal leave, and other material improvements. 
 
 
-### Overview
+## Overview
 
 In this chapter we start building our framework for social diffusion, represented by mechanistic mathematical and software models of social transmission and learning. We begin with a simple model of a chain of unconstrained social transmission starting from a single teacher, with no limit on how many people might learn from teachers of teachers of teachers, and so on. We also assume behaviors do not require coordination with others, and so the benefit of doing a behavior is independent of the number of people doing the behavior. I show how we can use discrete-time difference equations, continuous-time differential equations, or agent-based simulation to arrive at the same conclusion: prevalence increases exponentially over time under these assumption. We tag this the *Going Viral* model as it could represent the "going viral" stage of an emerging trend when there are many potential new adopters and few current adopters [@Rogers2003;@Smaldino2023_Ch4Contagion].
 
-To understand how real-world constraints affect diffusion, we scaffold from this unconstrained *Going Viral* model, adding constraints one at a time and observing their effects.  First is the constraint of *finite populations* in the section *Bounded Virality* below. Next is the *Viral Friends* section where we consider the effect of interaction structure, which could be represented by homophily or a social network, for example. Finally,
+To understand how real-world constraints affect diffusion, we scaffold from this
+unconstrained *Going Viral* model, adding constraints one at a time and
+observing their effects.  First is the constraint of *finite populations* in the
+section *Bounded Virality* below. If we had more time together, the next section
+would  been is the *Viral Friends* section where we consider the effect of interaction structure, which could be represented by homophily or a social network, for example. Finally,
 adaptive social learning constrains diffusion to cultural evolutionary dynamics, presented in the section *Guided Virality*. 
 
 One side effect of this organization is that cultural evolution is revealed as  diffusion process. Cultural evolution is enabled and driven by adaptive social learning, which provides selection pressure on behaviors [@Richerson2020]. *Behavior* is the analogue of *phenotype* in genetic evolution; *adaptive social learning* is the analogue of *preferential mating* in genetic evolution [@CavalliFeldman1981;@Boyd1995;@BoydRicherson2005]. In both cases, the *behavioral gambit* and *phenotypic gambit* are common names for the modeling assumption that knowledge of how to do a behavior, or the genetic encoding for the pheotype, are faithfully transmitted. Furthermore, this *gambit* assumes that once an individual knows how to do a behavior, they perform it perfectly, or the individual's genotype is perfectly expressed in the phenotype. A final assumption embedded in this gambit is a one-to-one correspondence between knowledge/genetics and behavior/phenotype. 
@@ -69,12 +73,10 @@ In the two chapters following this one we will harness cultural evolution to
 understand how norms of cooperation and gender equity in leadership could evolve to sticky equilibria that may take special efforts to deconstruct, even in idealized simulations. These models are the final scaffold on the diffusion model presented here. We represent these coordination problems in sustainability in terms of *evolutionary game theory*. 
 
 
-### These models not endorsed for belief/opinion change
+## These models not endorsed for belief/opinion change
 
 Social influence dynamics of beliefs or opinions [@Blau1974;@DeGroot1974;@Lorenz2007;@Flache2011;@Turner2018;@Galesic2021] are
-considered as a different class of models in this framework since the thing being transmitted is *latent*, i.e., not directly observable. In these cases, we can only observe *behaviors* 
-that either report or belie latent psychological beliefs or opinions. I develop social influence
-models in terms of our framework later in these notes.
+considered as a different class of models in this framework since the thing being transmitted is *latent*, i.e., not directly observable. In these cases, we can only observe *behaviors* that either report or belie latent psychological beliefs or opinions. This is planned for future incorporation into the Computational Social Science for Sustainability course material in the near future.
 
 
 ## Model
@@ -171,46 +173,174 @@ on prevalence, and hide the $(t)$ part of the continuous prevalence $a(t)$
 so that the prevalence dynamic becomes
 \newcommand{\dadt}{\frac{da}{dt}}
 $$
-\dadt = (1 - a)\pal + a\pla.
+\dadt = \dot a =  (1 - a)\pal + a\pla.
 $$
+
 
 ### Going Viral: Contagion
 
-The contagion model of social transmission make minimal assumptions, but still enable helpful analyses. Here I present the contagion model of social diffusion obtained through specifying appropriate $\pal$ and $\pla$ in the prevalence dynamic. The first assumption of contagion is that $L$-doers switch behavior and adopt $A$ with some chance, $\alpha$, when they interact with an $A$-doer. The second assumption is that $A$-doers sometimes can not or do not continue doing the adaptive behavior, and *drop* it with probabiity $\delta$. Dropping an adaptation could be incidental, for example if someone had installed residential solar at one home, but they are moving somewhere else that doesn't have residential solar, and so will have to stop doing the behavior *generate home electricity with solar energy*, at least for some time. It could also be due to forgetting, changing preferences, or any other possible explanation.
+The contagion model of social transmission make minimal assumptions, but still enable helpful analyses. We fill in $\pal$ and $\pla$ in the prevalence dynamic as follows. In contagion, $L$-doers switch behavior and adopt $A$ with some chance, $\alpha$, when they interact with an $A$-doer. The second assumption is that $A$-doers sometimes can not or do not continue doing the adaptive behavior, and *drop* it with probability $\delta$. Dropping an adaptation could be incidental, for example if someone had installed residential solar at one home, but they are moving somewhere else that doesn't have residential solar, and so will have to stop doing the behavior *generate home electricity with solar energy*, at least for some time. It could also be due to forgetting, changing preferences, or any other possible explanation.
 
 We represent contagion assumptions in $\pal$ and $\pla$ as
 $$
 \pal = \alpha a, \quad \pla = \delta.
 $$
+Then the full prevalence dynamics are
 
+\newcommand{\adot}{\dot a}
+$$
+\adot = \alpha a(1 - a) - \delta a
+$$
+
+
+#### Prevalence dyanmics {.unnumbered}
+
+The discrete model can be represented as the following function that takes variables corresponding to time, `t`, an adoption rate, `adopt_rate`, and the drop rate, `drop_rate`, 
+which are $t$, $\alpha$, and $\delta$ in math. 
+```{r}
+n <- function(t, adopt_rate = 0.2, drop_rate = 0.1, a_0 = 1) {
+  rho <- adopt_rate - drop_rate
+  a_ret <- a_0 * exp(rho * t)
+  return (a_ret)
+}
+```
+
+I will now create a table of values for $n(t)$ for different adoption rates,
+$\alpha \in \{0.1, 0.105, 0.2, 0.5\}$, all with the same drop rate, $\delta = 0.1$.
+I'll make a function to encapsulate the boilerplate steps called `make_a_tbl`
+in the code block below (unfold to view). It uses some helpful default settings
+to make an interesting visualization, which we do below. Below is the function
+signature for `make_a_tbl`, with the full function definition provided in a folded code block below that. Click the triangle to unfold the full definition. 
+
+$$
+\dadt = \dot a = 
+$$
+
+
+```{r}
+#| eval: false
+make_a_tbl <- function(tmin = 0.0, tmax = 20.0, dt = 0.2, 
+                       adopt_rates = seq(0.1, 0.2, 0.025), drop_rate = 0.05) 
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: "`make_a_tbl` function definition"
+make_a_tbl <- function(tmin = 0.0, tmax = 20.0, dt = 0.2, 
+                       adopt_rates = seq(0.1, 0.2, 0.025), drop_rate = 0.05) {
+  
+  # Define vector of time points passed to the n function defined above
+  tvec <- seq(tmin, tmax, dt)
+  
+  # Create table to plot a_t for different adoption rate (alpha) values
+  a_tbl <- tibble::tibble(
+    # Repeat time vector four times for each alpha.
+    t = rep(tvec, length(adopt_rates)),  
+    
+    # Create a_t vector for each adopt_rate, a_0=1 implicit
+    a_t = 
+      purrr::map(adopt_rates, ~ n(tvec, .x, drop_rate)) |> 
+      purrr::flatten_dbl(),
+    
+    # Repeat adopt rate for each tstep
+    adopt_rate = factor(
+      purrr::map(adopt_rates, ~ rep(.x, length(tvec))) |> 
+      purrr::flatten_dbl(),
+      levels = adopt_rates
+    )
+  )
+  
+  return (tbl)
+}
+```
+
+Now let's use `ggplot2` to plot the series for each adoption rate, which will
+be indicated by line color and type. 
+
+```{r}
+library(ggplot2)
+a_tbl <- make_a_tbl()
+unconstrained_plot <- ggplot(a_tbl, aes(x = t, y = a_t, 
+                       color = adopt_rate, 
+                       linetype=adopt_rate)) +
+  geom_line(linewidth = 1.2) + theme_classic(base_size = 12)
+print(unconstrained_plot)
+```
+
+
+#### Check discrete and continuous are equivalent {.unnumbered}
+
+Let's close our analysis by checking that $a_t = \lambda^t a_0$ generates
+equivalent values of $n(t')$ for integer values $t'=0,1,2,\ldots,T$. To do this
+we'll create another `make_` function but for the discrete formula for $a_t$ 
+(Equation 2). We'll then (literally) add those points 
+to the `unconstrained_plot`, coloring by adoption rate. 
+
+In the code block below we write an R function for $a_t$, `a_t_discrete`, which
+is used by `make_a_discrete_tbl` to create a table of discrete-model values from
+time steps 0 to 20, this time setting `dt = 1`. The function signatures are below. Expand the code block below that to see the full function definitions.
+```{r}
+#| eval: false
+a_t_discrete <- function(t, adopt_rate = 0.2, drop_rate = 0.1, a_0 = 1)
+make_a_discrete_tbl <- function(tmin = 0L, tmax = 20L,  
+                                adopt_rates = seq(0.1, 0.2, 0.025), 
+                                drop_rate = 0.05)
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: "`make_a_discrete_tbl` function definition"
+a_t_discrete <- function(t, adopt_rate = 0.2, drop_rate = 0.1, a_0 = 1) { 
+  lambda <- (1 + adopt_rate - drop_rate)
+  a_t <- a_0 * (lambda ** t)
+  return (a_t)
+}
+make_a_discrete_tbl <- function(tmin = 0L, tmax = 20L,  
+                                adopt_rates = seq(0.1, 0.2, 0.025), 
+                                drop_rate = 0.05) {
+  
+  # Define vector of time points passed to the n function defined above
+  tvec <- tmin:tmax
+  
+  # Create table to plot a_t for different adoption rate (alpha) values
+  a_tbl <- tibble::tibble(
+    # Repeat time vector four times for each alpha.
+    t = rep(tvec, length(adopt_rates)),  
+    
+    # Create a_t vector for each adopt_rate, a_0=1 implicit
+    a_t = 
+      purrr::map(adopt_rates, ~ n(tvec, .x, drop_rate)) |> 
+      purrr::flatten_dbl(),
+    
+    # Repeat adopt rate for each tstep
+    adopt_rate = factor(
+      purrr::map(adopt_rates, ~ rep(.x, length(tvec))) |> 
+      purrr::flatten_dbl(),
+      levels = adopt_rates
+    )
+  )
+  
+  return (a_tbl)
+}
+
+```
+
+```{r}
+a_discrete_tbl <- make_a_discrete_tbl()
+head(a_discrete_tbl, n = 20)
+```
+Plot objects returned by `ggplot2` can be extended. In this case we add points for the discrete time steps, expecting they will line up with the lines plotted above.
+```{r}
+unconstrained_plot_update <- unconstrained_plot + 
+  geom_point(aes(x = t, y = a_t), data = a_discrete_tbl, size = 4, alpha = 0.8)
+print(unconstrained_plot_update)
+```
+
+Success!
 
 
 <br>
 
-#### Bounded Virality: Finite Populations
-
-<span style="color: red">Redo this by writing full contagion $a(t)$ the doing $a << 1$ approximation</span>
-
-Now we need to account for the fact that as time goes on and the adaptation
-spreads, the approximation $n << N$ becomes less accurate. We need dynamics that
-account for the fact that as more people adopt $A$ there are fewer people
-available to adopt $A$, so $\frac{dn}{dt}$ must eventually 
-decrease as $n$ increases. 
-
-A trick to make this analysis easier is to work with *prevalence* of $A$ instead
-of the number of adopters, which was $n$. 
-We write $a(t)$, or just $a$, for the
-prevalence of $A$ over time. The *prevalence* of a behavior in this case 
-is the fraction of individuals in a population who have adopted that behavior.
-Therefore $a(t) \in [0, 1]$. We'll continue working with differential 
-equations and continuous variables because it makes available the calculus
-toolset to analyze dynamics. 
-
-To incorporate finite populations into our learning dynamics, we scale the
-growth term from unbounded contagion by the prevalence of $L$ in the population,
-since only individuals performing $L$ can switch to adopt $A$ when these are the
-only two behaviors, as we constrain our model to here. In other words, $\alpha
-\to (1 - a) \alpha$ in the prevalence 
 
 ### Guided Virality: Cultural Evolution
 
@@ -219,8 +349,7 @@ phenomena, such as cultural ratcheting \cite{Garland2022,Andersson2016}, identit
 science [@Smaldino2016NatSel;@Smaldino2019], and more. Its power comes from its  formulation of human populations as a system of replicators who pass on their "trait"
 to their "offspring". However, as time has progressed, we can see that previous formulations perhaps overcomplicated the situation by assuming that the locus of the *cultural selection* process is preferential mating, resulting in Punnet-square style pairings of diploid *alleles* that stand in for *behaviors* in the classic formulation [@CavalliFeldman1981]. One additional hidden assumption powers the use of classic genetic evolution and cultural evolution alike: the *phenotypic gambit* in genetic evolution assumes that an individual's phenotype (e.g., an expressed trait $A$) is a suitable stand-in for the genetic material, the *allele*. In our model we make a similar, but distinct, assumption. When we say a behavior is transmitted, this includes acquiring the necessary skills to do the behavior. The learning process itself is abstracted away in basic models of cultural evolution like this one.
 
-To show that the prevalence dynamic can represent cultural evolution, we show it is actually equivalent to the *replicator equation* first, without mutation. We exclude mutation because in most cases there already are sustainable practices we could be doing more, but they haven't diffused widely. Some Indigenous sustainable practices have existed for millenia, like mangrove forest management for mitigating sea inundation [@McNamara2020;@Piggott-McKellar2020] and prescribed burns to mitigate the risk of catastrophic fire [@Eisenberg2019;@Kolden2019]. Our focus is endogenous dynamics, so mutation could be ignored for strategic reasons as well. To summarize, the 
-
+To show that the prevalence dynamic can represent cultural evolution, we show it is actually equivalent to the *replicator equation* first, without mutation. We exclude mutation because in most cases there already are sustainable practices we could be doing more, but they haven't diffused widely. Some Indigenous sustainable practices have existed for millenia, like mangrove forest management for mitigating sea inundation [@McNamara2020;@Piggott-McKellar2020] and prescribed burns to mitigate the risk of catastrophic fire [@Eisenberg2019;@Kolden2019]. Our focus is endogenous dynamics, so mutation could be ignored for strategic reasons as well. 
 
 
 $$
@@ -290,13 +419,7 @@ $$
 $$
 
 
-#### Construction using `socmod` {.unnumbered}
-
-Fill in after Analysis done, i.e., after model is built and analyses posted in this chapter in the appropriate section below.
-
-## Analysis 
-
-### Frequency-Biased Learning
+#### Frequency-Biased Learning
 
 We then modeled **frequency bias** using an exponent $\gamma = \log \kappa$, giving:
 
@@ -324,8 +447,8 @@ $$
 
 To analyze behavior near $a = 0$, we expanded:
 
-- $a^\gamma \approx 0 $
-- $(1 - a)^\gamma \approx 1 - \gamma a + \frac{\gamma(\gamma - 1)}{2} a^2 - \frac{\gamma(\gamma - 1)(\gamma - 2)}{6} a^3 + \dots $
+- $a^\gamma \approx 0$
+- $(1 - a)^\gamma \approx 1 - \gamma a + \frac{\gamma(\gamma - 1)}{2} a^2 - \frac{\gamma(\gamma - 1)(\gamma - 2)}{6} a^3 + \dots$
 
 Then:
 
@@ -354,6 +477,7 @@ This shows that:
 #### The Anti-Conformity Paradox
 
 - **Anti-conformity enables invasion but prevents retention**
+- **Anti-conformity is still weaker than **
 - **Conformity enables retention but blocks invasion**
 
 So frequency bias alone cannot explain the emergence and spread of adaptive behaviors. Other forces (e.g. success bias, drift, coordination) are required.
@@ -371,212 +495,8 @@ And it reveals a core result: **conformity blocks innovation**, while **anti-con
 
 These dynamics can also be tuned developmentally, suggesting new bridges to psychology and life-history theory.
 
-### Agent-based analysis
-
-#### Prevalence dyanmics {.unnumbered}
-
-The discrete model can be represented as the following function that takes variables corresponding to time, `t`, an adoption rate, `adopt_rate`, and the drop rate, `drop_rate`, 
-which are $t$, $\alpha$, and $\delta$ in math. 
-```{r}
-n <- function(t, adopt_rate = 0.2, drop_rate = 0.1, n_0 = 1) {
-  rho <- adopt_rate - drop_rate
-  n_ret <- n_0 * exp(rho * t)
-  return (n_ret)
-}
-```
-
-I will now create a table of values for $n(t)$ for different adoption rates,
-$\alpha \in \{0.1, 0.105, 0.2, 0.5\}$, all with the same drop rate, $\delta = 0.1$.
-I'll make a function to encapsulate the boilerplate steps called `make_n_tbl`
-in the code block below (unfold to view). It uses some helpful default settings
-to make an interesting visualization, which we do below. Below is the function
-signature for `make_n_tbl`, with the full function definition provided in a folded code block below that. Click the triangle to unfold the full definition. 
-
-$$
-\dadt = \dot a = 
-$$
 
 
-```{r}
-#| eval: false
-make_n_tbl <- function(tmin = 0.0, tmax = 20.0, dt = 0.2, 
-                       adopt_rates = seq(0.1, 0.2, 0.025), drop_rate = 0.05) 
-```
-
-```{r}
-#| code-fold: true
-#| code-summary: "`make_n_tbl` function definition"
-make_n_tbl <- function(tmin = 0.0, tmax = 20.0, dt = 0.2, 
-                       adopt_rates = seq(0.1, 0.2, 0.025), drop_rate = 0.05) {
-  
-  # Define vector of time points passed to the n function defined above
-  tvec <- seq(tmin, tmax, dt)
-  
-  # Create table to plot n_t for different adoption rate (alpha) values
-  n_tbl <- tibble::tibble(
-    # Repeat time vector four times for each alpha.
-    t = rep(tvec, length(adopt_rates)),  
-    
-    # Create n_t vector for each adopt_rate, n_0=1 implicit
-    n_t = 
-      purrr::map(adopt_rates, ~ n(tvec, .x, drop_rate)) |> 
-      purrr::flatten_dbl(),
-    
-    # Repeat adopt rate for each tstep
-    adopt_rate = factor(
-      purrr::map(adopt_rates, ~ rep(.x, length(tvec))) |> 
-      purrr::flatten_dbl(),
-      levels = adopt_rates
-    )
-  )
-  
-  return (n_tbl)
-}
-```
-
-Now let's use `ggplot2` to plot the series for each adoption rate, which will
-be indicated by line color and type. 
-
-```{r}
-library(ggplot2)
-n_tbl <- make_n_tbl()
-unconstrained_plot <- ggplot(n_tbl, aes(x = t, y = n_t, 
-                       color = adopt_rate, 
-                       linetype=adopt_rate)) +
-  geom_line(linewidth = 1.2) + theme_classic(base_size = 12)
-print(unconstrained_plot)
-```
-
-
-#### Check discrete and continuous are equivalent {.unnumbered}
-
-Let's close our analysis by checking that $n_t = \lambda^t n_0$ generates
-equivalent values of $n(t')$ for integer values $t'=0,1,2,\ldots,T$. To do this
-we'll create another `make_` function but for the discrete formula for $n_t$ 
-(Equation 2). We'll then (literally) add those points 
-to the `unconstrained_plot`, coloring by adoption rate. 
-
-In the code block below we write an R function for $n_t$, `n_t_discrete`, which
-is used by `make_n_discrete_tbl` to create a table of discrete-model values from
-time steps 0 to 20, this time setting `dt = 1`. The function signatures are below. Expand the code block below that to see the full function definitions.
-```{r}
-#| eval: false
-n_t_discrete <- function()
-make_n_discrete_tbl <- function(tmin = 0L, tmax = 20L,  
-                                adopt_rates = seq(0.1, 0.2, 0.025), 
-                                drop_rate = 0.05)
-```
-
-```{r}
-#| code-fold: true
-#| code-summary: "`make_n_discrete_tbl` function definition"
-n_t_discrete <- function(t, adopt_rate = 0.2, drop_rate = 0.1, n_0 = 1) { 
-  lambda <- (1 + adopt_rate - drop_rate)
-  n_t <- n_0 * (lambda ** t)
-  return (n_t)
-}
-make_n_discrete_tbl <- function(tmin = 0L, tmax = 20L,  
-                                adopt_rates = seq(0.1, 0.2, 0.025), 
-                                drop_rate = 0.05) {
-  
-  # Define vector of time points passed to the n function defined above
-  tvec <- tmin:tmax
-  
-  # Create table to plot n_t for different adoption rate (alpha) values
-  n_tbl <- tibble::tibble(
-    # Repeat time vector four times for each alpha.
-    t = rep(tvec, length(adopt_rates)),  
-    
-    # Create n_t vector for each adopt_rate, n_0=1 implicit
-    n_t = 
-      purrr::map(adopt_rates, ~ n(tvec, .x, drop_rate)) |> 
-      purrr::flatten_dbl(),
-    
-    # Repeat adopt rate for each tstep
-    adopt_rate = factor(
-      purrr::map(adopt_rates, ~ rep(.x, length(tvec))) |> 
-      purrr::flatten_dbl(),
-      levels = adopt_rates
-    )
-  )
-  
-  return (n_tbl)
-}
-
-```
-
-```{r}
-n_discrete_tbl <- make_n_discrete_tbl()
-head(n_discrete_tbl, n = 20)
-```
-Plot objects returned by `ggplot2` can be extended. In this case we add points for the discrete time steps, expecting they will line up with the lines plotted above.
-```{r}
-unconstrained_plot_update <- unconstrained_plot + 
-  geom_point(aes(x = t, y = n_t), data = n_discrete_tbl, size = 4, alpha = 0.8)
-print(unconstrained_plot_update)
-```
-
-Success!
-
-##### Agent-based model {.unnumbered}
-
-```{r}
-library(socmod)
-
-# XXX REDEFINING LearningStrategy to be its planned name change in `socmod`
-# XXX REMOVE WHEN FIXED IN SOCMOD. -mt 7/10/2025
-n_agents <- 1
-# Create agents
-agents <- purrr::map(1:n_agents, ~ Agent$new(.x))
-# Initialize one as the seed agent
-seed_id <- sample(1:n_agents, 1)
-agents[[seed_id]]$set_behavior("Adaptive")
-agents[[seed_id]]$set_next_behavior("Adaptive")
-
-# Set up model dynamics
-contagion_partner_selection <- function(focal_agent, model) {
-  # Sample randomly from the population, including self-learning for efficiency
-  return (sample(model$agents, 1)[[1]])
-}
-
-# Contagion interaction depends on 
-contagion_interaction <- function(focal_agent, partner, model) {
-  
-  # If focal does Legacy and parter Adaptive, focal adopts with prob alpha
-  if (focal_agent$behavior_current == "Legacy" && 
-      partner$behavior_current == "Adaptive") {
-    if (runif(1) < model$get_parameter()) {
-      
-    }
-  }
-  
-  # If focal is adaptive or partner legacy, do nothing 
-  # (possibly drop behavior in model step)
-}
-
-
-dynamics <- 
-  make_learning_strategy(contagion_partner_selection, 
-                         contagion_interaction, 
-                         contagion_model_step, 
-                         label = "Going Viral")
-
-# Create model
-abm <- 
-  make_abm(
-    n_agents = length(agents),  # need this or a network for `make_abm` 
-    agents = agents,  # required if no graph provided,
-    adoption_rate = 0.2,
-    drop_rate = 0.1
-  )
-
-print(abm$get_parameters()$as_list())
-```
-
-## Analysis
-
-
-### Contagion
 
 #### Dynamics {.unnumbered}
 
@@ -604,9 +524,9 @@ $$
 
 We can verify this algebraically. If:
 $$
-n_0 e^{t'\rho} = n_0 \lambda^{t'},
+a_0 e^{t'\rho} = a_0 \lambda^{t'},
 $$
-then dividing both sides by $n_0$ and taking the natural logarithm gives:
+then dividing both sides by $a_0$ and taking the natural logarithm gives:
 $$
 \ln e^{t'\rho} = \ln \lambda^{t'},
 $$
@@ -619,57 +539,46 @@ Dividing both sides by $t'$ and noting that $\ln e^\rho = \rho$, we confirm:
 $$
 \rho = \ln \lambda,
 $$
-visualized in Figure 4.X.
-
-
-### Dynamical Systems Invasion Analysis
-
-#### Educational Campaigns Provide 1-to-1 Benefits
-
-#### Conformity Cannot Diffuse Sustainable Practices
-
-### Stochastic Dynamics Success Rate Analysis
-
-### Agent-based models
-
+visualized in the Figure below.
 
 
 ## Discussion
 
-- The social diffusion of sustainable practices, or any behavior, occurs through
-  social learning between individuals over time. 
-  If there are many who have not yet adopted some practice and that practice is
-  more likely to to be adopted than dropped, the spread of that practice will
-  seem like it will forever accelerate. However, when a significant 
-  proportion of individuals in a population begin to adopt the behavior, the
-  number of potential learners decreases and the change in adaptive behavior
-  prevalence over time begins to decrease. The replicator equation, the
-  cornerstone of evolutionary theory, can be written as a state transition
-  equation, where state transition probabilities correspond to different
-  learning processes. This includes contagion learning. This implies that
-  contagion learning is a special case of the replicator dynamic, which further
-  implies that contagion learning is a special case of cultural evolution,
-  generally construed. 
-- we prove with this that conformity alone cannot diffuse an adaptation.
-  Smaldino (2018) says "sigmoid curves are good indicators of conformist
-  transmission", but this seems to imply that conformist transmission alone
-  cannot possibly generate a sigmoid curve. Since we can obtain contagion
-  diffusion dynamics from the replicator equation, but not vice-versa, this
-  tells us that a sigmoidal prevalence time series alone cannot tell us much
-  beyond some sort of replicator is at work. 
-  The evolutionary replicator dynamic, then, was shown to be equivalent to a state
-  transition dynamic, including contagion transmission. 
-  The behavior switching probabilities provide an abstract
-  process to be filled in and customized for specific investigations. This
-  unlocks the power of invasion analysis for a larger class of learning
-  processes that don't necessarily neatly map onto concepts of *fitness* and
-  *reproduction*, but do specify under what conditions one individual doing one
-  behavior may adopt the alternative behavior. From this we 
+The social diffusion of sustainable practices, or any behavior, occurs through
+social learning between individuals over time. 
+If there are many who have not yet adopted some practice and that practice is
+more likely to to be adopted than dropped, the spread of that practice will
+seem like it will forever accelerate. However, when a significant 
+proportion of individuals in a population begin to adopt the behavior, the
+number of potential learners decreases and the change in adaptive behavior
+prevalence over time begins to decrease. The replicator equation, the
+cornerstone of evolutionary theory, can be written as a state transition
+equation, where state transition probabilities correspond to different
+learning processes. This includes contagion learning. This implies that
+contagion learning is a special case of the replicator dynamic, which further
+implies that contagion learning is a special case of cultural evolution,
+generally construed. 
+
+I proved that this that conformity alone cannot diffuse an adaptation.
+Smaldino (2018) says "sigmoid curves are good indicators of conformist
+transmission", but this seems to imply that conformist transmission alone
+cannot possibly generate a sigmoid curve. Since we can obtain contagion
+diffusion dynamics from the replicator equation, but not vice-versa, this
+tells us that a sigmoidal prevalence time series alone cannot tell us much
+beyond some sort of replicator is at work. 
+The evolutionary replicator dynamic, then, was shown to be equivalent to a state
+transition dynamic, including contagion transmission. 
+The behavior switching probabilities provide an abstract
+process to be filled in and customized for specific investigations. This
+unlocks the power of invasion analysis for a larger class of learning
+processes that don't necessarily neatly map onto concepts of *fitness* and
+*reproduction*, but do specify under what conditions one individual doing one
+behavior may adopt the alternative behavior. From this we 
 - This conceptualization generates some new questions whose answers could
-  further serve the cause of promoting sustainability through intelligent
-  intervention design. First, it provides a method for formal analysis of invasion
-  dynamics with highly non-linear differential equations. It seems plausible
-  that complex contagion, prestige bias, and social network constraints could be
-  expressed in this framework. Then one simply expands the derivative around 
-  $a << 1$ and calculates the sign, as we did to prove conformity cannot diffuse
-  adaptations.
+further serve the cause of promoting sustainability through intelligent
+intervention design. First, it provides a method for formal analysis of invasion
+dynamics with highly non-linear differential equations. It seems plausible
+that complex contagion, prestige bias, and social network constraints could be
+expressed in this framework. Then one simply expands the derivative around 
+$a << 1$ and calculates the sign, as we did to prove conformity cannot diffuse
+adaptations.
