@@ -1,10 +1,6 @@
----
-editor: 
-  markdown: 
-    wrap: 80
----
-
 # Writing and project development
+
+<br>
 
 It is a great feeling to close out one stage of a research project by writing in
 careful detail what we found, how we found it, and why it matters. But one of
@@ -38,8 +34,8 @@ major logical divisions of the content. IMAD stands for Introduction, Model,
 Analysis, and Discussion, and IMRaD stands for *Introduction*, *Methods*,
 *Results*, *a*nd *Discussion*.
 
-Below is a potentially useful strategy for initiating a new article on a
-computational model of social behavior. The cheat sheet guide in
+Below is a strategy for structuring and starting a new article on a
+computational model of social behavior that I use. The cheat sheet guide in
 @fig-paper-sections serves as a checklist and template for the abstract and each
 section. Follow these guidelines to take the guesswork out of article
 development and stay focused on the most important creative work: developing a

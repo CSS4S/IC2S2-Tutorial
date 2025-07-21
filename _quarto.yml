@@ -15,6 +15,7 @@ book:
     # - writing.qmd
     - diffusion.qmd
     - cooperation.qmd
+    - writing.qmd
     # - unfairness.qmd
     # - opinion-change.qmd
     - references.qmd

@@ -180,7 +180,7 @@ programming.
 
 See `run_trials.R` for the simulation trial run methods and `run_analysis.R`
 that implements the visualizations and other analyses. All source code is
-available via the GitHub repository for this article.
+available via the GitHub repository for this article: [cooperation-model-socmod](https://github.com/CSS4S/cooperation-model-socmod).
 
 ## Analysis
 
